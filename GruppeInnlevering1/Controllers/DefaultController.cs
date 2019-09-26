@@ -16,7 +16,7 @@ namespace GruppeInnlevering1.Controllers
 
             TogContext db = new TogContext();
 
-            |
+            
             db.SaveChanges();
             return View();
         }
