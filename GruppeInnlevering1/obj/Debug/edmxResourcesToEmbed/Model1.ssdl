@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="togDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Avgang">
+    <Key>
+      <PropertyRef Name="AvgangId" />
+    </Key>
+    <Property Name="AvgangId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Avgangen" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Dato" Type="datetime" Nullable="false" />
+    <Property Name="Stasjon_StasjonId" Type="int" />
+    <Property Name="Tog_TogId" Type="int" />
+  </EntityType>
+  <EntityType Name="Billet">
+    <Key>
+      <PropertyRef Name="BilletId" />
+    </Key>
+    <Property Name="BilletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" />
+    <Property Name="Pris" Type="int" Nullable="false" />
+    <Property Name="Fra_AvgangId" Type="int" />
+    <Property Name="Til_AvgangId" Type="int" />
+  </EntityType>
+  <EntityType Name="Stasjon">
+    <Key>
+      <PropertyRef Name="StasjonId" />
+    </Key>
+    <Property Name="StasjonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StasjonNavn" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Tog">
+    <Key>
+      <PropertyRef Name="TogId" />
+    </Key>
+    <Property Name="TogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TogNavn" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_dbo_Avgang_dbo_Stasjon_Stasjon_StasjonId">
+    <End Role="Stasjon" Type="Self.Stasjon" Multiplicity="0..1" />
+    <End Role="Avgang" Type="Self.Avgang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stasjon">
+        <PropertyRef Name="StasjonId" />
+      </Principal>
+      <Dependent Role="Avgang">
+        <PropertyRef Name="Stasjon_StasjonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Avgang_dbo_Tog_Tog_TogId">
+    <End Role="Tog" Type="Self.Tog" Multiplicity="0..1" />
+    <End Role="Avgang" Type="Self.Avgang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tog">
+        <PropertyRef Name="TogId" />
+      </Principal>
+      <Dependent Role="Avgang">
+        <PropertyRef Name="Tog_TogId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Billet_dbo_Avgang_Fra_AvgangId">
+    <End Role="Avgang" Type="Self.Avgang" Multiplicity="0..1" />
+    <End Role="Billet" Type="Self.Billet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Avgang">
+        <PropertyRef Name="AvgangId" />
+      </Principal>
+      <Dependent Role="Billet">
+        <PropertyRef Name="Fra_AvgangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Billet_dbo_Avgang_Til_AvgangId">
+    <End Role="Avgang" Type="Self.Avgang" Multiplicity="0..1" />
+    <End Role="Billet" Type="Self.Billet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Avgang">
+        <PropertyRef Name="AvgangId" />
+      </Principal>
+      <Dependent Role="Billet">
+        <PropertyRef Name="Til_AvgangId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="togDatabaseModelStoreContainer">
+    <EntitySet Name="Avgang" EntityType="Self.Avgang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Billet" EntityType="Self.Billet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stasjon" EntityType="Self.Stasjon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tog" EntityType="Self.Tog" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_Avgang_dbo_Stasjon_Stasjon_StasjonId" Association="Self.FK_dbo_Avgang_dbo_Stasjon_Stasjon_StasjonId">
+      <End Role="Stasjon" EntitySet="Stasjon" />
+      <End Role="Avgang" EntitySet="Avgang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Avgang_dbo_Tog_Tog_TogId" Association="Self.FK_dbo_Avgang_dbo_Tog_Tog_TogId">
+      <End Role="Tog" EntitySet="Tog" />
+      <End Role="Avgang" EntitySet="Avgang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Billet_dbo_Avgang_Fra_AvgangId" Association="Self.FK_dbo_Billet_dbo_Avgang_Fra_AvgangId">
+      <End Role="Avgang" EntitySet="Avgang" />
+      <End Role="Billet" EntitySet="Billet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Billet_dbo_Avgang_Til_AvgangId" Association="Self.FK_dbo_Billet_dbo_Avgang_Til_AvgangId">
+      <End Role="Avgang" EntitySet="Avgang" />
+      <End Role="Billet" EntitySet="Billet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
