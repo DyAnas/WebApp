@@ -9,16 +9,9 @@ namespace GruppeInnlevering1.Models
     {
         public int AvgangId { get; set; }
 
-        public TimeSpan AvgangTid { get; set; }
-
-        public DateTime Dato { get; set; }
+        public TimeSpan Tid { get; set; }
         
-        public int TogId { get; set; }
-
-      
-
-
-   
+        
 
         public virtual Tog Tog { get; set; }
 
