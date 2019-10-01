@@ -237,3 +237,4 @@ C:\Users\Anas\Source\Repos\DyAnas\we\GruppeInnlevering1\obj\Debug\GruppeInnlever
 C:\Users\Anas\Source\Repos\DyAnas\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.csproj.CopyComplete
 C:\Users\Anas\Source\Repos\DyAnas\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.dll
 C:\Users\Anas\Source\Repos\DyAnas\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.pdb
+C:\Users\Ali\Source\Repos\DyAnas\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.csprojAssemblyReference.cache

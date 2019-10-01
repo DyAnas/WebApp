@@ -1,22 +1,51 @@
-﻿
+﻿@model IEnumerable<GruppeInnlevering1.Models.Stasjon>
 @{
     ViewBag.Title = "Index";
 }
+<script src="~/Scripts/jsfil.js"></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
 
 <h2>Hvor vil du reise?</h2>
 
-<form action="" name="">
+<form action="" name="" onchange="canChangeColor()">
     <table class="table">
-        <tr>
+        <tr class="tr">
             <th>
-                <input class="form-control"
-                       id=""
-                       name=""
-                       type="text"
-                       value="Fra" />
+                <script type="text/javascript">
+                    $(function () {
+                        var id1 = $("#StasjonFra").val();
+                        var id2 = $("StasjonTil").html("");
+                        $("#StasjonFra").change(function () {
+                            var Geturl = "Default/hentListe?StasjonId=" + id1;
+                            $.ajax({
+                                url: Geturl,
+                                success: function (data) {
+                                    fo
+                                }
+
+
+
+
+                            )
+                                    }
+                </script>
+
+                <select class="form-control">
+                    <option value="" disabled selected>Hvor skal du reise fra</option>
+                    @foreach (var k in Model)
+                    {
+                        <option id="@k.StasjonId" onchange="Velg(this.value,'StasjonTil')">@k.StasjonNavn</option>
+                    }
+                </select>
             </th>
             <th>
-                <input type="search" value="Til"  class="form-control" />
+                <select class="form-control">
+                    <option value="" disabled selected>Hvor skal du reise til</option>
+                    <option id="StasjonTil"></option>
+                </select>
             </th>
         </tr>
         <tr>
@@ -27,25 +56,28 @@
                 <h1> Velge Dato: </h1> <input type="date" name="" class="form-control">
             </td>
         </tr>
-        <tr>
-            <th>Type</th>
+        <tr class="tr">
+            <td>
+                <h3> Type: </h3>
+            </td>
+            <th></th>
+
 
         </tr>
-        <tr>
+        <tr class="tr">
             <th>Student</th>
-            <th> <input type="number" pattern="\d* "name="" class="form-control"></th>
+            <th> <input type="number" min="0" pattern="\d* " name="" class="form-control" required></th>
         </tr>
-        <tr>
+        <tr class="tr">
             <th>Voksen</th>
-            <th> <input type="number" name="" class="form-control"></th>
+            <th> <input type="number" min="0" name="" class="form-control" required></th>
 
         </tr>
-        <tr>
+        <tr class="tr">
             <th>Barn</th>
-            <th> <input type="number" name="" class="form-control"></th>
+            <th> <input type="number" min="0" name="" class="form-control" required></th>
 
         </tr>
     </table>
-
-
-</form> 
+</form>
+<button class="btn btn-group-justified" style="height:50px; font-size:large;">Se avganger</button>

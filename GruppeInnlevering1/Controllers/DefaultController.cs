@@ -9,16 +9,52 @@ namespace GruppeInnlevering1.Controllers
 {
     public class DefaultController : Controller
     {
-        // GET: Default
+        TogContext db = new TogContext();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+
+            }
+            base.Dispose(disposing);
+           
+        }
+
+
         public ActionResult Index()
+        {
+         
+
+
+                IEnumerable<Stasjon> stasjoner = db.Stasjoner;
+
+
+
+                return View(stasjoner);
+          
+            
+        }
+
+        public ActionResult Result()
         {
 
 
-            TogContext db = new TogContext();
 
-            
-            db.SaveChanges();
             return View();
         }
+
+        public ActionResult Bekrefte()
+        {
+
+
+
+            return View();
+        }
+
+       
     }
 }
+
+        
