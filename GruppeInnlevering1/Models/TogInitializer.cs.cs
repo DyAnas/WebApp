@@ -41,7 +41,7 @@ namespace GruppeInnlevering1.Models
             context.SaveChanges();
             var stasjonerTilTog23 = new List<Stasjon>
             {
-                new Stasjon {StasjonNavn = "Trondheim" },
+                new Stasjon {StasjonNavn = "Verdal" },
                 new Stasjon {StasjonNavn = "Værnes"},
                 new Stasjon {StasjonNavn = "Stjørdal"},
                 new Stasjon {StasjonNavn = "Steinkjær"},
@@ -57,7 +57,7 @@ namespace GruppeInnlevering1.Models
 
             var stasjonerTilTog45 = new List<Stasjon>
             {
-                new Stasjon {StasjonNavn = "Oslo" },
+                new Stasjon {StasjonNavn = "Lillestrøm" },
                 new Stasjon {StasjonNavn = "Gardermoen"},
                 new Stasjon {StasjonNavn = "Eidsvoll"},
                 new Stasjon {StasjonNavn = "Elverum"},

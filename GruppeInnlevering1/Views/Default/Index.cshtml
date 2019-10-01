@@ -15,38 +15,76 @@
         <tr class="tr">
             <th>
                 <script type="text/javascript">
+
+
+
+
                     $(function () {
-                        var id1 = $("#StasjonFra").val();
-                        var id2 = $("StasjonTil").html("");
-                        $("#StasjonFra").change(function () {
-                            var Geturl = "Default/hentListe?StasjonId=" + id1;
-                            $.ajax({
-                                url: Geturl,
-                                success: function (data) {
-                                    fo
+                        $("#StasjonTil").change(function () {
+
+                            if ($(this).val() == $("#st").val()) {
+                                $("#feilMelding").html("<p>Du har valgt samme stasjon til og fra </p>");
+                                $("#feilMelding").children("p").css("color", "red");
+                            }
+                            else {
+                                $("#feilMelding").html("")
+                            }
+                         
+
+                          
+                          
+                            
+
+
+
+
+           
+
+
+                        }
+                        );
+
+
+
+
+
+                        $("#st").change(function () {
+                            var Geturl = "/Default/hentListe?id=" + $("#st").val();
+                            $.getJSON(Geturl, function (Liste) {
+                                utdata = "<option value='' disabled selected>Hvor skal du reise til</option>";
+                                for (var k in Liste) {
+                                    utdata += "<option value='" + Liste[k].StasjonId + "'>" + Liste[k].StasjonNavn + "</option>";
                                 }
+                                $("#StasjonTil").html(utdata);
+
+                            })
+                        })
+                    });
 
 
 
 
-                            )
-                                    }
                 </script>
 
-                <select class="form-control">
+                <select class="form-control" id="st">
                     <option value="" disabled selected>Hvor skal du reise fra</option>
                     @foreach (var k in Model)
                     {
-                        <option id="@k.StasjonId" onchange="Velg(this.value,'StasjonTil')">@k.StasjonNavn</option>
+                        <option value="@k.StasjonId">@k.StasjonNavn</option>
                     }
                 </select>
             </th>
             <th>
-                <select class="form-control">
-                    <option value="" disabled selected>Hvor skal du reise til</option>
-                    <option id="StasjonTil"></option>
+                <select class="form-control" id="StasjonTil">
                 </select>
+
             </th>
+
+
+        </tr>
+        <tr >
+            <th></th>
+            <th id="feilMelding"></th>
         </tr>
         <tr>
             <td>
