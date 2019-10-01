@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="border-bottom-style: none;box-shadow:0px 1px 1px darkgrey;">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="border-bottom-style: none;box-shadow:0px 1px 1px darkgrey; height:130px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,18 +20,24 @@
 
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" >
-                    <li style="vertical-align:baseline"><a href='@Url.Action("Index", "Home")'>
-                        <img src='@Url.Content("~/Content/vy_logo.png")' style="width:150px; " />
-                        </a></li>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                <div style="float:left;">
+                    <a href='@Url.Action("Index", "Home")'>
+                        <img src='@Url.Content("~/Content/vy_logo.png")' style="width:120px; " />
+                    </a>
+                </div>
+                <div style="float:left; margin-top:15px;">
+                    <ul class="nav navbar-nav" style="font-size:large;">
+
+
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top:10em; margin-left:9%;">
         @RenderBody()
         <hr />
         <footer>

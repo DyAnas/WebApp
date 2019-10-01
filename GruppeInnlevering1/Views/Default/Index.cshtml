@@ -10,7 +10,7 @@
 
 <h2>Hvor vil du reise?</h2>
 
-<form action="" name="" onchange="canChangeColor()">
+<form action="/Default/result" name="" onchange="buttonChangeColor()">
     <table class="table">
         <tr class="tr">
             <th>
@@ -29,16 +29,9 @@
                             else {
                                 $("#feilMelding").html("")
                             }
-                         
-
-                          
-                          
-                            
 
 
 
-
-           
 
 
                         }
@@ -82,7 +75,7 @@
 
 
         </tr>
-        <tr >
+        <tr>
             <th></th>
             <th id="feilMelding"></th>
         </tr>
@@ -104,18 +97,18 @@
         </tr>
         <tr class="tr">
             <th>Student</th>
-            <th> <input type="number" min="0" pattern="\d* " name="" class="form-control" required></th>
+            <th> <input type="number" min="0" pattern="\d* " name="student" value="0" class="form-control" required></th>
         </tr>
         <tr class="tr">
             <th>Voksen</th>
-            <th> <input type="number" min="0" name="" class="form-control" required></th>
+            <th> <input type="number" min="0" name="voksen" value="0" class="form-control" required></th>
 
         </tr>
         <tr class="tr">
             <th>Barn</th>
-            <th> <input type="number" min="0" name="" class="form-control" required></th>
+            <th> <input type="number" min="0" name="barn" value="0" class="form-control" required></th>
 
         </tr>
     </table>
+    <button type="submit" class="btn btn-group-justified" style="height:50px; font-size:large;">Se avganger</button>
 </form>
-<button class="btn btn-group-justified" style="height:50px; font-size:large;">Se avganger</button>
