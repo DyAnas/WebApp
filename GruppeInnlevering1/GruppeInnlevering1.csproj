@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Models\Avgang.cs" />
     <Compile Include="Models\Billet.cs" />
+    <Compile Include="Models\Samle.cs" />
     <Compile Include="Models\Stasjon.cs" />
     <Compile Include="Models\Tog.cs" />
     <Compile Include="Models\TogContext.cs" />

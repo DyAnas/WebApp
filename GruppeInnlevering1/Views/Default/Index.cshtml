@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GruppeInnlevering1.Models.Stasjon>
+﻿@model GruppeInnlevering1.Models.Samle
 @{
     ViewBag.Title = "Index";
 }
@@ -8,9 +8,10 @@
 
 
 
+
 <h2>Hvor vil du reise?</h2>
 
-<form action="/Default/result" name="" onchange="buttonChangeColor()">
+<form action="/Default/result" name="" onchange="buttonChangeColor()" asp-controller="Default" asp-action="Index">
     <table class="table">
         <tr class="tr">
             <th>
@@ -59,16 +60,19 @@
 
                 </script>
 
-                <select class="form-control" id="st">
-                    <option value="" disabled selected>Hvor skal du reise fra</option>
-                    @foreach (var k in Model)
-                    {
-                        <option value="@k.StasjonId">@k.StasjonNavn</option>
-                    }
-                </select>
+                 <select data-val="true" class="form-control" id="st" name="Fra" >
+     <option value="" disabled selected>Hvor skal du reise fra</option>
+        @foreach (var k in Model.fraListe)
+        {
+            <option value="@k.StasjonId">@k.StasjonNavn</option>
+        }
+    </select>
+      
+               
+
             </th>
             <th>
-                <select class="form-control" id="StasjonTil">
+                <select  data-val="true" class="form-control" id="StasjonTil" name="Til">
                 </select>
 
             </th>
@@ -81,10 +85,10 @@
         </tr>
         <tr>
             <td>
-                <h1> Velge tid: </h1> <input type="time" name="" class="form-control">
+                <h1> Velge tid: </h1> <input type="time" name="tid " class="form-control">
             </td>
             <td>
-                <h1> Velge Dato: </h1> <input type="date" name="" class="form-control">
+                <h1> Velge Dato: </h1> <input type="date" name="dato" class="form-control">
             </td>
         </tr>
         <tr class="tr">
@@ -95,18 +99,19 @@
 
 
         </tr>
+
         <tr class="tr">
-            <th>Student</th>
-            <th> <input type="number" min="0" pattern="\d* " name="student" value="0" class="form-control" required></th>
+            <th name="type" value="Student">Student</th>
+            <th> <input type="number" min="0" pattern="\d* " name="antall" value="0" class="form-control" required></th>
         </tr>
         <tr class="tr">
-            <th>Voksen</th>
-            <th> <input type="number" min="0" name="voksen" value="0" class="form-control" required></th>
+            <th name="type" value="Voksen">Voksen</th>
+            <th> <input type="number" min="0" name="antall" value="0" class="form-control" required></th>
 
         </tr>
         <tr class="tr">
-            <th>Barn</th>
-            <th> <input type="number" min="0" name="barn" value="0" class="form-control" required></th>
+            <th name="type" value="">Barn</th>
+            <th> <input type="number" min="0" name="antall" value="0" class="form-control" required></th>
 
         </tr>
     </table>

@@ -12,6 +12,12 @@ namespace GruppeInnlevering1.Controllers
     {
         TogContext db = new TogContext();
 
+        Samle ny = new Samle();
+
+     
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -31,18 +37,22 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Index()
         {
+            
 
 
             IEnumerable<Stasjon> alleStasjoner = hentStasjoner();
 
+            ny.fraListe = alleStasjoner;
+           
+            
 
-
-
-
-                return View(alleStasjoner);
+                return View(ny);
           
             
         }
+        
+
+
         public string hentListe(int id) {
             IEnumerable<Stasjon> alt = null;
             if (id > 0 && id < 9)
@@ -62,6 +72,8 @@ namespace GruppeInnlevering1.Controllers
                 valgStasjon.Add(new Stasjon { StasjonId=i.StasjonId,StasjonNavn=i.StasjonNavn});
 
 }
+            ny.tilListe = valgStasjon;
+
 
 
 
@@ -72,18 +84,20 @@ namespace GruppeInnlevering1.Controllers
                 var jsonSeralizer = new JavaScriptSerializer();
            
 
-            return jsonSeralizer.Serialize(valgStasjon);
+            return jsonSeralizer.Serialize(ny.tilListe);
             
             
             }
         
-
-        public ActionResult Result()
+       [HttpPost]
+        public ActionResult Result(Samle s)
         {
+            Samle g = new Samle();
+            g.Fra = s.Fra;
+            g.Til = s.Til;
+      
 
-
-
-            return View();
+            return View(g);
         }
 
         public ActionResult Bekrefte()
