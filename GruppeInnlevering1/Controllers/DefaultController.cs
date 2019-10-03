@@ -92,20 +92,35 @@ namespace GruppeInnlevering1.Controllers
        [HttpPost]
         public ActionResult Result(Samle s)
         {
-            Samle g = new Samle();
-            g.Fra = s.Fra;
-            g.Til = s.Til;
-      
 
-            return View(g);
+         
+
+            ny.dato = s.dato;
+
+            IEnumerable<Avgang> h = null;
+            int result = Int32.Parse(s.Fra);
+            int result1 = Int32.Parse(s.Til);
+            if (result < result1)
+            {
+
+                 h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
+
+            }
+            if (h == null)
+            {
+                return null;
+            }
+          
+
+            return View(h);
         }
-
+        
         public ActionResult Bekrefte()
         {
+            
 
 
-
-            return View();
+            return View(ny);
         }
 
        

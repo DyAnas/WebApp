@@ -1,4 +1,4 @@
-﻿@model GruppeInnlevering1.Models.Samle
+﻿@model IEnumerable<GruppeInnlevering1.Models.Avgang>
 @{
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +7,7 @@
 
 
 <div class="container">
-
+    <form method="post" action="">
     <div>
         <h1>Se Avganger</h1>
         <button type="button" class="btn btn-outline-secondary">Endre søket</button>
@@ -19,29 +19,66 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Fra</th>
                     <th scope="col">Til</th>
-                    <th scope="col">Tog</th>
-                    <th scope="col">Pris</th>
+                    <th scope="col">Avgang</th>
+                    <th scope="col">Ankomst</th>
                     <th scope="col"> </th>
 
                 </tr>
             </thead>
             <tbody>
+                @{ var list = Model.ToList();
                 
                     <tr>
-                        <td>1</td>
+                     
 
-                        <td>@Model.Fra</td>
-                        <td>@Model.Til</td>
-                        <td></td>
-                        <td>350</td>
+                        <td>
+                            @Html.DisplayFor(modelItem=>list[0].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                         @Html.DisplayFor(modelItem=>list[1].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => list[0].Tid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => list[1].Tid)
+                        </td>
+                        
                         <td><button type="button" class="btn btn-info">Velg</button></td>
 
                     </tr>
-              
-                  
+              }
+                
+             @{ 
+
+                 <tr>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => list[2].Stasjon.StasjonNavn)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => list[3].Stasjon.StasjonNavn)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => list[2].Tid)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => list[3].Tid)
+                                  </td>
+
+
+
+
+
+
+
+
+
+
+
+                 </tr>
+             }   
              
                 </tbody>
         </table>
