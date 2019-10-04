@@ -1,0 +1,83 @@
+﻿@model GruppeInnlevering1.Models.Samle
+
+@{
+    ViewBag.Title = "Bekrefte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bekrefte</h2>
+
+<div>
+    <h4>Samle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Til)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Til)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tidFra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tidFra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tidTil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tidTil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.antall1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.antall1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.antall2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.antall2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.antall3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.antall3)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

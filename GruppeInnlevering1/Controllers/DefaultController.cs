@@ -92,10 +92,11 @@ namespace GruppeInnlevering1.Controllers
        [HttpPost]
         public ActionResult Result(Samle s)
         {
-
-         
-
-            ny.dato = s.dato;
+            ny.antall1 = s.antall1;
+            ny.antall2 = s.antall2;
+            ny.antall3 = s.antall3;
+           
+            ny.dato= s.dato;
 
             IEnumerable<Avgang> h = null;
             int result = Int32.Parse(s.Fra);
@@ -110,14 +111,35 @@ namespace GruppeInnlevering1.Controllers
             {
                 return null;
             }
+            List<Avgang> seno = new List<Avgang>();
+
+           foreach(Avgang avgang in h)
+            {
+                seno.Add(avgang);
+            }
           
 
-            return View(h);
+            return View(seno);
         }
-        
-        public ActionResult Bekrefte()
+       
+        public ActionResult Bekrefte(string FraStasjon,string TilStasjon,TimeSpan Avgang, TimeSpan Ankomst)
         {
-            
+
+
+           
+            ny.Fra = FraStasjon;
+            ny.Til = TilStasjon;
+            ny.tidFra = Avgang;
+            ny.tidTil = Ankomst;
+         
+       
+
+
+
+
+
+
+
 
 
             return View(ny);

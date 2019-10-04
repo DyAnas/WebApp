@@ -11,7 +11,7 @@
 
 <h2>Hvor vil du reise?</h2>
 
-<form action="/Default/Result" name="" onchange="buttonChangeColor()" method="post">
+<form action="/Default/Result" onchange="buttonChangeColor()" method="post">
     <table class="table">
         <tr class="tr">
             <th>
@@ -154,17 +154,17 @@
         </tr>
 
         <tr class="tr">
-            <th> <input type="checkbox" name="typeogantall[0].type" value="Student" id="Student">Student</th>
-            <th> <input   disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="typeogantall[0].antall" class="form-control" required></th>
+            <th> <input type="checkbox" name="type" value="Student" id="Student">Student</th>
+            <th> <input   disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="antall1" class="form-control" required></th>
         </tr>
         <tr class="tr">
-            <th > <input type="checkbox" name="typeogantall[1].type" value="Voksen" id="Voksen">Voksen</th>
-            <th> <input  disabled id="VoksenAntall" type="number" min="1" name="typeogantall[1].antall"  class="form-control" required></th>
+            <th > <input type="checkbox" name="type[1]" value="Voksen" id="Voksen">Voksen</th>
+            <th> <input  disabled id="VoksenAntall" type="number" min="1" name=""  class="form-control" required></th>
 
         </tr>
         <tr class="tr">
-            <th> <input type="checkbox" name="typeogantall[2].type" value="Barn" id="Barn">Barn</th>
-            <th> <input      disabled id="BarnAntall"type="number" min="1" name="typeogantall[2].antall"  class="form-control" required></th>
+            <th> <input type="checkbox" name="type[2]" value="Barn" id="Barn">Barn</th>
+            <th> <input      disabled id="BarnAntall"type="number" min="1" name="antall"  class="form-control" required></th>
 
         </tr>
     </table>

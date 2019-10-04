@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GruppeInnlevering1.Models.Avgang>
+﻿@model List<GruppeInnlevering1.Models.Avgang>
 @{
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,83 +7,88 @@
 
 
 <div class="container">
-    <form method="post" action="">
-    <div>
-        <h1>Se Avganger</h1>
-        <button type="button" class="btn btn-outline-secondary">Endre søket</button>
-    </div>
-    <div>
+    <form method="post" action="/Default/Bekrefte">
+        <div>
+            <h1>Se Avganger</h1>
+            <button type="button" class="btn btn-outline-secondary">Endre søket</button>
+        </div>
+        <div>
 
-    </div>
-    <div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Fra</th>
-                    <th scope="col">Til</th>
-                    <th scope="col">Avgang</th>
-                    <th scope="col">Ankomst</th>
-                    <th scope="col"> </th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @{ var list = Model.ToList();
-                
+        </div>
+        <div>
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                     
-
-                        <td>
-                            @Html.DisplayFor(modelItem=>list[0].Stasjon.StasjonNavn)
-                        </td>
-                        <td>
-                         @Html.DisplayFor(modelItem=>list[1].Stasjon.StasjonNavn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => list[0].Tid)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => list[1].Tid)
-                        </td>
-                        
-                        <td><button type="button" class="btn btn-info">Velg</button></td>
+                        <th scope="col">Fra</th>
+                        <th scope="col">Til</th>
+                        <th scope="col">Avgang</th>
+                        <th scope="col">Ankomst</th>
+                        <th scope="col"> </th>
 
                     </tr>
-              }
+                </thead>
+                <tbody>
+                 
+
+                        <tr>
+
+
+                            <td  >
+                               
+                                @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                            </td>
+                            <td  >
+                                @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                            </td>
+                            <td > 
+                                @Html.DisplayFor(modelItem => Model[0].Tid)
+                            </td>
+                            <td >
+                                @Html.DisplayFor(modelItem => Model[1].Tid)
+                            </td>
+
+                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid">Velg</a></td>
+
+                        </tr>
+                    
+
                 
-             @{ 
 
-                 <tr>
-                                  <td>
-                                      @Html.DisplayFor(modelItem => list[2].Stasjon.StasjonNavn)
-                                  </td>
-                                  <td>
-                                      @Html.DisplayFor(modelItem => list[3].Stasjon.StasjonNavn)
-                                  </td>
-                                  <td>
-                                      @Html.DisplayFor(modelItem => list[2].Tid)
-                                  </td>
-                                  <td>
-                                      @Html.DisplayFor(modelItem => list[3].Tid)
-                                  </td>
-
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[2].Tid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[3].Tid)
+                            </td>
 
 
 
-
-
+                            <td>
+                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid">Velg</a></td>
 
 
 
 
 
-                 </tr>
-             }   
-             
+
+
+
+                        </tr>
+                    
+
                 </tbody>
-        </table>
+            </table>
 
-    </div>
+
+        </div>
+    </form>
 </div>
 
 
