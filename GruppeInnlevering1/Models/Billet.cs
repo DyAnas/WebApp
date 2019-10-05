@@ -24,13 +24,15 @@ namespace GruppeInnlevering1.Models
 
         public int Pris { get; set; }
 
-        public virtual Avgang fra { get; set; }
+        public int AvgangFra { get; set; }
 
-        public virtual Avgang Til { get; set; }
+        public int AvgangTil { get; set; }
 
-       
 
-     
+
+
+
+
 
 
 

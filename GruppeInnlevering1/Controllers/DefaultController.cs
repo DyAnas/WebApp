@@ -161,12 +161,11 @@ namespace GruppeInnlevering1.Controllers
             return View(ny);
         }
         public ActionResult Betaling() {
-          
+            var avgango = new Avgang();
 
             Samle ny = (Samle)Session["alle"];
             var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
 
-            var billetStudent = new List<Billet>();
             /*   nyBillet.fra.AvgangId = ny.stasjonIdFra;
                nyBillet.Til.AvgangId = ny.stasjonIdTil;
                nyBillet.Type = "Student";
@@ -180,19 +179,55 @@ namespace GruppeInnlevering1.Controllers
                IEnumerable<Billet> dbBillet = billetStudent;
 
        */
+            Avgang s = new Avgang();
+
+     
             for (var i = 0; i < ny.antall1; i++) {
                 var bnyBi = new Billet
-                {
-                    fra = new Avgang { AvgangId = ny.stasjonIdFra },
-                    Til = new Avgang { AvgangId = ny.stasjonIdTil },
+                {  
+                    AvgangFra = ny.stasjonIdFra ,
+                    AvgangTil=ny.stasjonIdTil ,
                     Type = "Student",
                     Pris = lengde * 10,
                     Datokjop = ny.dato,
                 };
                 db.Billeter.Add(bnyBi);
-                db.SaveChanges();
+               
                 
                 }
+
+
+            for (var i = 0; i < ny.antall2; i++)
+            {
+                var bnyBi = new Billet
+                {
+                    AvgangFra = ny.stasjonIdFra,
+                    AvgangTil = ny.stasjonIdTil,
+                    Type = "Voksen",
+                    Pris = lengde * 20,
+                    Datokjop = ny.dato,
+                };
+                db.Billeter.Add(bnyBi);
+
+
+            }
+
+            for (var i = 0; i < ny.antall3; i++)
+            {
+                var bnyBi = new Billet
+                {
+                    AvgangFra = ny.stasjonIdFra,
+                    AvgangTil = ny.stasjonIdTil,
+                    Type = "Barn",
+                    Pris = lengde * 5,
+                    Datokjop = ny.dato,
+                };
+                db.Billeter.Add(bnyBi);
+
+
+            }
+
+            db.SaveChanges();
 
             return View();
 
