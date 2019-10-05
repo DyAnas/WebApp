@@ -5,7 +5,6 @@
 }
 
 
-
 <div class="container">
     <form method="post" action="/Default/Bekrefte">
         <div>
@@ -28,60 +27,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                 
-
-                        <tr>
 
 
-                            <td  >
-                               
-                                @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
-                            </td>
-                            <td  >
-                                @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
-                            </td>
-                            <td > 
-                                @Html.DisplayFor(modelItem => Model[0].Tid)
-                            </td>
-                            <td >
-                                @Html.DisplayFor(modelItem => Model[1].Tid)
-                            </td>
+                    <tr>
 
-                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid">Velg</a></td>
 
-                        </tr>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[0].Tid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[1].Tid)
+                        </td>
                     
 
-                
+                        <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[2].Tid)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[3].Tid)
-                            </td>
-
-
-
-                            <td>
-                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid">Velg</a></td>
+                    </tr>
 
 
 
 
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[2].Tid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[3].Tid)
+                        </td>
+
+
+
+                        <td>
+                        <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
 
 
 
-                        </tr>
-                    
+
+
+
+
+                    </tr>
+
 
                 </tbody>
             </table>

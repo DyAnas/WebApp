@@ -7,11 +7,12 @@ using System.Web;
 namespace GruppeInnlevering1.Models
 {
 
+
     public class Samle
     {
 
         public IEnumerable<Stasjon> fraListe { get; set; }
-        public IEnumerable<Stasjon> tilListe{ get; set; }
+        public IEnumerable<Stasjon> tilListe { get; set; }
 
         public string Fra { get; set; }
 
@@ -23,11 +24,21 @@ namespace GruppeInnlevering1.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
         public DateTime dato { get; set; }
 
-      public string antall1{ get; set; }
-      public string antall2 { get; set; }
+        public int antall1 { get; set; }
+        public int antall2 { get; set; }
 
-        public string  antall3 { get; set; }
-        
+        public int antall3 { get; set; }
+
+        public string StudentType { get; set; }
+        public string BarnType { get; set; }
+        public string VoksenType { get; set; }
+
+        public int pris { get; set; }
+
+        public int stasjonIdFra { get; set; }
+
+        public int stasjonIdTil { get; set; }
+
 
 
     }

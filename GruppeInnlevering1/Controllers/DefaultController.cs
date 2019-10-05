@@ -12,7 +12,8 @@ namespace GruppeInnlevering1.Controllers
     {
         TogContext db = new TogContext();
 
-        Samle ny = new Samle();
+
+     
 
      
 
@@ -37,14 +38,14 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Index()
         {
-            
+          Samle  ny = new Samle();
 
 
             IEnumerable<Stasjon> alleStasjoner = hentStasjoner();
 
             ny.fraListe = alleStasjoner;
-           
-            
+
+            Session["alle"] = ny;
 
                 return View(ny);
           
@@ -72,6 +73,7 @@ namespace GruppeInnlevering1.Controllers
                 valgStasjon.Add(new Stasjon { StasjonId=i.StasjonId,StasjonNavn=i.StasjonNavn});
 
 }
+            Samle ny =(Samle) Session["alle"];
             ny.tilListe = valgStasjon;
 
 
@@ -92,46 +94,60 @@ namespace GruppeInnlevering1.Controllers
        [HttpPost]
         public ActionResult Result(Samle s)
         {
+
+            Samle ny = (Samle)Session["alle"];
+
+
             ny.antall1 = s.antall1;
             ny.antall2 = s.antall2;
             ny.antall3 = s.antall3;
-           
-            ny.dato= s.dato;
 
+            ny.dato= s.dato;
+            Session["alle"] = ny;
             IEnumerable<Avgang> h = null;
-            int result = Int32.Parse(s.Fra);
-            int result1 = Int32.Parse(s.Til);
+            int result =int.Parse (s.Fra);
+            int result1 = int.Parse(s.Til);
+          
             if (result < result1)
             {
 
                  h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
 
             }
-            if (h == null)
+           if (h == null)
             {
                 return null;
             }
+            
             List<Avgang> seno = new List<Avgang>();
 
            foreach(Avgang avgang in h)
             {
                 seno.Add(avgang);
             }
-          
+           
+        
 
             return View(seno);
         }
        
-        public ActionResult Bekrefte(string FraStasjon,string TilStasjon,TimeSpan Avgang, TimeSpan Ankomst)
+        public ActionResult Bekrefte(string FraStasjon,string TilStasjon,TimeSpan Avgang, TimeSpan Ankomst,int StasjonfraId,int StasjonTilId)
         {
 
+            Samle ny = (Samle)Session["alle"];
 
-           
+
             ny.Fra = FraStasjon;
             ny.Til = TilStasjon;
             ny.tidFra = Avgang;
             ny.tidTil = Ankomst;
-         
+            ny.stasjonIdTil = StasjonTilId;
+
+            ny.stasjonIdFra = StasjonfraId;
+
+
+
+            Session["alle"] = ny;
        
 
 
@@ -144,9 +160,67 @@ namespace GruppeInnlevering1.Controllers
 
             return View(ny);
         }
+        public ActionResult Betaling() {
+          
 
-       
-    }
+            Samle ny = (Samle)Session["alle"];
+            var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
+
+            var billetStudent = new List<Billet>();
+            /*   nyBillet.fra.AvgangId = ny.stasjonIdFra;
+               nyBillet.Til.AvgangId = ny.stasjonIdTil;
+               nyBillet.Type = "Student";
+               nyBillet.Pris = lengde * 10;
+               for (var i = 0; i < ny.antall1; i++) {
+                   billetStudent { new Billet {fra= ny.stasjonIdFra }
+
+                   billetStudent.Add(nyBillet);
+
+               }
+               IEnumerable<Billet> dbBillet = billetStudent;
+
+       */
+            for (var i = 0; i < ny.antall1; i++) {
+                var bnyBi = new Billet
+                {
+                    fra = new Avgang { AvgangId = ny.stasjonIdFra },
+                    Til = new Avgang { AvgangId = ny.stasjonIdTil },
+                    Type = "Student",
+                    Pris = lengde * 10,
+                    Datokjop = ny.dato,
+                };
+                db.Billeter.Add(bnyBi);
+                db.SaveChanges();
+                
+                }
+
+            return View();
+
+                }
+
+
+        public ActionResult TheEnd()
+        {
+            return View();
+        }
+
+
+
+
+
 }
+
+           
+
+
+
+
+
+}
+
+
+
+    
+
 
         

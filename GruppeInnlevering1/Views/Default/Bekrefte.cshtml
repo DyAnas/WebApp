@@ -4,11 +4,55 @@
     ViewBag.Title = "Bekrefte";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    $(function () {
+        
 
-<h2>Bekrefte</h2>
+        var antall1 = @Model.antall1;
+        var antall2 = @Model.antall2;
+        var antall3 = @Model.antall3;
+
+        
+        var sum = 0;
+       var lengde =@Model.stasjonIdTil-@Model.stasjonIdFra;
+
+        if (antall1 !== 0) {
+            sum += antall1 * 10;
+        }
+        if (antall2 !== 0) {
+            sum += antall2 * 20;
+        }
+        if (antall3 !== 0){
+        sum += antall3 * 5;
+        }
+
+        sum = sum *lengde;
+
+  
+
+        
+
+      
+        $("#TotalPris").html(sum);
+
+
+
+
+
+
+
+    });
+
+
+
+
+</script>
+
+<h2>Din Besttiling</h2>
 
 <div>
-    <h4>Samle</h4>
+    <h4>Du har bestilt følgende</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -52,15 +96,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.antall1)
+            AntallStudent
         </dt>
 
-        <dd>
+        <dd >
             @Html.DisplayFor(model => model.antall1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.antall2)
+            AntallVoksen
         </dt>
 
         <dd>
@@ -68,16 +112,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.antall3)
+            antall barn
         </dt>
 
-        <dd>
+        <dd >
             @Html.DisplayFor(model => model.antall3)
+        </dd>
+
+        <dt >
+            TotalPris
+        </dt>
+
+        <dd id="TotalPris" name="pris">
+          
         </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+   @Html.ActionLink("Back to List", "Index")
+         <td><a class="btn btn-info" href="@Url.Action("Betaling", "Default")">Bestill</a></td>
+    
 </p>
