@@ -12,6 +12,7 @@
 <h2>Hvor vil du reise?</h2>
 
 <form action="/Default/Result" onchange="buttonChangeColor()" method="post">
+    @Html.AntiForgeryToken()                                                                          <!------- security feature to help protect your application against cross-site request forgery-------->
     <table class="table">
         <tr class="tr">
             <th>
@@ -21,7 +22,7 @@
 
 
                     $(function () {
-                       // $("#btnSubmit").attr("disabled", true);
+                        $("#btnSubmit").attr("disabled", true); /////////////
 
                         $("#StasjonTil").change(function () {
 
@@ -47,15 +48,51 @@
                                     utdata += "<option value='" + Liste[k].StasjonId + "'>" + Liste[k].StasjonNavn + "</option>";
                                 }
                                 $("#StasjonTil").html(utdata);
+                                document.getElementById("rbtnEnVei").checked = true;                                /*******/
 
                             })
 
 
                         })
 
+                        $(document).ready(function () { //////////////////////////////////////////////////////////////////
+                            $('input[type="radio"]').click(function () {
+                                if ($(this).attr('id') == 'rbtnTurRetur') {
+                                    $('#show-turRetur').show();
+                                    $('#datoTilbake').required;
+                                    $('#datoTilbake').attr('required', true);
+                                    $('#tidTilbake').attr('required', true);
+
+                                } else {
+                                    $('#show-turRetur').hide();
+
+
+                                }
+                            });
+                        });
+
+
+                        $(function () {        //////////////////////////////////////////////////////////7
+                            var dtToday = new Date();
+
+                            var month = dtToday.getMonth() + 1;
+                            var day = dtToday.getDate();
+                            var year = dtToday.getFullYear();
+                            if (month < 10)
+                                month = '0' + month.toString();
+                            if (day < 10)
+                                day = '0' + day.toString();
+
+                            var minDate = year + '-' + month + '-' + day;
+                            //alert(maxDate);
+                            $('#dagensDato').attr('min', minDate);
+                            $('#datoTilbake').attr('min', minDate);
+
+                        });
+
                         $("#Student").click(function () {
-                            
-                            
+
+
                             if ($(this).prop("checked") == true) {
                                 document.getElementById("StudentAntall").disabled = false;
                                 document.getElementById("StudentAntall").value = 1;
@@ -65,38 +102,38 @@
                                 document.getElementById("StudentAntall").disabled = true;
                                 document.getElementById("StudentAntall").value = "";
                             }
-                            
+
                         })
 
-                             $("#Voksen").click(function () {
-                            
-                            
-                                  if($(this).prop("checked") == true){
-                                      document.getElementById("VoksenAntall").disabled = false;
-                                       document.getElementById("VoksenAntall").value = 1;
-                                  }else if ($(this).prop("checked") == false) {
-                                      document.getElementById("VoksenAntall").disabled = true;
-                                         document.getElementById("VoksenAntall").value = "";
-                                  }
-
-                             })
+                        $("#Voksen").click(function () {
 
 
-
-                             $("#Barn").click(function () {
-                            
-                            
-                              if($(this).prop("checked") == true){
-                                  document.getElementById("BarnAntall").disabled = false;
-                                    document.getElementById("BarnAntall").value = 1;
-                                 }
-                                   else if ($(this).prop("checked") == false) {
-                                  document.getElementById("BarnAntall").disabled = true;
-                                   document.getElementById("BarnAntall").value = "";
+                            if ($(this).prop("checked") == true) {
+                                document.getElementById("VoksenAntall").disabled = false;
+                                document.getElementById("VoksenAntall").value = 1;
+                            } else if ($(this).prop("checked") == false) {
+                                document.getElementById("VoksenAntall").disabled = true;
+                                document.getElementById("VoksenAntall").value = "";
                             }
-                            
-                            
-                           } )
+
+                        })
+
+
+
+                        $("#Barn").click(function () {
+
+
+                            if ($(this).prop("checked") == true) {
+                                document.getElementById("BarnAntall").disabled = false;
+                                document.getElementById("BarnAntall").value = 1;
+                            }
+                            else if ($(this).prop("checked") == false) {
+                                document.getElementById("BarnAntall").disabled = true;
+                                document.getElementById("BarnAntall").value = "";
+                            }
+
+
+                        })
 
 
 
@@ -113,19 +150,19 @@
 
                 </script>
 
-                 <select data-val="true" class="form-control" id="st" name="Fra" >
-     <option value="" disabled selected>Hvor skal du reise fra</option>
-        @foreach (var k in Model.fraListe)
-        {
-            <option value="@k.StasjonId">@k.StasjonNavn</option>
-        }
-    </select>
-      
-               
+                <select data-val="true" class="form-control" id="st" name="Fra">
+                    <option value="" disabled selected>Hvor skal du reise fra</option>
+                    @foreach (var k in Model.fraListe)
+                    {
+                        <option value="@k.StasjonId">@k.StasjonNavn</option>
+                    }
+                </select>
+
+
 
             </th>
             <th>
-                <select  data-val="true" class="form-control" id="StasjonTil" name="Til">
+                <select data-val="true" class="form-control" id="StasjonTil" name="Til">
                 </select>
 
             </th>
@@ -138,11 +175,33 @@
         </tr>
         <tr>
             <td>
-                <h1> Velge tid: </h1><input  id="appt-time" type="time" name="tid " step="2" class="form-control">
+                <!------------------------------------------------------------------------------------->
+                <input type="radio" id="rbtnEnVei"
+                       name="turChecked" value="enVei" class="radioBtn">
+                <label for="rbtnEnVei">En Vei</label>
+                <input type="radio" id="rbtnTurRetur"
+                       name="turChecked" value="turRetur" class="radioBtn">
+                <label for="rbtnTurRetur">Tur/Retur </label>
             </td>
             <td>
-                <h1> Velge Dato: </h1><input type="date" name="dato" class="form-control">
-</td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1> Velge tid: </h1><input id="appt-time" required type="time" name="tid " step="2" class="form-control">
+            </td>
+            <td>
+                <h1> Velge Dato: </h1><input required type="date" name="dato" id="dagensDato" class="form-control">
+            </td>
+        </tr>
+        <tr id="show-turRetur" style="display:none;">
+            <!------------------------------------------------------------------------------------->
+            <td>
+                <h2> Velge tid tilbake: </h2> <input type="time" id="tidTilbake" step="2" name="tidTilbake" class="form-control">
+            </td>
+            <td>
+                <h2> Velge Dato tilbake: </h2> <input type="date" id="datoTilbake" name="datoTilbake" class="form-control">
+            </td>
         </tr>
         <tr class="tr">
             <td>
@@ -155,16 +214,16 @@
 
         <tr class="tr">
             <th> <input type="checkbox" name="StudentType" value="Student" id="Student">Student</th>
-            <th> <input   disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="antall1" class="form-control" required></th>
+            <th> <input disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="antall1" class="form-control" required></th>
         </tr>
         <tr class="tr">
-            <th > <input type="checkbox" name="BarnType" value="Voksen" id="Voksen">Voksen</th>
-            <th> <input  disabled id="VoksenAntall" type="number" min="1" name="antall2"  class="form-control" required></th>
+            <th> <input type="checkbox" name="BarnType" value="Voksen" id="Voksen">Voksen</th>
+            <th> <input disabled id="VoksenAntall" type="number" min="1" name="antall2" class="form-control" required></th>
 
         </tr>
         <tr class="tr">
             <th> <input type="checkbox" name="VoksenType" value="Barn" id="Barn">Barn</th>
-            <th> <input      disabled id="BarnAntall"type="number" min="1" name="antall3"  class="form-control" required></th>
+            <th> <input disabled id="BarnAntall" type="number" min="1" name="antall3" class="form-control" required></th>
 
         </tr>
     </table>

@@ -40,6 +40,29 @@ namespace GruppeInnlevering1.Models
         public int stasjonIdTil { get; set; }
 
 
+        [Display(Name = "Telefonnummer")]
+        [Required(ErrorMessage = "Du må skrive ned Telefonummer")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"[0-9]{8}")]
+        public string Telefonnummer { get; set; }
+
+        [Display(Name = "Email")]
+        [Required(ErrorMessage = "Email må oppgis")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Display(Name = "Kortnummer")]
+        [Required(ErrorMessage = "Kortnummer må oppgis (16 Tall)")]
+        [RegularExpression(@"[0-9]{16}")]
+        public string Kortnummer { get; set; }
+
+
+        [Display(Name = "CVC")]
+        [Required(ErrorMessage = "CVC må oppgis (3 Tall)")]
+        [RegularExpression(@"[0-9]{3}")]
+        public int Cvc { get; set; }
+
+
 
     }
 }
