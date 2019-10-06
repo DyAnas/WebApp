@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace GruppeInnlevering1.Models
 {
     public class Stasjon
     {
-      
 
-      
+
+
 
         public int StasjonId { get; set; }
 

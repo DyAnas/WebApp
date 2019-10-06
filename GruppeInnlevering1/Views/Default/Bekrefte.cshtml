@@ -72,7 +72,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Fra)
+            Fra Stasjon:
         </dt>
 
         <dd>
@@ -80,7 +80,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Til)
+            Til Stasjon:
         </dt>
 
         <dd>
@@ -88,7 +88,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tidFra)
+           Avgang:
         </dt>
 
         <dd>
@@ -96,7 +96,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tidTil)
+            Ankomst
         </dt>
 
         <dd>
@@ -104,12 +104,14 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.dato)
+           DatoTur:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.dato)
         </dd>
+
+
 
         <dt>
             AntallStudent
@@ -142,18 +144,24 @@
         <dd id="TotalPris" name="pris">
 
         </dd>
+        @if (Model.datoTilbake.GetHashCode()!=0)
+        {
+            <dt>
+               DatoRetur:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.datoTilbake)
+            </dd>
+}
+
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-    <td><a class="btn btn-info" href="@Url.Action("Betaling", "Default")">Bestill</a></td>
 
-</p>
 <div>
-    @using (Html.BeginForm())
-    {
+    <form method="post" action="/Default/Betaling">
+        
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
@@ -197,5 +205,11 @@
             </div>
 
         </div>
-    }
+    </form>
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+
+
+</p>

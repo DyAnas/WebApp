@@ -3,21 +3,114 @@
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (Model[0].Stasjon.StasjonId < @Model[1].Stasjon.StasjonId)
+{
+
+    <div class="container">
+        <form method="post" action="/Default/Bekrefte">
+            <div>
+                <h1>Se Avganger</h1>
+                <a href="/Default/index" class="btn btn-warning">Endre søket</a>
+            </div>
+            <div>
+
+            </div>
+            <div>
+                <centre>
+                    <h1 scope="col"> Tur</h1>
+                </centre>
+                <table class="table table-hover">
+                    <thead>
+
+                        <tr>
+
+                            <th scope="col">Fra</th>
+                            <th scope="col">Til</th>
+                            <th scope="col">Avgang</th>
+                            <th scope="col">Ankomst</th>
+                            <th scope="col"> </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.Count < 5)
+                        {
+                            <tr>
+                                <td>
+
+                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[0].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Tid)
+                                </td>
 
 
-<div class="container">
-    <form method="post" action="/Default/Bekrefte">
-        <div>
-            <h1>Se Avganger</h1>
-            <button type="button" class="btn btn-outline-secondary">Endre søket</button>
-        </div>
-        <div>
+                                <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
-        </div>
-        <div>
-            <table class="table table-hover">
-                <thead>
+                            </tr>
+                        }
+                        @if (Model.Count > 4)
+                        {
+                            <tr>
+
+
+                                <td>
+
+                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[0].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Tid)
+                                </td>
+
+
+                                <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[2].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[3].Tid)
+                                </td>
+                                <td><a class="btn btn-info" href="@Url.Action("Result", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <centre><h1 scope="col"> Retur</h1></centre>
+                <table class="table table-hover">
                     <tr>
+
                         <th scope="col">Fra</th>
                         <th scope="col">Til</th>
                         <th scope="col">Avgang</th>
@@ -25,67 +118,123 @@
                         <th scope="col"> </th>
 
                     </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Count < 3)
+
+                    @if (Model.Count > 7)
                     {
+
+
                         <tr>
 
-
                             <td>
-
-                                @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                @Html.DisplayFor(modelItem => Model[4].Stasjon.StasjonNavn)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                @Html.DisplayFor(modelItem => Model[5].Stasjon.StasjonNavn)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model[0].Tid)
+                                @Html.DisplayFor(modelItem => Model[4].Tid)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model[1].Tid)
+                                @Html.DisplayFor(modelItem => Model[5].Tid)
                             </td>
 
 
-                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
 
                         </tr>
+
+
                     }
+                </table>
 
-                    @if (Model.Count > 3)
-                    {
+            </div>
+
+        </form>
+    </div>
+}
+else
+{
+
+
+    <div class="container">
+        <form method="post" action="/Default/Bekrefte">
+            <div>
+                <h1>Se Avganger</h1>
+                <a href="/Default/index" class="btn btn-warning">Endre søket</a>
+            </div>
+            <div>
+
+            </div>
+            <div>
+                <centre>
+                    <h1 scope="col"> Tur</h1>
+                </centre>
+                <table class="table table-hover">
+                    <thead>
+
                         <tr>
 
-
-                            <td>
-
-                                @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[0].Tid)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[1].Tid)
-                            </td>
-
-
-                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+                            <th scope="col">Fra</th>
+                            <th scope="col">Til</th>
+                            <th scope="col">Avgang</th>
+                            <th scope="col">Ankomst</th>
+                            <th scope="col"> </th>
 
                         </tr>
-}
+                    </thead>
+                    <tbody>
+
+                   
+                        
+                            <tr>
+
+
+                                <td>
+
+                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[0].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Tid)
+                                </td>
+
+
+                                <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
+                            </tr>
+                        
+
+                      
+               </tbody>
+             </table>
 
 
 
 
 
+                <centre><h1 scope="col"> Retur</h1></centre>
+                <table class="table table-hover">
+                    <tr>
 
-                    @if (Model.Count > 3)
+                        <th scope="col">Fra</th>
+                        <th scope="col">Til</th>
+                        <th scope="col">Avgang</th>
+                        <th scope="col">Ankomst</th>
+                        <th scope="col"> </th>
+
+                    </tr>
+                    @if (Model.Count > 2)
                     {
                         <tr>
+
+
                             <td>
+
                                 @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
                             </td>
                             <td>
@@ -97,31 +246,32 @@
                             <td>
                                 @Html.DisplayFor(modelItem => Model[3].Tid)
                             </td>
-
-
-
-                            <td>
-                            <td><a class="btn btn-info" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-
-
-
-
-
-
-
                         </tr>
+
                     }
 
+                </table>
+            </div>
+
+        </form>
+    </div>
 
 
-                </tbody>
-            </table>
 
 
-        </div>
-    </form>
-</div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -13,9 +12,9 @@ namespace GruppeInnlevering1.Controllers
         TogContext db = new TogContext();
 
 
-     
 
-     
+
+
 
 
 
@@ -27,7 +26,7 @@ namespace GruppeInnlevering1.Controllers
 
             }
             base.Dispose(disposing);
-           
+
         }
         public IEnumerable<Stasjon> hentStasjoner()
         {
@@ -38,7 +37,7 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Index()
         {
-          Samle  ny = new Samle();
+            Samle ny = new Samle();
 
 
             IEnumerable<Stasjon> alleStasjoner = hentStasjoner();
@@ -47,21 +46,23 @@ namespace GruppeInnlevering1.Controllers
 
             Session["alle"] = ny;
 
-                return View(ny);
-          
-            
+            return View(ny);
+
+
         }
-        
 
 
-        public string hentListe(int id) {
+
+        public string hentListe(int id)
+        {
             IEnumerable<Stasjon> alt = null;
             if (id > 0 && id < 9)
             {
-                alt = db.Stasjoner.Where(p=>p.StasjonId>0 && p.StasjonId<9) ;
+                alt = db.Stasjoner.Where(p => p.StasjonId > 0 && p.StasjonId < 9);
             }
-            else if(id>8 && id<17) {
-                alt = db.Stasjoner.Where(p => p.StasjonId >8 && p.StasjonId < 17);
+            else if (id > 8 && id < 17)
+            {
+                alt = db.Stasjoner.Where(p => p.StasjonId > 8 && p.StasjonId < 17);
             }
 
             else
@@ -69,11 +70,12 @@ namespace GruppeInnlevering1.Controllers
                 alt = db.Stasjoner.Where(p => p.StasjonId > 16 && p.StasjonId < 25);
             }
             List<Stasjon> valgStasjon = new List<Stasjon>();
-            foreach (Stasjon i in alt) {
-                valgStasjon.Add(new Stasjon { StasjonId=i.StasjonId,StasjonNavn=i.StasjonNavn});
+            foreach (Stasjon i in alt)
+            {
+                valgStasjon.Add(new Stasjon { StasjonId = i.StasjonId, StasjonNavn = i.StasjonNavn });
 
-}
-            Samle ny =(Samle) Session["alle"];
+            }
+            Samle ny = (Samle)Session["alle"];
             ny.tilListe = valgStasjon;
 
 
@@ -83,15 +85,15 @@ namespace GruppeInnlevering1.Controllers
 
 
 
-                var jsonSeralizer = new JavaScriptSerializer();
-           
+            var jsonSeralizer = new JavaScriptSerializer();
+
 
             return jsonSeralizer.Serialize(ny.tilListe);
-            
-            
-            }
-        
-       [HttpPost]
+
+
+        }
+
+        [HttpPost]
         public ActionResult Result(Samle s)
         {
 
@@ -102,37 +104,74 @@ namespace GruppeInnlevering1.Controllers
             ny.antall2 = s.antall2;
             ny.antall3 = s.antall3;
 
-            ny.dato= s.dato;
-            Session["alle"] = ny;
+            ny.dato = s.dato;
+
+
             IEnumerable<Avgang> h = null;
-            int result =int.Parse (s.Fra);
+            int result = int.Parse(s.Fra);
             int result1 = int.Parse(s.Til);
-          
+
+            IEnumerable<Avgang> hRetur = null;
+
             if (result < result1)
             {
 
-                 h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
+                h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
 
+                //     }
+                //   else 
+                //   {
+                //       if (s.datoTilbake.GetHashCode() == 0)
+                //        {
+
+                //          h = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId %3==0 || (b.Stasjon.StasjonId == result) && b.Tog.TogId %3==0
+                //  );
+                //      }
+                //    }
+                if (s.datoTilbake.GetHashCode() != 0)
+                {
+                    ny.datoTilbake = s.datoTilbake;
+
+                    hRetur = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0
+                  );
+
+
+                }
             }
-           else 
+            else if (result > result1)
             {
+                h = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0);
+                if (s.datoTilbake.GetHashCode() != 0)
+                {
+                    ny.datoTilbake = s.datoTilbake;
 
-                h = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId == 3 || ( b.Stasjon.StasjonId == result )&& b.Tog.TogId==3);
+                    hRetur = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1).Take(4);
+
+
+
+                }
+
+
             }
-            
+
             List<Avgang> seno = new List<Avgang>();
 
-           foreach(Avgang avgang in h)
+            foreach (Avgang avgang in h)
             {
                 seno.Add(avgang);
             }
-           
-        
+            if (s.datoTilbake.GetHashCode() != 0)
+            {
+                foreach (Avgang avgang in hRetur)
+                {
+                    seno.Add(avgang);
+                }
+            }
 
             return View(seno);
         }
-       
-        public ActionResult Bekrefte(string FraStasjon,string TilStasjon,TimeSpan Avgang, TimeSpan Ankomst,int StasjonfraId,int StasjonTilId)
+
+        public ActionResult Bekrefte(string FraStasjon, string TilStasjon, TimeSpan Avgang, TimeSpan Ankomst, int StasjonfraId, int StasjonTilId)
         {
 
             Samle ny = (Samle)Session["alle"];
@@ -149,7 +188,7 @@ namespace GruppeInnlevering1.Controllers
 
 
             Session["alle"] = ny;
-       
+
 
 
 
@@ -161,41 +200,43 @@ namespace GruppeInnlevering1.Controllers
 
             return View(ny);
         }
-        public ActionResult Betaling() {
-           
+        [HttpPost]
+        public ActionResult Betaling(string Telefonnummer, string Email, string kortnummer, int Cvc)
+        {
 
             Samle ny = (Samle)Session["alle"];
+
+
+
+            if (ny.datoTilbake.GetHashCode() == 0)
+            {
+
+                ny.datoTilbake = new DateTime(9999, 9, 9);
+            }
+
+
+
             var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
-
-            /*   nyBillet.fra.AvgangId = ny.stasjonIdFra;
-               nyBillet.Til.AvgangId = ny.stasjonIdTil;
-               nyBillet.Type = "Student";
-               nyBillet.Pris = lengde * 10;
-               for (var i = 0; i < ny.antall1; i++) {
-                   billetStudent { new Billet {fra= ny.stasjonIdFra }
-
-                   billetStudent.Add(nyBillet);
-
-               }
-               IEnumerable<Billet> dbBillet = billetStudent;
-
-       */
-          
-
-     
-            for (var i = 0; i < ny.antall1; i++) {
+            for (var i = 0; i < ny.antall1; i++)
+            {
                 var bnyBi = new Billet
-                {  
-                    AvgangFra = ny.stasjonIdFra ,
-                    AvgangTil=ny.stasjonIdTil ,
+                {
+                    AvgangFra = ny.stasjonIdFra,
+                    AvgangTil = ny.stasjonIdTil,
                     Type = "Student",
                     Pris = lengde * 10,
-                    Datokjop = ny.dato,
+                    DatoTur = ny.dato,
+                    DatoRetur = ny.datoTilbake,
+                    Telefonnummer = Telefonnummer,
+                    Email = Email,
+                    Kortnummer = kortnummer,
+                    Cvc = Cvc
+
                 };
                 db.Billeter.Add(bnyBi);
-               
-                
-                }
+
+
+            }
 
 
             for (var i = 0; i < ny.antall2; i++)
@@ -206,7 +247,12 @@ namespace GruppeInnlevering1.Controllers
                     AvgangTil = ny.stasjonIdTil,
                     Type = "Voksen",
                     Pris = lengde * 20,
-                    Datokjop = ny.dato,
+                    DatoTur = ny.dato,
+                    DatoRetur = ny.datoTilbake,
+                    Telefonnummer = Telefonnummer,
+                    Email = Email,
+                    Kortnummer = kortnummer,
+                    Cvc = Cvc
                 };
                 db.Billeter.Add(bnyBi);
 
@@ -221,7 +267,12 @@ namespace GruppeInnlevering1.Controllers
                     AvgangTil = ny.stasjonIdTil,
                     Type = "Barn",
                     Pris = lengde * 5,
-                    Datokjop = ny.dato,
+                    DatoTur = ny.dato,
+                    DatoRetur = ny.datoTilbake,
+                    Telefonnummer = Telefonnummer,
+                    Email = Email,
+                    Kortnummer = kortnummer,
+                    Cvc = Cvc
                 };
                 db.Billeter.Add(bnyBi);
 
@@ -232,31 +283,28 @@ namespace GruppeInnlevering1.Controllers
 
             return View();
 
-                }
-
-
-        public ActionResult TheEnd()
-        {
-            return View();
         }
 
 
 
 
 
+
+
+
+    }
+
+
+
+
+
+
+
 }
 
-           
 
 
 
 
 
-}
 
-
-
-    
-
-
-        

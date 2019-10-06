@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace GruppeInnlevering1.Models
 {
@@ -13,13 +10,14 @@ namespace GruppeInnlevering1.Models
         public string Type { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
-        public DateTime Datokjop { get; set; }
+        public DateTime DatoTur { get; set; }
 
-       
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
 
-     
+        public DateTime DatoRetur { get; set; }
 
-     
+
+
 
 
         public int Pris { get; set; }
@@ -27,6 +25,21 @@ namespace GruppeInnlevering1.Models
         public int AvgangFra { get; set; }
 
         public int AvgangTil { get; set; }
+
+
+
+
+        public string Telefonnummer { get; set; }
+
+
+        public string Email { get; set; }
+
+
+        public string Kortnummer { get; set; }
+
+
+
+        public int Cvc { get; set; }
 
 
 
