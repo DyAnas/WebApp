@@ -143,7 +143,6 @@
                             </td>
 
                             <td style="width:137px;">
-                               
                             </td>
 
 
@@ -164,112 +163,111 @@ else
 {
 
 
-    <div class="container">
-        <a href="/Default/index" class="btn btn-warning">Endre søket</a>
-        <form method="post" action="/Default/Bekrefte">
-            <div>
-                <h1>Se Avganger</h1>
-                
-            </div>
-            <div>
+<div class="container">
+    <a href="/Default/index" class="btn" style="float:right;background-color:darkseagreen;font-size:large;font-weight:300;color:#607e5d;border:1px solid #607e5d;">Endre søket</a>
+    <form method="post" action="/Default/Bekrefte">
+        <div>
+            <h1>Se Avganger</h1>
 
-            </div>
-            <div>
-                <centre>
-                    <h1 scope="col"> Tur</h1>
-                </centre>
-                <table class="table table-hover">
-                    <thead>
+        </div>
+        <div>
 
-                        <tr>
+        </div>
+        <div>
+            <centre>
+                <h1 scope="col"> Tur</h1>
+            </centre>
+            <table class="table table-hover">
+                <thead>
 
-                            <th scope="col">Fra</th>
-                            <th scope="col">Til</th>
-                            <th scope="col">Avgang</th>
-                            <th scope="col">Ankomst</th>
-                            <th scope="col"> </th>
+                    <tr>
 
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <th scope="col">Fra</th>
+                        <th scope="col">Til</th>
+                        <th scope="col">Avgang</th>
+                        <th scope="col">Ankomst</th>
+                        <th scope="col"> </th>
 
-                   
-                        
-                            <tr class="restr">
-
-
-                                <td>
-
-                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[0].Tid)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Tid)
-                                </td>
+                    </tr>
+                </thead>
+                <tbody>
 
 
 
-                                <td><a style="background-color:darkseagreen;font-size:medium;font-weight:300;color:white;border:1px solid #607e5d;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-                            </tr>
-                        
-
-                      
-               </tbody>
-             </table>
+                    <tr class="restr">
 
 
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[0].Tid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[1].Tid)
+                        </td>
 
 
 
-                <centre><h1 scope="col"> Retur</h1></centre>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
+                        <td><a style="background-color:darkseagreen;font-size:medium;font-weight:300;color:white;border:1px solid #607e5d;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
-                            <th scope="col">Fra</th>
-                            <th scope="col">Til</th>
-                            <th scope="col">Avgang</th>
-                            <th scope="col">Ankomst</th>
-                            <th scope="col"> </th>
-
-                        </tr>
-                    </thead>
-                    @if (Model.Count > 2)
-                    {
-                        <tr class="restr">
+                    </tr>
 
 
-                            <td>
 
-                                @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[2].Tid)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[3].Tid)
-                            </td>
-                            <td style="width:137px;">
-                                
-                            </td>
-                        </tr>
+                </tbody>
+            </table>
 
-                    }
 
-                </table>
-            </div>
 
-        </form>
-    </div>
+
+
+            <centre><h1 scope="col"> Retur</h1></centre>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Fra</th>
+                        <th scope="col">Til</th>
+                        <th scope="col">Avgang</th>
+                        <th scope="col">Ankomst</th>
+                        <th scope="col"> </th>
+
+                    </tr>
+                </thead>
+                @if (Model.Count > 2)
+                {
+                    <tr class="restr">
+
+
+                        <td>
+
+                            @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[2].Tid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[3].Tid)
+                        </td>
+                        <td style="width:137px;">
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+        </div>
+
+    </form>
+</div>
 
 
 

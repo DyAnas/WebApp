@@ -7,7 +7,7 @@ namespace GruppeInnlevering1.Models
     {
         protected override void Seed(TogContext context)
         {
-
+            //i vår databasen har vi flere tog og hvert tog har sine stasjoner 
 
             var togListe = new List<Tog>
             {
@@ -25,21 +25,21 @@ namespace GruppeInnlevering1.Models
             context.SaveChanges();
 
 
-            var stasjonerTilTog12 = new List<Stasjon>
+            var stasjonerOsloSkien = new List<Stasjon>
             {
                 new Stasjon {StasjonNavn = "Oslo" },
                 new Stasjon {StasjonNavn = "Drammen"},
-                new Stasjon {StasjonNavn = "Holmenstrand"},
-                new Stasjon {StasjonNavn = "TønesBerg"},
-                new Stasjon {StasjonNavn = "Sandfjord"},
+                new Stasjon {StasjonNavn = "Holmestrand"},
+                new Stasjon {StasjonNavn = "Tønsberg"},
+                new Stasjon {StasjonNavn = "Sandefjord"},
                 new Stasjon {StasjonNavn = "Larvik" },
-                new Stasjon {StasjonNavn ="Porskrun"},
+                new Stasjon {StasjonNavn ="Porsgrunn"},
                 new Stasjon {StasjonNavn = "Skien"}
 
             };
-            stasjonerTilTog12.ForEach(stasjon => context.Stasjoner.Add(stasjon));
+            stasjonerOsloSkien.ForEach(stasjon => context.Stasjoner.Add(stasjon));
             context.SaveChanges();
-            var stasjonerTilTog23 = new List<Stasjon>
+            var stajonerTrondheimBødo = new List<Stasjon>
             {
                 new Stasjon {StasjonNavn = "Verdal" },
                 new Stasjon {StasjonNavn = "Værnes"},
@@ -52,10 +52,10 @@ namespace GruppeInnlevering1.Models
 
             };
 
-            stasjonerTilTog23.ForEach(stasjon => context.Stasjoner.Add(stasjon));
+            stajonerTrondheimBødo.ForEach(stasjon => context.Stasjoner.Add(stasjon));
             context.SaveChanges();
 
-            var stasjonerTilTog45 = new List<Stasjon>
+            var stajonerOslotrondheim = new List<Stasjon>
             {
                 new Stasjon {StasjonNavn = "Lillestrøm" },
                 new Stasjon {StasjonNavn = "Gardermoen"},
@@ -63,149 +63,149 @@ namespace GruppeInnlevering1.Models
                 new Stasjon {StasjonNavn = "Elverum"},
                 new Stasjon {StasjonNavn = "Koppang"},
                 new Stasjon {StasjonNavn = "Tynset" },
-                new Stasjon {StasjonNavn ="Rødros"},
+                new Stasjon {StasjonNavn ="Røros"},
                 new Stasjon {StasjonNavn = "Trondheim"}
 
             };
 
-            stasjonerTilTog45.ForEach(stasjon => context.Stasjoner.Add(stasjon));
+            stajonerOslotrondheim.ForEach(stasjon => context.Stasjoner.Add(stasjon));
             context.SaveChanges();
 
 
             //avganger Til Tog1 oslo_Skien tur
 
-            var avganger1 = new List<Avgang>
+            var avgangerTilTog1 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stasjonerTilTog12[0]},
-                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stasjonerTilTog12[1]},
-                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stasjonerTilTog12[2]},
-                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stasjonerTilTog12[3]},
-                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stasjonerTilTog12[4]},
-                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stasjonerTilTog12[5]},
-                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stasjonerTilTog12[6]},
-                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stasjonerTilTog12[7]},
+                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stasjonerOsloSkien[0]},
+                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stasjonerOsloSkien[1]},
+                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stasjonerOsloSkien[2]},
+                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stasjonerOsloSkien[3]},
+                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stasjonerOsloSkien[4]},
+                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stasjonerOsloSkien[5]},
+                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stasjonerOsloSkien[6]},
+                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stasjonerOsloSkien[7]},
             };
 
             //avganger Til Tog2 oslo_Skien tur
 
-            var avganger12 = new List<Avgang>
+            var avgangerTilTog2 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog12[0]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog12[1]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog12[2]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog12[3]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog12[4]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog12[5]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog12[6]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog12[7]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerOsloSkien[0]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerOsloSkien[1]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerOsloSkien[2]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerOsloSkien[3]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerOsloSkien[4]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerOsloSkien[5]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerOsloSkien[6]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerOsloSkien[7]},
             };
 
             //avganger Til Tog3  Skien_oslo  Retur
-            var avganger1Retur = new List<Avgang>
+            var avgangerTilTog3 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog12[7]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog12[6]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog12[5]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog12[4]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog12[3]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog12[2]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog12[1]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog12[0]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerOsloSkien[7]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerOsloSkien[6]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerOsloSkien[5]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerOsloSkien[4]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerOsloSkien[3]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerOsloSkien[2]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerOsloSkien[1]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerOsloSkien[0]},
             };
 
-            togListe[0].Avganger = avganger1;
-            togListe[1].Avganger = avganger12;
-            togListe[2].Avganger = avganger1Retur;
+            togListe[0].Avganger = avgangerTilTog1;
+            togListe[1].Avganger = avgangerTilTog2;
+            togListe[2].Avganger = avgangerTilTog3;
 
 
 
 
-            var avganger2 = new List<Avgang>
+            var avgangerTilTog4 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stasjonerTilTog23[0]},
-                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stasjonerTilTog23[1]},
-                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stasjonerTilTog23[2]},
-                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stasjonerTilTog23[3]},
-                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stasjonerTilTog23[4]},
-                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stasjonerTilTog23[5]},
-                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stasjonerTilTog23[6]},
-                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stasjonerTilTog23[7]},
+                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stajonerTrondheimBødo[0]},
+                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stajonerTrondheimBødo[1]},
+                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stajonerTrondheimBødo[2]},
+                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stajonerTrondheimBødo[3]},
+                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stajonerTrondheimBødo[4]},
+                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stajonerTrondheimBødo[5]},
+                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stajonerTrondheimBødo[6]},
+                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stajonerTrondheimBødo[7]},
             };
 
-            var avganger23 = new List<Avgang>
+            var avgangerTilTog5 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog23[0]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog23[1]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog23[2]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog23[3]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog23[4]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog23[5]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog23[6]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog23[7]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stajonerTrondheimBødo[0]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stajonerTrondheimBødo[1]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stajonerTrondheimBødo[2]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stajonerTrondheimBødo[3]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stajonerTrondheimBødo[4]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stajonerTrondheimBødo[5]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stajonerTrondheimBødo[6]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stajonerTrondheimBødo[7]},
             };
-            var avgangerRetur2 = new List<Avgang>
+            var avgangerTilTog6 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog23[7]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog23[6]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog23[5]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog23[4]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog23[3]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog23[2]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog23[1]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog23[0]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stajonerTrondheimBødo[7]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stajonerTrondheimBødo[6]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stajonerTrondheimBødo[5]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stajonerTrondheimBødo[4]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stajonerTrondheimBødo[3]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stajonerTrondheimBødo[2]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stajonerTrondheimBødo[1]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stajonerTrondheimBødo[0]},
             };
 
 
 
 
 
-            togListe[3].Avganger = avganger2;
-            togListe[4].Avganger = avganger23;
-            togListe[5].Avganger = avgangerRetur2;
+            togListe[3].Avganger = avgangerTilTog4;
+            togListe[4].Avganger = avgangerTilTog5;
+            togListe[5].Avganger = avgangerTilTog6;
             context.SaveChanges();
 
 
-            var avganger31 = new List<Avgang>
+            var avgangerTilTog7 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stasjonerTilTog45[0]},
-                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stasjonerTilTog45[1]},
-                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stasjonerTilTog45[2]},
-                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stasjonerTilTog45[3]},
-                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stasjonerTilTog45[4]},
-                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stasjonerTilTog45[5]},
-                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stasjonerTilTog45[6]},
-                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stasjonerTilTog45[7]},
+                new Avgang{Tid= new TimeSpan(9,00,00),Stasjon=stajonerOslotrondheim[0]},
+                new Avgang{Tid= new TimeSpan(10,00,00),Stasjon=stajonerOslotrondheim[1]},
+                new Avgang{Tid= new TimeSpan(11,00,00),Stasjon=stajonerOslotrondheim[2]},
+                new Avgang{Tid= new TimeSpan(12,00,00),Stasjon=stajonerOslotrondheim[3]},
+                new Avgang{Tid= new TimeSpan(13,00,00),Stasjon=stajonerOslotrondheim[4]},
+                new Avgang{Tid= new TimeSpan(14,00,00),Stasjon=stajonerOslotrondheim[5]},
+                new Avgang{Tid= new TimeSpan(15,00,00),Stasjon=stajonerOslotrondheim[6]},
+                new Avgang{Tid= new TimeSpan(16,00,00),Stasjon=stajonerOslotrondheim[7]},
             };
 
-            var avganger32 = new List<Avgang>
+            var avgangerTilTog8 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog45[0]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog45[1]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog45[2]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog45[3]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog45[4]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog45[5]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog45[6]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog45[7]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stajonerOslotrondheim[0]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stajonerOslotrondheim[1]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stajonerOslotrondheim[2]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stajonerOslotrondheim[3]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stajonerOslotrondheim[4]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stajonerOslotrondheim[5]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stajonerOslotrondheim[6]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stajonerOslotrondheim[7]},
             };
 
-            var avgangREturntog3 = new List<Avgang>
+            var avgangerTilTog9 = new List<Avgang>
             {
-                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog45[7]},
-                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog45[6]},
-                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog45[5]},
-                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog45[4]},
-                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog45[3]},
-                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog45[2]},
-                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog45[1]},
-                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog45[0]},
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stajonerOslotrondheim[7]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stajonerOslotrondheim[6]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stajonerOslotrondheim[5]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stajonerOslotrondheim[4]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stajonerOslotrondheim[3]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stajonerOslotrondheim[2]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stajonerOslotrondheim[1]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stajonerOslotrondheim[0]},
             };
 
 
 
-            togListe[6].Avganger = avganger31;
-            togListe[7].Avganger = avganger32;
-            togListe[8].Avganger = avgangREturntog3;
+            togListe[6].Avganger = avgangerTilTog7;
+            togListe[7].Avganger = avgangerTilTog8;
+            togListe[8].Avganger = avgangerTilTog9;
 
 
 

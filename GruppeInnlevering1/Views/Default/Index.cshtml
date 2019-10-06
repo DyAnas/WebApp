@@ -32,7 +32,7 @@
                             }
                         });
                         $("#st").change(function () {
-                            var Geturl = "/Default/hentListe?id=" + $("#st").val();
+                            var Geturl = "/Default/hentListe?stajonId=" + $("#st").val();
                             $.getJSON(Geturl, function (Liste) {
                                 utdata = "<option value='fas fa-search' disabled selected>&nbsp;&nbsp;&#xf002;&nbsp;&nbsp;Hvor vil du dra?</option>";
                                 for (var k in Liste) {
