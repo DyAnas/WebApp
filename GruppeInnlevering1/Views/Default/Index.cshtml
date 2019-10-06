@@ -5,27 +5,24 @@
 <script src="~/Scripts/jsfil.js"></script>
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" />
 
 
 
 
-<h2>Hvor vil du reise?</h2>
+<h1 style="margin-bottom:40px;font-weight:700;">Hei, hvor vil du reise?</h1>
 
-<form action="/Default/Result" onchange="buttonChangeColor()" method="post">
+<form action="/Default/Result" onchange="buttonChangeColor()" method="post" style="width:100%;margin-bottom:10%;">
     @Html.AntiForgeryToken()                                                                          <!------- security feature to help protect your application against cross-site request forgery-------->
     <table class="table">
-        <tr class="tr">
+        <tr>
             <th>
                 <script type="text/javascript">
 
-
-
-
                     $(function () {
-                        $("#btnSubmit").attr("disabled", true); /////////////
-
+                        $("#btnSubmit").attr("disabled", true);
                         $("#StasjonTil").change(function () {
-
                             if ($(this).val() == $("#st").val()) {
                                 $("#feilMelding").html("<p>Du har valgt samme stasjon til og fra </p>");
                                 $("#feilMelding").children("p").css("color", "red");
@@ -33,29 +30,21 @@
                             else {
                                 $("#feilMelding").html("")
                             }
-
                         });
-
-
-
-
-
                         $("#st").change(function () {
                             var Geturl = "/Default/hentListe?id=" + $("#st").val();
                             $.getJSON(Geturl, function (Liste) {
-                                utdata = "<option value='' disabled selected>Hvor skal du reise til</option>";
+                                utdata = "<option value='fas fa-search' disabled selected>&nbsp;&nbsp;&#xf002;&nbsp;&nbsp;Hvor vil du dra?</option>";
                                 for (var k in Liste) {
-                                    utdata += "<option value='" + Liste[k].StasjonId + "'>" + Liste[k].StasjonNavn + "</option>";
+                                    utdata += "<option value='" + Liste[k].StasjonId + "'>&#xf238;&nbsp;&nbsp;&nbsp;&nbsp;" + Liste[k].StasjonNavn + "</option>";
                                 }
                                 $("#StasjonTil").html(utdata);
-                                document.getElementById("rbtnEnVei").checked = true;                                /*******/
+                                document.getElementById("rbtnEnVei").checked = true;
 
                             })
-
-
                         })
 
-                        $(document).ready(function () { //////////////////////////////////////////////////////////////////
+                        $(document).ready(function () {
                             $('input[type="radio"]').click(function () {
                                 if ($(this).attr('id') == 'rbtnTurRetur') {
                                     $('#show-turRetur').show();
@@ -65,16 +54,18 @@
 
                                 } else {
                                     $('#show-turRetur').hide();
-
-
                                 }
                             });
                         });
 
+                        document.getElementById("dagensDato").onchange = function () {
+                            var minsteDatoTilbake = document.getElementById("datoTilbake");
+                            minsteDatoTilbake.min = this.value;
+                        }
 
-                        $(function () {        //////////////////////////////////////////////////////////7
+
+                        $(function () {
                             var dtToday = new Date();
-
                             var month = dtToday.getMonth() + 1;
                             var day = dtToday.getDate();
                             var year = dtToday.getFullYear();
@@ -82,32 +73,24 @@
                                 month = '0' + month.toString();
                             if (day < 10)
                                 day = '0' + day.toString();
-
                             var minDate = year + '-' + month + '-' + day;
                             //alert(maxDate);
                             $('#dagensDato').attr('min', minDate);
                             $('#datoTilbake').attr('min', minDate);
-
                         });
 
                         $("#Student").click(function () {
-
-
                             if ($(this).prop("checked") == true) {
                                 document.getElementById("StudentAntall").disabled = false;
                                 document.getElementById("StudentAntall").value = 1;
-
                             }
                             else if ($(this).prop("checked") == false) {
                                 document.getElementById("StudentAntall").disabled = true;
                                 document.getElementById("StudentAntall").value = "";
                             }
-
                         })
 
                         $("#Voksen").click(function () {
-
-
                             if ($(this).prop("checked") == true) {
                                 document.getElementById("VoksenAntall").disabled = false;
                                 document.getElementById("VoksenAntall").value = 1;
@@ -115,14 +98,9 @@
                                 document.getElementById("VoksenAntall").disabled = true;
                                 document.getElementById("VoksenAntall").value = "";
                             }
-
                         })
 
-
-
                         $("#Barn").click(function () {
-
-
                             if ($(this).prop("checked") == true) {
                                 document.getElementById("BarnAntall").disabled = false;
                                 document.getElementById("BarnAntall").value = 1;
@@ -131,101 +109,116 @@
                                 document.getElementById("BarnAntall").disabled = true;
                                 document.getElementById("BarnAntall").value = "";
                             }
-
-
                         })
-
-
-
-
-
-
-
-
-
                     });
-
-
-
-
                 </script>
-
-                <select data-val="true" class="form-control" id="st" name="Fra">
-                    <option value="" disabled selected>Hvor skal du reise fra</option>
+                <h4>Reise fra:</h4>
+                <select data-val="true" class="form-control" id="st" name="Fra" style="font-family:'FontAwesome',sans-serif;height: 60px; width: 100%; border-bottom:3px solid black;">
+                    <option value="fas fa-search" disabled selected>&nbsp;&nbsp;&#xf002;&nbsp;&nbsp;Hvor vil du reise fra</option>
                     @foreach (var k in Model.fraListe)
                     {
-                        <option value="@k.StasjonId">@k.StasjonNavn</option>
+                        <option value="@k.StasjonId">&#xf238;&nbsp;&nbsp;&nbsp;&nbsp; @k.StasjonNavn</option>
                     }
                 </select>
-
-
-
             </th>
             <th>
-                <select data-val="true" class="form-control" id="StasjonTil" name="Til">
+                <h4>Reise til:</h4>
+                <select data-val="true" class="form-control" id="StasjonTil" name="Til" style="font-family:'FontAwesome',sans-serif;height: 60px; width: 100%; border-bottom:3px solid black;">
                 </select>
 
             </th>
-
-
         </tr>
+
         <tr>
             <th></th>
             <th id="feilMelding"></th>
         </tr>
+
         <tr>
-            <td>
+            <td style="margin-top:50px;margin-bottom:50px;">
                 <!------------------------------------------------------------------------------------->
                 <input type="radio" id="rbtnEnVei"
-                       name="turChecked" value="enVei" class="radioBtn">
-                <label for="rbtnEnVei">En Vei</label>
+                       name="turChecked" value="enVei" class="radioBtn btn-group-lg" style="margin-right:6px;">
+                <label style="padding-right:20px; font-size:larger; font-weight:100;" for="rbtnEnVei">En vei</label>
                 <input type="radio" id="rbtnTurRetur"
-                       name="turChecked" value="turRetur" class="radioBtn">
-                <label for="rbtnTurRetur">Tur/Retur </label>
+                       name="turChecked" value="turRetur" class="radioBtn" style="margin-right:6px;">
+                <label style="padding-right:20px; font-size:larger; font-weight:100;" for="rbtnTurRetur">Tur/Retur </label>
             </td>
             <td>
             </td>
         </tr>
+
         <tr>
             <td>
-                <h1> Velge tid: </h1><input id="appt-time" required type="time" name="tid " step="2" class="form-control">
+                <h4> Utreise: </h4><input required type="date" name="dato" id="dagensDato" class="form-control" style="height: 60px; width: 100%; border-bottom:3px solid black;">
+                <h4 style="margin-top:20px;"> Tid: </h4><input class="form-control" id="appt-time" required type="time" name="tid " step="2" style="height: 60px; width: 100%; border-bottom:3px solid black;">
+
             </td>
-            <td>
-                <h1> Velge Dato: </h1><input required type="date" name="dato" id="dagensDato" class="form-control">
-            </td>
-        </tr>
-        <tr id="show-turRetur" style="display:none;">
-            <!------------------------------------------------------------------------------------->
-            <td>
-                <h2> Velge tid tilbake: </h2> <input type="time" id="tidTilbake" step="2" name="tidTilbake" class="form-control">
-            </td>
-            <td>
-                <h2> Velge Dato tilbake: </h2> <input type="date" id="datoTilbake" name="datoTilbake" class="form-control">
+
+            <td id="show-turRetur" style="display:none;">
+                <!------------------------------------------------------------------------------------->
+                <h4>Retur: </h4> <input type="date" id="datoTilbake" name="datoTilbake" class="form-control" style="height: 60px; width: 100%; border-bottom:3px solid black;">
+                <h4 style="margin-top:20px;">Tid: </h4> <input type="time" id="tidTilbake" step="2" name="tidTilbake" class="form-control" style="height: 60px; width: 100%; border-bottom:3px solid black;">
+
             </td>
         </tr>
-        <tr class="tr">
+
+        <tr>
             <td>
-                <h3> Type: </h3>
+                <h4 style="margin-top:25px;"> Type: </h4>
             </td>
             <th></th>
+        </tr>
+
+
+        <tr>
+
+            <th>
+                <label class="checkboxcontainer">
+                    <input type="checkbox" name="StudentType" value="Student" id="Student">Student
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+            <th>
+                <label class="thlb">
+                    <input disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="antall1" class="form-control" required style="height: 35px; width: 28%; border-bottom:3px solid black;margin-bottom:20px;">
+                    <span style="font-family:'FontAwesome'">&#xf06a;</span>
+                </label>
+            </th>
+
+        </tr>
+        <tr>
+            <th>
+                <label class="checkboxcontainer">
+                    <input type="checkbox" name="BarnType" value="Voksen" id="Voksen">Voksen
+                    <span class="checkmark"></span>
+
+                </label>
+            </th>
+            <th>
+                <label class="thlb">
+                    <input disabled id="VoksenAntall" type="number" min="1" name="antall2" class="form-control" required style="height: 35px; width: 28%; border-bottom:3px solid black;margin-bottom:20px;">
+                    <span style="font-family:'FontAwesome'">&#xf06a;</span>
+                </label>
+            </th>
 
 
         </tr>
-
-        <tr class="tr">
-            <th> <input type="checkbox" name="StudentType" value="Student" id="Student">Student</th>
-            <th> <input disabled id="StudentAntall" type="number" min="1" pattern="\d* " name="antall1" class="form-control" required></th>
-        </tr>
-        <tr class="tr">
-            <th> <input type="checkbox" name="BarnType" value="Voksen" id="Voksen">Voksen</th>
-            <th> <input disabled id="VoksenAntall" type="number" min="1" name="antall2" class="form-control" required></th>
-
-        </tr>
-        <tr class="tr">
-            <th> <input type="checkbox" name="VoksenType" value="Barn" id="Barn">Barn</th>
-            <th> <input disabled id="BarnAntall" type="number" min="1" name="antall3" class="form-control" required></th>
+        <tr>
+            <th>
+                <label class="checkboxcontainer">
+                    <input type="checkbox" name="VoksenType" value="Barn" id="Barn">Barn
+                    <span class="checkmark"></span>
+                </label>
+            </th>
+            <th>
+                <label class="thlb">
+                    <input disabled id="BarnAntall" type="number" min="1" name="antall3" class="form-control" required style="height: 35px; width: 28%; border-bottom:3px solid black;margin-bottom:20px;">
+                    <span style="font-family:'FontAwesome'">&#xf06a;</span>
+                </label>
+            </th>
 
         </tr>
     </table>
-    <button type="submit" class="btn btn-group-justified" style="height:50px; font-size:large;" id="btnSubmit">Se avganger</button>
+    <button type="submit" class="btn btn-group-justified" style="height:50px; width:50%; margin-left:20%; margin-top:3%; color:white; background-color:#808080; display:block; font-size:large;" id="btnSubmit">Se avganger</button>
 </form>

@@ -21,17 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <div style="float:left;">
-                    <a href='@Url.Action("Index", "Home")'>
-                        <img src='@Url.Content("~/Content/vy_logo.png")' style="width:120px; " />
+                    <a href='@Url.Action("Index", "Default")'>
+                        <img src='@Url.Content("~/Content/vy_logo.png")' style="width:150px; " />
                     </a>
                 </div>
-                <div style="float:left; margin-top:15px;">
+                <div style="float:left; margin-top:15px;margin-left:100px;">
                     <ul class="nav navbar-nav" style="font-size:large;">
 
 
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Default")</li>
+                        <li>@Html.ActionLink("About", "Index", "Default")</li>
+                        <li>@Html.ActionLink("Contact", "Index", "Default")</li>
                     </ul>
                 </div>
             </div>

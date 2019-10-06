@@ -16,12 +16,8 @@ namespace GruppeInnlevering1.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
         public DbSet<Stasjon> Stasjoner { get; set; }
-
         public DbSet<Billet> Billeter { get; set; }
-
         public DbSet<Avgang> Avganger { get; set; }
-
-
         public DbSet<Tog> TogTabell { get; set; }
 
 

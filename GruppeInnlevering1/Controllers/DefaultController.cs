@@ -118,16 +118,6 @@ namespace GruppeInnlevering1.Controllers
 
                 h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
 
-                //     }
-                //   else 
-                //   {
-                //       if (s.datoTilbake.GetHashCode() == 0)
-                //        {
-
-                //          h = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId %3==0 || (b.Stasjon.StasjonId == result) && b.Tog.TogId %3==0
-                //  );
-                //      }
-                //    }
                 if (s.datoTilbake.GetHashCode() != 0)
                 {
                     ny.datoTilbake = s.datoTilbake;
