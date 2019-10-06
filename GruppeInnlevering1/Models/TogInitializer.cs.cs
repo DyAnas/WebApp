@@ -14,8 +14,8 @@ namespace GruppeInnlevering1.Models
             var togListe = new List<Tog>
             {
             new Tog{TogNavn = "Oslo_Skien"},
-             new Tog{TogNavn = "Oslo_Skien2"},
-
+            new Tog{TogNavn = "Oslo_Skien2"},
+            new Tog{TogNavn = "Oslo_Skien2Retur"},
             new Tog{TogNavn = "TrondHeim_Bødo"},
             new Tog{TogNavn = "TrondHeim_Bødo2"},
             new Tog{TogNavn = "Oslo_Trondheim"},
@@ -99,11 +99,24 @@ namespace GruppeInnlevering1.Models
                 new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog12[7]},
             };
 
+            var avganger1Retur = new List<Avgang>
+            {
+                new Avgang{Tid= new TimeSpan(17,00,00),Stasjon=stasjonerTilTog12[7]},
+                new Avgang{Tid= new TimeSpan(18,00,00),Stasjon=stasjonerTilTog12[6]},
+                new Avgang{Tid= new TimeSpan(19,00,00),Stasjon=stasjonerTilTog12[5]},
+                new Avgang{Tid= new TimeSpan(20,00,00),Stasjon=stasjonerTilTog12[4]},
+                new Avgang{Tid= new TimeSpan(21,00,00),Stasjon=stasjonerTilTog12[3]},
+                new Avgang{Tid= new TimeSpan(22,00,00),Stasjon=stasjonerTilTog12[2]},
+                new Avgang{Tid= new TimeSpan(23,00,00),Stasjon=stasjonerTilTog12[1]},
+                new Avgang{Tid= new TimeSpan(00,00,00),Stasjon=stasjonerTilTog12[0]},
+            };
+
             togListe[0].Avganger = avganger1;
             togListe[1].Avganger = avganger12;
+            togListe[2].Avganger = avganger1Retur;
 
 
-
+            /*
 
             var avganger2 = new List<Avgang>
             {
@@ -159,7 +172,7 @@ namespace GruppeInnlevering1.Models
             togListe[4].Avganger = avganger31;
             togListe[5].Avganger = avganger32;
 
-
+    */
             context.SaveChanges();
             base.Seed(context);
 

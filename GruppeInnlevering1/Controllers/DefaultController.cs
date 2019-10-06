@@ -114,9 +114,10 @@ namespace GruppeInnlevering1.Controllers
                  h = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
 
             }
-           if (h == null)
+           else 
             {
-                return null;
+
+                h = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId == 3 || ( b.Stasjon.StasjonId == result )&& b.Tog.TogId==3);
             }
             
             List<Avgang> seno = new List<Avgang>();
@@ -161,7 +162,7 @@ namespace GruppeInnlevering1.Controllers
             return View(ny);
         }
         public ActionResult Betaling() {
-            var avgango = new Avgang();
+           
 
             Samle ny = (Samle)Session["alle"];
             var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
@@ -179,7 +180,7 @@ namespace GruppeInnlevering1.Controllers
                IEnumerable<Billet> dbBillet = billetStudent;
 
        */
-            Avgang s = new Avgang();
+          
 
      
             for (var i = 0; i < ny.antall1; i++) {
