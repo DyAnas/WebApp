@@ -1,0 +1,88 @@
+﻿@model List< BilletV>
+
+@{
+    ViewBag.Title = "Billter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Billter</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Type
+        </th>
+        <th>
+           DatoTur
+        </th>
+        <th>
+           DatoreTur
+        </th>
+        <th>
+           Pris
+        </th>
+        <th>
+           AvgangFra
+        </th>
+        <th>
+           AvgangTil
+        </th>
+        <th>
+           TelefonNummer
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+           KortNummer
+        </th>
+        <th>
+          CvC
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatoTur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatoRetur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pris)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvgangFra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvgangTil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefonnummer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kortnummer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cvc)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BilletId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BilletId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BilletId })
+        </td>
+    </tr>
+}
+
+</table>

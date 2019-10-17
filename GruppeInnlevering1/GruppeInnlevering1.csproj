@@ -135,6 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Avgang.cs" />
     <Compile Include="Models\Billet.cs" />
     <Compile Include="Models\Samle.cs" />
@@ -185,6 +186,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Default\Bekrefte.cshtml" />
     <Content Include="Views\Default\Betaling.cshtml" />
+    <Content Include="Views\Default\Registrer.cshtml" />
+    <Content Include="Views\Default\Login.cshtml" />
+    <Content Include="Views\Default\Strekning.cshtml" />
+    <Content Include="Views\Default\Stasjoner.cshtml" />
+    <Content Include="Views\Default\Billter.cshtml" />
+    <Content Include="Views\Default\TogListe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

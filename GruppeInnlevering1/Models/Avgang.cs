@@ -11,3 +11,17 @@ namespace GruppeInnlevering1.Models
 
     }
 }
+
+
+
+public class avgangs
+{
+    public int AvgangId { get; set; }
+    public TimeSpan Tid { get; set; }
+
+    public int TogId { get; set; }
+
+    public int StasjonId { get; set; }
+    public int Tog { get; internal set; }
+    public int Stasjon { get; internal set; }
+}

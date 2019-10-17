@@ -11,3 +11,12 @@ namespace GruppeInnlevering1.Models
 
     }
 }
+
+public class StasjonV
+{
+
+    public int StasjonId { get; set; }
+    public string StasjonNavn { get; set; }
+
+
+}

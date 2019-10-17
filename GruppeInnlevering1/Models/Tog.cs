@@ -9,3 +9,13 @@ namespace GruppeInnlevering1.Models
         public virtual List<Avgang> Avganger { get; set; }
     }
 }
+
+public class TogV
+{
+
+    public int TogId { get; set; }
+    public string TogNavn { get; set; }
+
+}
+
+

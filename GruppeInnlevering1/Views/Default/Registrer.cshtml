@@ -1,0 +1,137 @@
+﻿
+@model GruppeInnlevering1.Models.Admin
+@{
+    ViewBag.Title = "LoggInn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+
+<link href="~/Scripts/jquery-3.3.1.js" />
+<link href="~/Content/Site.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<style>
+    #fornavnInput, #etternavnInput, #passord, #Gjentapassord, #emailInput {
+        height: 50px;
+        width: 100%;
+        border-bottom: 3px solid black;
+    }
+
+    span.field-icon {
+        position: absolute;
+        display: inline-block;
+        cursor: pointer;
+        right: 0.5rem;
+        top: 1.5rem;
+        color: green;
+        z-index: 4;
+    }
+</style>
+
+<script>
+
+
+    $(function () {
+         $(document).on('click', 'toggle-password', function () {
+             this.toggleClass("fa-eye fa-eye-slash");
+             var input = $("#inputPassord");
+             input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
+         });
+         
+
+
+</script>
+<div class="body-content" style="margin-bottom:100px;">
+    <h1 style="font-weight:700;">Administrer innhold</h1>
+
+
+
+    <form action="/Default/Registrer" method="post" id="registrering" name="registrering" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px; margin-top:40px; margin-bottom:35px;">
+
+
+        <h2 style="margin-bottom:40px;font-weight:700;">Registrer:</h2>
+
+        <div class="form-group">
+            <label for="fornavnInput">Fornavn:</label>
+            <input name="Fornavn" type="text" class="form-control" id="fornavnInput" aria-describedby="*" placeholder="Fornavn" required title="du må fylle fornavn"/>
+        </div>
+        <div class="form-group">
+            <label for="etternavnInput">Etternavn:</label>
+            <input name="Etternavn" type="text" class="form-control" id="etternavnInput" aria-describedby="*" placeholder="Etternavn" required />
+        </div>
+        <div class="form-group">
+            <label for="emailInput">Email:</label>
+            <input name="Email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Skriv inn din epostadresse" required>
+            <small id="emailInfo" class="form-text text-muted"></small>
+        </div>
+        <div class="form-group">
+            <label for="passordInput">Passord:</label>
+            <input name="passord" type="password" class="form-control" id="passord" aria-describedby="passordHelp" placeholder="Passord" required />
+            <small id="passordInfo" class="form-text text-muted">Kan inneholde tall og bokstaver, minimum 8 tegn.</small>
+        </div>
+        <div class="form-group">
+            <label for="passordNyInput">Gjenta passord:</label>
+            <input name="Gjentapassord " type="password" class="form-control" id="Gjentapassord" aria-describedby="passordNyHelp" placeholder="Gjenta passord" required />
+            <small id="passordInfo" class="form-text text-muted">Gjenta passordet ditt.</small>
+        </div>
+
+
+
+        <input value="Registrer ny bruker" type="submit" class="btn btn-default" onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"'
+               style="margin-top:15px;color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">
+    </form>
+
+    <form action="/Default/Login" method="post" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px;">
+        <h2 style="margin-bottom:20px; font-weight:700;">Allerede bruker? <small style="margin-top:40px;font-weight:500; font-size:x-large"><br />Logg inn:</small></h2>
+
+        <div class="form-group input-group">
+
+            <span class="input-group-addon" style="height:40px; background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+                <i class="glyphicon glyphicon-envelope" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+                </i>
+            </span>
+            <input name="Email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Skriv inn din epostadresse">
+            <small id="emailInfo" class="form-text text-muted"></small>
+        </div>
+
+        <div class="form-group input-group" style="margin-bottom:30px;">
+            <span class="input-group-addon" style="background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+                <i class="glyphicon glyphicon-lock" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+                </i>
+            </span>
+
+            <input name="passord" type="password" class="form-control validate" id="passordInput" placeholder="Skriv inn passord">
+            <span toggle="#passordInput" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+        </div>
+        <div style="margin-bottom:40px;">
+            <label class="checkboxcontainer" style="margin-left:6px;">
+                <input type="checkbox" name="rememberMe" value="remember" id="rememberCheck" style="height:15px;width:15px;">Husk meg
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="buttoncontainer">
+            <button onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' type="submit" class="btn btn-default" style="color:white;background-color:darkseagreen; font-weight:200;font-size:large;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">Logg inn</button>
+            <button type="submit" class="btn btn-danger" style="font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:rgba(0,0,0,0.24);">Avbryt</button>
+        </div>
+
+
+
+    </form>        <!---endre-->
+</div>
+<div class="form-horizontal">
+
+    <!--
+     <div>
+    /// if (ViewBag.Innlogget)
+         {
+             <p class="alert alert-success">Logget inn</p>
+         }
+         else
+         {
+             <p class="alert alert-danger">Ikke logget inn</p>
+         }
+     </div>-->
+</div>
+

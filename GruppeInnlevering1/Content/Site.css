@@ -65,6 +65,7 @@
     background-color: #eee;
 }
 
+
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 
@@ -96,6 +97,7 @@
     font-family: 'fontawesome';
 }
 
+/*Login-side*/
 
 footer {
     margin-top: 6%;
@@ -119,3 +121,19 @@ textarea {
 .thlb span, .thlb input{
     display:inline-block;
 }
+:root {
+    --info-color: #0099CC;
+}
+
+.btn-toggle-pass {
+    border: none;
+    position: absolute;
+    top: 11px;
+    background: transparent;
+    right: 0;
+}
+
+    .btn-toggle-pass.active {
+        color: var(--info-color);
+    }
+

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<StasjonV>
+
+@{
+    ViewBag.Title = "Stasjoner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stasjoner</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StasjonId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StasjonNavn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StasjonId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StasjonNavn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

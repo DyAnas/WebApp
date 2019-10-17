@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -12,7 +14,7 @@ namespace GruppeInnlevering1.Controllers
 {
     public class DefaultController : Controller
     {
-        TogContext db = new TogContext(); 
+        TogContext db = new TogContext();
 
 
         protected override void Dispose(bool disposing)
@@ -23,18 +25,18 @@ namespace GruppeInnlevering1.Controllers
             }
             base.Dispose(disposing);
         }
-   
 
 
-        public ActionResult Index()   
+
+        public ActionResult Index()
         {
-            Samle ny = new Samle();   
+            Samle ny = new Samle();
 
-            IEnumerable<Stasjon> alleStasjoner=  hentStasjoner();
+            IEnumerable<Stasjon> alleStasjoner = hentStasjoner();
 
-            ny.fraListe= alleStasjoner;
+            ny.fraListe = alleStasjoner;
 
-            Session["alle"]= ny;     //lagre objekt i Session til å kunne bruke det i andre sider
+            Session["alle"] = ny;     //lagre objekt i Session til å kunne bruke det i andre sider
 
             return View(ny);
         }
@@ -73,7 +75,7 @@ namespace GruppeInnlevering1.Controllers
         [HttpPost]
         public ActionResult Result(Samle s)
         {
-            
+
             Samle ny = (Samle)Session["alle"];
 
             ny.antall1 = s.antall1;    //antall  StudentBilletter
@@ -85,31 +87,31 @@ namespace GruppeInnlevering1.Controllers
             IEnumerable<Avgang> turListe = null;
             try
             {
-                 result = int.Parse(s.Fra);  //konvertere StajonId til Int 
-                 result1 = int.Parse(s.Til); //DestnasjonId
+                result = int.Parse(s.Fra);  //konvertere StajonId til Int 
+                result1 = int.Parse(s.Til); //DestnasjonId
             }
 
             //Hvis Destinasjon ikke er valgt blir man sendt til Index siden
-            catch(Exception feil)
+            catch (Exception feil)
             {
                 Response.Write("<script>alert('" + Server.HtmlEncode(feil.ToString()) + "')</script>");
                 return RedirectToAction("Index");
 
-                
+
             }
             IEnumerable<Avgang> ReturListe = null;
 
             //henter Tur og Retur Reiser avhenger av id til Stasjoner som ble valgt 
             if (result < result1)
             {
-                                           
+
                 turListe = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1);
 
                 if (s.datoTilbake.GetHashCode() != 0)
                 {
                     ny.datoTilbake = s.datoTilbake;
 
-                    ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 
+                    ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0
                     || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0);
 
 
@@ -155,7 +157,7 @@ namespace GruppeInnlevering1.Controllers
 
 
 
-        public ActionResult Bekrefte(string FraStasjon, string TilStasjon, 
+        public ActionResult Bekrefte(string FraStasjon, string TilStasjon,
                                        TimeSpan Avgang, TimeSpan Ankomst,
                                        int StasjonfraId, int StasjonTilId)
 
@@ -178,7 +180,12 @@ namespace GruppeInnlevering1.Controllers
             return View(ny);
         }
 
+        public ActionResult Billet()
+        {
 
+
+            return View();
+        }
 
 
         [HttpPost]
@@ -189,7 +196,7 @@ namespace GruppeInnlevering1.Controllers
 
 
             //For å sette datoen til null i databasen har vi brukt koden under,
-           
+
             //... brukte 9999 9 99 som en måte å nullstille Datoen , i vår databasen når det står 9999 9 99 det betyr at det ikke en retur reise
             //vi kunne bruke nullable til datoen, men vi synes at det  ikke  er logiskk å bruke det med datoen 
 
@@ -197,7 +204,7 @@ namespace GruppeInnlevering1.Controllers
             if (ny.datoTilbake.GetHashCode() == 0)
             {
 
-                ny.datoTilbake = new DateTime(9999, 9, 9);
+                ny.datoTilbake = null;
             }
 
 
@@ -249,7 +256,7 @@ namespace GruppeInnlevering1.Controllers
                     Type = "Voksen",
                     Pris = lengde * 20,
                     DatoTur = ny.dato,
-                    DatoRetur = ny.datoTilbake,
+                    DatoRetur = (DateTime)ny.datoTilbake,
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
@@ -261,10 +268,10 @@ namespace GruppeInnlevering1.Controllers
                 {
                     db.Billeter.Add(NyBillett);
                 }
-                catch(Exception feil)
+                catch (Exception feil)
                 {
                     throw new Exception("kan ikke sette ny Billett i databasen");
-                   
+
                 }
 
             }
@@ -283,7 +290,7 @@ namespace GruppeInnlevering1.Controllers
                     Type = "Barn",
                     Pris = lengde * 5,
                     DatoTur = ny.dato,
-                    DatoRetur = ny.datoTilbake,
+                    DatoRetur = (DateTime)ny.datoTilbake,
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
@@ -295,10 +302,10 @@ namespace GruppeInnlevering1.Controllers
                     db.Billeter.Add(NyBillet);
                 }
 
-                catch(Exception feil)
+                catch (Exception feil)
                 {
                     throw new Exception("kan ikke sette ny Billett i databasen");
-                    
+
                 }
 
             }
@@ -369,6 +376,170 @@ namespace GruppeInnlevering1.Controllers
         }
 
 
+        // endre 
+        private static string lagsalt()
+        {
+            byte[] random = new byte[12];
+            string randomStr;
+
+            var str = new RNGCryptoServiceProvider();
+            str.GetBytes(random);
+            randomStr = Convert.ToBase64String(random);
+            return randomStr;
+        }
+
+
+        // endre 
+        private static byte[] hash(String innPass)
+        {
+            byte[] innData, utData;
+            var algo = SHA256.Create();
+            innData = Encoding.UTF8.GetBytes(innPass);
+            utData = algo.ComputeHash(innData);
+            return utData;
+        }
+
+        // endre
+
+        public ActionResult Login()
+        {
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+                return View("Registrer");
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                return View();
+
+            }
+            return View("Registrer");
+
+
+        }
+        private static bool Admin_i_db(Admin innAdmin)
+        {
+            using (var DB = new TogContext())
+            {
+                DbAdmin funnetAdmin = DB.Admins.FirstOrDefault(b => b.Email == innAdmin.Email);
+                if (funnetAdmin != null)
+                {
+                    byte[] passordForTest = hash(innAdmin.passord + funnetAdmin.Salt);
+                    bool riktigBruker = funnetAdmin.passord.SequenceEqual(passordForTest);  // merk denne testen!
+                    return riktigBruker;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        [HttpPost]
+        public ActionResult Login(Admin innAdmin)
+        {
+            if (Admin_i_db(innAdmin))
+            {
+                Session["loggetInn"] = true;
+
+                return View();
+            }
+            else
+            {
+                Session["loggetInn"] = false;
+
+                return View("Registrer");
+
+            }
+        }
+
+        public ActionResult Registrer()
+        {
+            return View();
+        }
+        [HttpPost]
+        // [ValidateAntiForgeryToken]
+        public ActionResult Registrer(Admin innAdmin)
+        {
+            /*  if (!ModelState.IsValid)
+              {
+                  return View();
+              }*/
+            try
+            {
+                var nyAdmin = new DbAdmin();
+                string salt = lagsalt();
+                var passSalt = innAdmin.passord + salt;
+                byte[] passDb = hash(passSalt);
+                nyAdmin.Fornavn = innAdmin.Fornavn;
+                nyAdmin.EtterFornavn = innAdmin.Etternavn;
+                nyAdmin.Email = innAdmin.Email;
+                nyAdmin.passord = passDb;
+                nyAdmin.Salt = salt;
+                db.Admins.Add(nyAdmin);
+                db.SaveChanges();
+                return RedirectToAction("Registrer");
+
+            }
+            catch (Exception feil)
+            {
+
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Strekning()
+        {
+
+
+       
+            List<avgangs> avganger = db.allavganger();
+
+
+                return View(avganger);
+            }
+
+
+        [HttpPost]
+        public ActionResult Stasjoner()
+        {
+
+
+            List<StasjonV> alleStasjonerliste = db.alleStasjoner();
+            return View(alleStasjonerliste);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Billter()
+        {
+            List<BilletV> alleBillter = db.alleBillter();
+            return View(alleBillter);
+
+
+
+        }
+
+
+        [HttpPost]
+
+        public ActionResult TogListe()
+        {
+
+            List<TogV> togListe = db.alleTog();
+            return View(togListe);
+
+        }
+
+
+
+
+
+
+
+        }
+
     }
 
 
@@ -377,7 +548,7 @@ namespace GruppeInnlevering1.Controllers
 
 
 
-}
+
 
 
 

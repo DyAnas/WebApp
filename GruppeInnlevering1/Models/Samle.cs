@@ -17,7 +17,7 @@ namespace GruppeInnlevering1.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
         public DateTime dato { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
-        public DateTime datoTilbake { get; set; }
+        public DateTime? datoTilbake { get; set; }
         public int antall1 { get; set; }
         public int antall2 { get; set; }
         public int antall3 { get; set; }
