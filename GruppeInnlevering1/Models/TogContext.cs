@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace GruppeInnlevering1.Models
@@ -25,25 +26,6 @@ namespace GruppeInnlevering1.Models
         public DbSet<DbAdmin> Admins{ get; set; }
 
 
-        public List<StasjonV> alleStasjoner()
-        {
-
-            using (var db = new TogContext())
-            {
-                List<StasjonV> alleStasjoner = db.Stasjoner.Select(k => new StasjonV
-                {
-                  StasjonId=k.StasjonId,
-                  StasjonNavn =k.StasjonNavn
-
-
-                }).ToList();
-                return alleStasjoner;
-            }
-
-
-
-
-        }
 
 
 
@@ -101,6 +83,7 @@ namespace GruppeInnlevering1.Models
 
 
 
+        //Stasjoner metoder
 
         public List<avgangs> allavganger()
         {
@@ -109,15 +92,14 @@ namespace GruppeInnlevering1.Models
                 List<avgangs> alleavganger = db.Avganger.Select(k => new avgangs
                 {
                     AvgangId = k.AvgangId,
-                    Stasjon = k.Stasjon.StasjonId,
+                    StasjonId = k.Stasjon.StasjonId,
                     Tid = k.Tid,
-                    Tog = k.Tog.TogId
+                    TogId = k.Tog.TogId
 
                 }).ToList();
                 return alleavganger;
             }
         }
-
         public bool lagreAvganger(Avgang innAvgang)
         {
             using (var db = new TogContext())
@@ -129,12 +111,6 @@ namespace GruppeInnlevering1.Models
                     nyavgang.Tid = innAvgang.Tid;
                     nyavgang.Tog = nyavgang.Tog;
 
-                    /*  var skjekkTog = db.TogTabell.Find(innAvgang.Tog);
-                      if (skjekkTog == null)
-                      {
-                          var tog = new Tog();
-                          tog.TogNavn=innAvgang.
-                      }*/
                     db.SaveChanges();
                     return true;
                 }
@@ -147,33 +123,32 @@ namespace GruppeInnlevering1.Models
 
 
         }
-
-        public Avgang hentAvgang(int id)
+        public avgangs hentAvgang(int AvgangId)
         {
             using (var db = new TogContext())
             {
-                Avgang enAvgang = db.Avganger.Find(id);
-                var hentAvgang = new Avgang()
+                Avgang enAvgang = db.Avganger.Find(AvgangId);
+                var hentAvgang = new avgangs()
                 {
                     AvgangId = enAvgang.AvgangId,
-                    Stasjon = enAvgang.Stasjon,
+                    StasjonId = enAvgang.Stasjon.StasjonId,
                     Tid = enAvgang.Tid,
-                    Tog = enAvgang.Tog
+                   TogId = enAvgang.Tog.TogId
 
                 };
                 return hentAvgang;
             }
         }
-        public bool endreAvgang(Avgang innAvgang)
+        public bool endreAvgang(avgangs innAvgang)
         {
             using (var db = new TogContext())
             {
                 try
                 {
                     var endretobjekt = db.Avganger.Find(innAvgang.AvgangId);
-                    endretobjekt.Stasjon = innAvgang.Stasjon;
-                    endretobjekt.Tid = endretobjekt.Tid;
-                    endretobjekt.Tog = innAvgang.Tog;
+               
+                    endretobjekt.Tid = innAvgang.Tid;
+                   
                     db.SaveChanges();
                 }
                 catch (Exception feil)
@@ -202,7 +177,103 @@ namespace GruppeInnlevering1.Models
         }
 
 
+        //Stasjoner metoder
 
+        public List<StasjonV> alleStasjoner()
+        {
+
+            using (var db = new TogContext())
+            {
+                List<StasjonV> alleStasjoner = db.Stasjoner.Select(k => new StasjonV
+                {
+                    StasjonId = k.StasjonId,
+                    StasjonNavn = k.StasjonNavn
+
+
+                }).ToList();
+                return alleStasjoner;
+            }
+
+
+
+
+        }
+        public bool lagreStasjon (Stasjon innStasjon)
+        {
+            using (var db = new TogContext())
+            {
+                try
+                {
+                    var nyavgang = new Stasjon();
+                    nyavgang.StasjonId = innStasjon.StasjonId;
+                    nyavgang.StasjonNavn = innStasjon.StasjonNavn;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception feil)
+                {
+                    return false;
+                }
+
+            }
+
+        }
+        public StasjonV hentStasjon (int StasjonId)
+        {
+            using (var db = new TogContext())
+            {
+                Stasjon enStasjon= db.Stasjoner.Find(StasjonId);
+                var hentstasjon = new StasjonV()
+                {
+                    StasjonId= enStasjon.StasjonId,
+                    StasjonNavn=enStasjon.StasjonNavn
+
+                };
+                return hentstasjon;
+            }
+
+        }
+        public bool endreStasjon(StasjonV innStasjon)
+        {
+            using (var db = new TogContext())
+            {
+                try
+                {
+                    var endretobjekt = db.Stasjoner.Find(innStasjon.StasjonId);
+
+                    endretobjekt.StasjonNavn= innStasjon.StasjonNavn;
+
+                    db.SaveChanges();
+                }
+                catch (Exception feil)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+        }
+        public bool SlettStasjon (int id)
+        {
+            using (var db = new TogContext())
+            {
+                try
+                {
+               
+                    var slettObjekt = db.Stasjoner.Find(id);
+
+                    db.Stasjoner.Remove(slettObjekt);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception feil)
+                {
+                    return false;
+                }
+            }
+        }
+
+        ///
     }
 }
 

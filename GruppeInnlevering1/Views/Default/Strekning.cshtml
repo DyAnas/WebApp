@@ -12,35 +12,35 @@
 </p>
 <table class="table">
     <tr>
-      
+
         <th>AvgangId</th>
         <th>StasjonId</th>
         <th>Tid</th>
         <th>TogNummer</th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
 <tr>
-    
-    <td>
-        @Html.DisplayFor(modelItem => item.AvgangId)
-    </td>
-    
-    <td>
-        @Html.DisplayFor(modelItem => item.Stasjon)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Tid)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Tog)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.AvgangId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.AvgangId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.AvgangId })
-    </td>
-</tr>
-}
 
+    <td>
+        @item.AvgangId
+    </td>
+
+    <td>
+        @item.StasjonId
+    </td>
+    <td>
+        @item.Tid
+    </td>
+    <td>
+        @item.TogId
+    </td>
+    <td>
+
+    <td><a href="/Default/EndreAvgang?id=@item.AvgangId" class="btn btn-primary">Endre</a></td>
+    <td><a href="/Default/SlettAvgang?id=@item.AvgangId" class="btn btn-primary">Slett</a></td>
+    <!--</td>-->
+</tr>
+    } 
 </table>

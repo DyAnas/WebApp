@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StasjonV>
+﻿@model List<StasjonV>
 
 @{
     ViewBag.Title = "Stasjoner";
@@ -12,29 +12,26 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StasjonId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StasjonNavn)
-        </th>
-        <th></th>
+
+        <th>Stasjon Id</th>
+        <th>Stasjon navn</th>
+   
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StasjonId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StasjonNavn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+               @item.StasjonId
+            </td>
+            <td>
+             @item.StasjonNavn
+            </td>
+
+            <td><a href="/Default/EndreStasjon?id=@item.StasjonId" class="btn btn-primary">Endre</a></td>
+            <td><a href="/Default/SlettStasjon?id=@item.StasjonId" class="btn btn-danger">Slett</a></td>
+
+        </tr>
+    }
 
 </table>

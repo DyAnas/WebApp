@@ -192,6 +192,8 @@
     <Content Include="Views\Default\Stasjoner.cshtml" />
     <Content Include="Views\Default\Billter.cshtml" />
     <Content Include="Views\Default\TogListe.cshtml" />
+    <Content Include="Views\Default\EndreAvgang.cshtml" />
+    <Content Include="Views\Default\EndreStasjon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -488,30 +488,6 @@ namespace GruppeInnlevering1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Strekning()
-        {
-
-
-       
-            List<avgangs> avganger = db.allavganger();
-
-
-                return View(avganger);
-            }
-
-
-        [HttpPost]
-        public ActionResult Stasjoner()
-        {
-
-
-            List<StasjonV> alleStasjonerliste = db.alleStasjoner();
-            return View(alleStasjonerliste);
-        }
-
-
-
-        [HttpPost]
         public ActionResult Billter()
         {
             List<BilletV> alleBillter = db.alleBillter();
@@ -531,16 +507,93 @@ namespace GruppeInnlevering1.Controllers
             return View(togListe);
 
         }
+        public ActionResult Strekning()
+        {
 
 
 
+            List<avgangs> avganger = db.allavganger();
 
 
-
-
+            return View(avganger);
         }
 
+        public ActionResult EndreAvgang(int id)
+        {
+           
+            avgangs s= db.hentAvgang(id);
+            return View(s);
+        }
+        [HttpPost]
+        public ActionResult EndreAvgang(avgangs innAvgang)
+        { 
+
+            bool OK = db.endreAvgang(innAvgang);
+            if (OK)
+            {
+                return RedirectToAction("Strekning");
+            }
+            return View();
+        }
+
+  
+ 
+
+       
+        public ActionResult SlettAvgang(int id)
+        {
+            var db = new TogContext();
+            bool OK = db.SlettAvgan(id);
+            if (OK)
+            {
+                return RedirectToAction("Strekning");
+            }
+            return View();
+        }
+
+ 
+
+        // stasjon controller
+        public ActionResult Stasjoner()
+        {
+
+
+            List<StasjonV> alleStasjonerliste = db.alleStasjoner();
+            return View(alleStasjonerliste);
+        }
+        public ActionResult EndreStasjon(int id)
+        {
+
+            StasjonV s = db.hentStasjon(id);
+            return View(s);
+        }
+        [HttpPost]
+        public ActionResult EndreStasjon(StasjonV innStasjon)
+        {
+
+            bool OK = db.endreStasjon(innStasjon);
+            if (OK)
+            {
+                return RedirectToAction("Stasjoner");
+            }
+            return View();
+        }
+
+        public ActionResult SlettStasjon(int id)
+        {
+           
+            bool OK = db.SlettStasjon(id);
+            if (OK)
+            {
+                return RedirectToAction("Stasjoner");
+            }
+            return View("Login");
+        }
+
+
     }
+
+}
 
 
 

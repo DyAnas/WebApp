@@ -22,6 +22,5 @@ public class avgangs
     public int TogId { get; set; }
 
     public int StasjonId { get; set; }
-    public int Tog { get; internal set; }
-    public int Stasjon { get; internal set; }
+   
 }
