@@ -46,43 +46,43 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatoTur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatoRetur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pris)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AvgangFra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AvgangTil)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefonnummer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kortnummer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cvc)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BilletId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BilletId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BilletId })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Type)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatoTur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatoRetur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Pris)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AvgangFra)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AvgangTil)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Telefonnummer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kortnummer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cvc)
+    </td>
+    <td>
+
+    <td><a href="/Default/Endrebillett?id=@item.BilletId" class="btn btn-primary">Endre</a></td>
+    <td><a href="/Default/SlettBillett?id=@item.BilletId" class="btn btn-danger">Slett</a></td>
+    </td>
+</tr>
 }
 
 </table>

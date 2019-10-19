@@ -6,9 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Windows;
-using System.Windows.Forms;
 
 namespace GruppeInnlevering1.Controllers
 {
@@ -180,14 +177,6 @@ namespace GruppeInnlevering1.Controllers
             return View(ny);
         }
 
-        public ActionResult Billet()
-        {
-
-
-            return View();
-        }
-
-
         [HttpPost]
         public ActionResult Betaling(string Telefonnummer, string Email, string kortnummer, int Cvc)
         {
@@ -242,9 +231,6 @@ namespace GruppeInnlevering1.Controllers
             }
 
 
-
-
-
             //ligge Billtter for VoksenType til databasen
 
             for (var i = 0; i < ny.antall2; i++)
@@ -261,6 +247,7 @@ namespace GruppeInnlevering1.Controllers
                     Email = Email,
                     Kortnummer = kortnummer,
                     Cvc = Cvc
+                    
                 };
 
 
@@ -317,39 +304,12 @@ namespace GruppeInnlevering1.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public IEnumerable<Stasjon> hentStasjoner()     //Henter Alle StasjonerListe til Select for Fra i Index Siden
         {
             IEnumerable<Stasjon> stasjoner = db.Stasjoner;
 
             return stasjoner;
         }
-
-
-
 
         public IEnumerable<Stasjon> hentTilListe(int id)
         {
@@ -487,26 +447,7 @@ namespace GruppeInnlevering1.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Billter()
-        {
-            List<BilletV> alleBillter = db.alleBillter();
-            return View(alleBillter);
 
-
-
-        }
-
-
-        [HttpPost]
-
-        public ActionResult TogListe()
-        {
-
-            List<TogV> togListe = db.alleTog();
-            return View(togListe);
-
-        }
         public ActionResult Strekning()
         {
 
@@ -517,16 +458,15 @@ namespace GruppeInnlevering1.Controllers
 
             return View(avganger);
         }
-
         public ActionResult EndreAvgang(int id)
         {
-           
-            avgangs s= db.hentAvgang(id);
+
+            avgangs s = db.hentAvgang(id);
             return View(s);
         }
         [HttpPost]
         public ActionResult EndreAvgang(avgangs innAvgang)
-        { 
+        {
 
             bool OK = db.endreAvgang(innAvgang);
             if (OK)
@@ -535,11 +475,6 @@ namespace GruppeInnlevering1.Controllers
             }
             return View();
         }
-
-  
- 
-
-       
         public ActionResult SlettAvgang(int id)
         {
             var db = new TogContext();
@@ -550,10 +485,34 @@ namespace GruppeInnlevering1.Controllers
             }
             return View();
         }
+        public ActionResult nyAvgang()
+        {
+            return View();
+        }
+        // må jobbe med å legge ny avgang ikke virker enda 
+        [HttpPost]
+        public ActionResult nyAvgang(avgangs innAvgang)
+        {
+            try
+            {
+                var nyavgang= new Avgang();
+                nyavgang.Tid = innAvgang.Tid;
+               // nyavgang.Tog.TogId = innAvgang.TogId;
+               // nyavgang.Stasjon.StasjonId = innAvgang.StasjonId;
+                db.Avganger.Add(nyavgang);
+                db.SaveChanges();
+                return RedirectToAction("Strekning");
 
- 
+            }
+            catch (Exception feil)
+            {
 
-        // stasjon controller
+                return View();
+            }
+        }
+
+
+        // stasjon Kontroller
         public ActionResult Stasjoner()
         {
 
@@ -578,10 +537,9 @@ namespace GruppeInnlevering1.Controllers
             }
             return View();
         }
-
         public ActionResult SlettStasjon(int id)
         {
-           
+
             bool OK = db.SlettStasjon(id);
             if (OK)
             {
@@ -589,8 +547,125 @@ namespace GruppeInnlevering1.Controllers
             }
             return View("Login");
         }
+        public ActionResult nyStasjon()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult nyStasjon(StasjonV innStasjon)
+        {
+            try
+            {
+                var nyStasjon = new Stasjon();
+                nyStasjon.StasjonNavn = innStasjon.StasjonNavn;
+                db.Stasjoner.Add(nyStasjon);
+                db.SaveChanges();
+                return RedirectToAction("Stasjoner");
+
+            }
+            catch (Exception feil)
+            {
+
+                return View();
+            }
+        }
+
+        // billett Kontroller         
+        public ActionResult Billter()
+        {
+            List<BilletV> alleBillter = db.alleBillter();
+            return View(alleBillter);
 
 
+
+        }
+        public ActionResult Endrebillett(int id)
+        {
+
+            BilletV s = db.hentBilett(id);
+            return View(s);
+        }
+        [HttpPost]
+        public ActionResult Endrebillett(BilletV innBillett)
+        {
+
+            bool OK = db.endreBillett(innBillett);
+            if (OK)
+            {
+                return RedirectToAction("Billter");
+            }
+            return View("Login");
+        }
+        public ActionResult SlettBillett(int id)
+        {
+
+            bool OK = db.SlettSBillett(id);
+            if (OK)
+            {
+                return RedirectToAction("Billter");
+            }
+            return View("Login");
+        }
+
+        // tog kontroller
+        public ActionResult TogListe()
+        {
+
+            List<TogV> togListe = db.alleTog();
+            return View(togListe);
+
+        }
+        public ActionResult EndreTog(int id)
+        {
+
+            TogV s = db.hentTog(id);
+            return View(s);
+        }
+        [HttpPost]
+        public ActionResult Endretog(TogV innTog)
+        {
+
+            bool OK = db.endreTog(innTog);
+            if (OK)
+            {
+                return RedirectToAction("TogListe");
+            }
+            return View();
+        }
+        public ActionResult SlettTog(int id)
+        {
+
+            bool OK = db.SlettTog(id);
+            if (OK)
+            {
+                return RedirectToAction("TogListe");
+            }
+            return View("Login");
+        }
+
+
+        public ActionResult nyTog()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult nyTog(TogV innTog)
+        {
+            try
+            {
+                var nyTog = new Tog();
+                nyTog.TogNavn = innTog.TogNavn;     
+                db.TogTabell.Add(nyTog);
+                db.SaveChanges();
+                return RedirectToAction("TogListe");
+
+            }
+            catch (Exception feil)
+            {
+
+                return View();
+            }
+        }
     }
 
 }

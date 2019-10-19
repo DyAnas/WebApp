@@ -8,7 +8,7 @@
 <h2>TogListe</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/Default/nyTog" class="btn btn-primary">Ny tog</a>
 </p>
 <table class="table">
     <tr>
@@ -22,19 +22,19 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TogId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TogNavn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TogId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TogNavn)
+    </td>
+    <td>
+
+    <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-primary">Endre</a></td>
+    <td><a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
+    </td>
+</tr>
 }
 
 </table>

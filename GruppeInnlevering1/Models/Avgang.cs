@@ -22,5 +22,5 @@ public class avgangs
     public int TogId { get; set; }
 
     public int StasjonId { get; set; }
-   
+
 }
