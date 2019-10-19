@@ -198,11 +198,13 @@
     <Content Include="Views\Default\Endretog.cshtml" />
     <Content Include="Views\Default\nyTog.cshtml" />
     <Content Include="Views\Default\nyStasjon.cshtml" />
+    <Content Include="Views\Default\EndrePrisV.cshtml" />
     <Content Include="Views\Default\nyAvgang.cshtml" />
+    <Content Include="Views\Default\Feil.cshtml" />
+    <Content Include="Views\Default\EndrePris.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Endre\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -78,6 +78,43 @@ namespace GruppeInnlevering1.Controllers
             ny.antall1 = s.antall1;    //antall  StudentBilletter
             ny.antall2 = s.antall2;    //antall  VoksenBilletter
             ny.antall3 = s.antall3;    //antall  BarnBilletter
+
+
+
+
+
+            if (Session["Studentpris"] != null)
+            {
+                ny.Studentpris = (int)Session["Studentpris"];
+            }
+            else
+            {
+                ny.Studentpris = 10;
+            }
+
+            if (Session["Voksenpris"] != null)
+            {
+                ny.Voksenpris = (int)Session["Voksenpris"];
+            }
+            else
+            {
+                ny.Voksenpris = 20;
+            }
+
+            if (Session["Barn"] != null)
+            {
+                ny.BarnPris = (int)Session["Barn"];
+            }
+            else
+            {
+                ny.BarnPris = 5;
+            }
+
+
+
+      
+
+
             ny.dato = s.dato;
             int result;
             int result1;
@@ -199,8 +236,22 @@ namespace GruppeInnlevering1.Controllers
 
 
             var lengde = ny.stasjonIdTil - ny.stasjonIdFra;    //finner lengde mellom stasjoner til å regne prisen 
-
-
+            var studentpris = 10;
+            var voksenpris = 20;
+            var barnpris = 5;
+            //pris fakturer
+            if (Session["Studentpris"] != null)
+            {
+                studentpris = (int)Session["Studentpris"];
+            }
+            if(Session["Voksenpris"] != null)
+            {
+                voksenpris = (int)Session["Voksenpris"];
+            }
+            if(Session["Barn"] != null)
+            {
+                barnpris = (int)Session["Barn"];
+            }
             //ligge Billtter for StudentType til databasen
 
             for (var i = 0; i < ny.antall1; i++)
@@ -210,7 +261,7 @@ namespace GruppeInnlevering1.Controllers
                     AvgangFra = ny.stasjonIdFra,
                     AvgangTil = ny.stasjonIdTil,
                     Type = "Student",
-                    Pris = lengde * 10,
+                    Pris = lengde * studentpris,
                     DatoTur = ny.dato,
                     DatoRetur = ny.datoTilbake,
                     Telefonnummer = Telefonnummer,
@@ -240,14 +291,14 @@ namespace GruppeInnlevering1.Controllers
                     AvgangFra = ny.stasjonIdFra,
                     AvgangTil = ny.stasjonIdTil,
                     Type = "Voksen",
-                    Pris = lengde * 20,
+                    Pris = lengde * voksenpris,
                     DatoTur = ny.dato,
-                    DatoRetur = (DateTime)ny.datoTilbake,
+                    DatoRetur = ny.datoTilbake,
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
                     Cvc = Cvc
-                    
+
                 };
 
 
@@ -275,9 +326,9 @@ namespace GruppeInnlevering1.Controllers
                     AvgangFra = ny.stasjonIdFra,
                     AvgangTil = ny.stasjonIdTil,
                     Type = "Barn",
-                    Pris = lengde * 5,
+                    Pris = lengde * barnpris,
                     DatoTur = ny.dato,
-                    DatoRetur = (DateTime)ny.datoTilbake,
+                    DatoRetur = ny.datoTilbake,
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
@@ -298,6 +349,8 @@ namespace GruppeInnlevering1.Controllers
             }
 
             db.SaveChanges();
+
+             Session["alle"]=  ny;
 
             return View();
 
@@ -493,23 +546,18 @@ namespace GruppeInnlevering1.Controllers
         [HttpPost]
         public ActionResult nyAvgang(avgangs innAvgang)
         {
-            try
-            {
-                var nyavgang= new Avgang();
+           
+                var nyavgang = new Avgang();
                 nyavgang.Tid = innAvgang.Tid;
-               // nyavgang.Tog.TogId = innAvgang.TogId;
-               // nyavgang.Stasjon.StasjonId = innAvgang.StasjonId;
+            var sjekkTogId = db.TogTabell.Find(innAvgang.TogId);   
+            nyavgang.Tog = sjekkTogId;
+            var sjekkStajonId = db.Stasjoner.Find(innAvgang.StasjonId);
+            nyavgang.Stasjon= sjekkStajonId;
                 db.Avganger.Add(nyavgang);
                 db.SaveChanges();
-                return RedirectToAction("Strekning");
-
-            }
-            catch (Exception feil)
-            {
-
                 return View();
             }
-        }
+        
 
 
         // stasjon Kontroller
@@ -654,7 +702,7 @@ namespace GruppeInnlevering1.Controllers
             try
             {
                 var nyTog = new Tog();
-                nyTog.TogNavn = innTog.TogNavn;     
+                nyTog.TogNavn = innTog.TogNavn;
                 db.TogTabell.Add(nyTog);
                 db.SaveChanges();
                 return RedirectToAction("TogListe");
@@ -665,6 +713,28 @@ namespace GruppeInnlevering1.Controllers
 
                 return View();
             }
+        }
+
+        // metode for priser 
+        public ActionResult EndrePrisV()
+        {
+           
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EndrePris(string Studentpris, string voksenpris, string barnpris)
+        {
+
+            if (!"".Equals(Studentpris)) { Session["Studentpris"] = int.Parse(Studentpris); }
+
+
+            if (!"".Equals(voksenpris)) { Session["Voksenpris"] = int.Parse(voksenpris); }
+
+            if (!"".Equals(barnpris)) { Session["Barn"] = int.Parse(barnpris);
+        }
+            return View();
         }
     }
 

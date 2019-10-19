@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GruppeInnlevering1.Models
@@ -19,7 +18,7 @@ namespace GruppeInnlevering1.Models
         public string Email { get; set; }
         public string Kortnummer { get; set; }
         public int Cvc { get; set; }
-      
+
 
     }
 }

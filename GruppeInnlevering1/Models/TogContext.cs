@@ -226,18 +226,18 @@ namespace GruppeInnlevering1.Models
                 try
                 {
 
-                    
+
                     var slett = from i in db.Avganger
                                 from k in db.Stasjoner
-                                where i.Stasjon.StasjonId ==id
-                                   & k.StasjonId== id
+                                where i.Stasjon.StasjonId == id
+                                   & k.StasjonId == id
                                 select new { i, k };
-                  foreach (var item in slett)
+                    foreach (var item in slett)
                     {
-                         db.Stasjoner.Remove(item.k);
-                         db.Avganger.Remove(item.i);
+                        db.Stasjoner.Remove(item.k);
+                        db.Avganger.Remove(item.i);
                     }
-                    
+
                     db.SaveChanges();
                     return true;
                 }
@@ -379,8 +379,8 @@ namespace GruppeInnlevering1.Models
             {
                 List<TogV> alleToger = db.TogTabell.Select(k => new TogV
                 {
-                    TogId=k.TogId,
-                    TogNavn=k.TogNavn
+                    TogId = k.TogId,
+                    TogNavn = k.TogNavn
                 }).ToList();
                 return alleToger;
             }
@@ -414,7 +414,7 @@ namespace GruppeInnlevering1.Models
                 Tog enTog = db.TogTabell.Find(TogId);
                 var hentTog = new TogV()
                 {
-                     TogId= enTog.TogId,
+                    TogId = enTog.TogId,
                     TogNavn = enTog.TogNavn
 
                 };
@@ -448,10 +448,10 @@ namespace GruppeInnlevering1.Models
             {
                 try
                 {
-                   // var slettObjekt = db.Stasjoner.Find(id);
+                    // var slettObjekt = db.Stasjoner.Find(id);
                     var slett = from i in db.Avganger
                                 from k in db.TogTabell
-                                where i.Tog.TogId== id
+                                where i.Tog.TogId == id
                                    & k.TogId == id
                                 select new { i, k };
                     foreach (var item in slett)

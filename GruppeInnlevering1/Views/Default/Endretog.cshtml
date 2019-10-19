@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Endretog</h2>
+<h2>Endre Tog</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+<input name="TogId" value="@Model.TogId" hidden />
     <div class="form-horizontal">
-        <h4>TogV</h4>
+       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
      
@@ -35,5 +35,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tilbake til Liste Tog", "TogListe")
 </div>

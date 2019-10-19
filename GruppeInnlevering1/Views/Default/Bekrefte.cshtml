@@ -18,19 +18,26 @@
         var antall1 = @Model.antall1;
         var antall2 = @Model.antall2;
         var antall3 = @Model.antall3;
+           
+     
+
+
+
+
+
 
 
         var sum = 0;
        var lengde =@Model.stasjonIdTil-@Model.stasjonIdFra;
 
         if (antall1 !== 0) {
-            sum += antall1 * 10;
+            sum += antall1 * @Model.Studentpris ;
         }
         if (antall2 !== 0) {
-            sum += antall2 * 20;
+            sum += antall2 * @Model.Voksenpris ;
         }
         if (antall3 !== 0){
-        sum += antall3 * 5;
+        sum += antall3 * @Model.BarnPris  ;
         }
 
         sum = sum *lengde;

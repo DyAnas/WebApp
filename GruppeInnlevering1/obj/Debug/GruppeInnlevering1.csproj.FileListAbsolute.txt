@@ -552,7 +552,7 @@ C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\bin\Sys
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\bin\Newtonsoft.Json.xml
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\bin\Antlr3.Runtime.pdb
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.csprojAssemblyReference.cache
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.csproj.CopyComplete
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.dll
 C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.pdb
+C:\Users\Anas\source\Repos\DyAnas\webaollikasjoner\we\GruppeInnlevering1\obj\Debug\GruppeInnlevering1.csprojAssemblyReference.cache

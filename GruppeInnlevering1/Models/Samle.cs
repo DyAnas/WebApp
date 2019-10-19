@@ -50,6 +50,9 @@ namespace GruppeInnlevering1.Models
         [RegularExpression(@"[0-9]{3}")]
         public int Cvc { get; set; }
 
+        public int Studentpris { get; set; }
+        public int Voksenpris { get; set; }
+        public int BarnPris { get; set; }
 
 
     }

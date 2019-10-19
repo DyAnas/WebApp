@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EndreAvgang</h2>
+<h2>Endre Avgang</h2>
 
 
 @using (Html.BeginForm())
@@ -15,7 +15,7 @@
     <input name="StasjonId" value="@Model.StasjonId" hidden />
     <input name=" TogId" value="@Model.TogId" hidden />
     <div class="form-horizontal">
-        <h4>Avgang</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AvgangId)
@@ -37,5 +37,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tilbake til liste avganger", "Strekning")
 </div>
