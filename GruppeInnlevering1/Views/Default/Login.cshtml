@@ -1,60 +1,126 @@
-﻿
-<h1>  Du er logget inn</h1>
-<form action="/Default/Strekning" method="post">
-
-    <table>
-        <tr>
-       
-      
-    <td>
-            <input type="submit" value="¨Strekning" />
+﻿<style>
+    .jumbotron{
+        padding:25px;
+        z-index:3;
+        background-color:white;
+    }
+    .custom-jumbotron{
+        border:10px solid white;
+        width:300px;
+        margin: 0 auto;
+    }
+    .jumbotron:hover, .custom-jumbotron:hover{
+        background-color:#e3f0f4;
+    }
+    td .glyphicon{
+        padding:10px;
+        font-size:xx-large;
+    }
+    input{
+        background:none;
+        border:none;
+        padding:5px 1px 1px 15px;
+        color:green;
+        font-size:medium;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    input:hover{
+        text-decoration:underline;
+        color:limegreen;
+    }
+    i{
+        float:left;
+    }
+    .glyphicon{
+        text-shadow: 0 0 1px #666666, 0 0 1px #505050;
+        border:double #505050;
+        border-radius:16px;
+        background-image:linear-gradient(to bottom right, #637e61,darkseagreen);
+    }
+    .glyphicon-tag{
+        color:#aaa874;
+    }
+    .glyphicon-home{
+        color:#9db3cf;
+    }
+    .glyphicon-list-alt{
+        color:#1b6d42;
+    }
+    .glyphicon-road{
+        color:#505050;
+    }
+    .glyphicon-qrcode{
+        color:white;
+    }
+</style>
+<h1 style="font-weight:500;margin-bottom:6%;">Kontrollpanel</h1>
+<table>
+    <tr>
+        <td class="jumbotron custom-jumbotron">
+            <form action="/Default/Strekning" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <span><i class="glyphicon glyphicon-road"></i></span>
+                            <input type="submit" value="Strekning" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </td>
-            </tr>
-    </table>
-</form>
-
-
-<form action="/Default/Stasjoner" method="post">
-
-    <table>
-        <tr>
-            <td><input type="submit" value="¨Stasjoner" /></td>
-        </tr>
-    </table>
-</form>
-
-
-
-
-<form action="/Default/Billter" method="post">
-
-    <table>
-        <tr>
-            <td><input type="submit" value="¨Billter" /></td>
-        </tr>
-    </table>
-</form>
-
-
-<form action="/Default/TogListe" method="post">
-
-    <table>
-        <tr>
-            <td><input type="submit" value="¨TogListe" /></td>
-        </tr>
-    </table>
-</form>
-
-
-
-<form action="/Default/EndrePrisV" method="post">
-
-    <table>
-        <tr>
-            <td><input type="submit" value="¨Endre priser" /></td>
-        </tr>
-    </table>
-</form>
+        <td class="jumbotron custom-jumbotron">
+            <form action="/Default/Stasjoner" method="post">    
+                <table>
+                    <tr>
+                        <td>
+                            <span><i class="glyphicon glyphicon-home"></i></span>
+                            <input type="submit" value="Stasjoner" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="jumbotron custom-jumbotron">
+            <form action="/Default/Billter" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <span><i class="glyphicon glyphicon-qrcode"></i></span>
+                            <input type="submit" value="Billett" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+        <td class="jumbotron custom-jumbotron">
+            <form action="/Default/TogListe" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <span><i class="glyphicon glyphicon-list-alt"></i></span>
+                            <input type="submit" value="TogListe" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    <tr>
+        <td class="jumbotron custom-jumbotron">
+            <form action="/Default/EndrePrisV" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            <span><i class="glyphicon glyphicon-tag"></i></span>
+                            <input type="submit" value="Pris" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
 
 
 

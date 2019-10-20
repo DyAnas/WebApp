@@ -4,25 +4,40 @@
     ViewBag.Title = "TogListe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>TogListe</h2>
+<style>
+    .table-striped{
+        background-color:darkseagreen;
+    }
+    .table > thead > tr > th {
+        border-bottom:none;
+    }
+    a:hover, .glyphicon-arrow-left:hover{
+        text-decoration:none;
+    }
+</style>
+<a href="~/Defult/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
+<h2 style="font-weight:500;margin-bottom:3%;">TogListe</h2>
+@if(ViewBag.leggtog == true)
+{
+    <p class="alert-success" >Du har satt nytt tog </p>
+}
 
 <p>
-    <a href="/Default/nyTog" class="btn btn-primary">Ny tog</a>
+    <a href="/Default/nyTog" class="btn btn-default glyphicon glyphicon-new-window">&nbsp;<i style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-style:none;font-size:medium;">Legg til tog</i></a>
 </p>
-<p>
-    <a href="/Default/Login" class="btn btn-primary">Tilbake til Login</a>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            TogId
-        </th>
-        <th>
-          TogNavn
-        </th>
-        <th></th>
-    </tr>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                TogId
+            </th>
+            <th>
+                TogNavn
+            </th>
+            <th class="glyphicon glyphicon-edit" style="font-size:medium;padding:3px;float:right;"></th>
+        </tr>
+    </thead>
 
 @foreach (var item in Model) {
 <tr>
@@ -34,9 +49,8 @@
     </td>
     <td>
 
-    <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-primary">Endre</a></td>
+    <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-default">Endre</a></td>
     <td><a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
-    </td>
 </tr>
 }
 

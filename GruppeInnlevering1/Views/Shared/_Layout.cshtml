@@ -27,11 +27,21 @@
                 </div>
                 <div style="float:left; margin-top:15px;margin-left:100px;">
                     <ul class="nav navbar-nav" style="font-size:large;">
+                        <!--ny-->
+                        @if (ViewBag.Innlogget == true)
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Default")</li>
 
+                            <li>@Html.ActionLink("kontrollpanel", "Login", "Default")</li>
+                            <li>@Html.ActionLink("Loggut", "Registrer", "Default")</li>
+                            <li style="float:right">Du har logget inn</li>
+                        }
+                        else
+                        {
 
-                        <li>@Html.ActionLink("Home", "Index", "Default")</li>
-                        <li>@Html.ActionLink("Registrer", "Registrer", "Default")</li>
-                  
+                            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+                            <li>@Html.ActionLink("Registrer", "Registrer", "Default")</li>
+                        }
                     </ul>
                 </div>
             </div>

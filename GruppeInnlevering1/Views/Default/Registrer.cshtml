@@ -122,16 +122,18 @@
 </div>
 <div class="form-horizontal">
 
-    <!--
-     <div>
-    /// if (ViewBag.Innlogget)
-         {
-             <p class="alert alert-success">Logget inn</p>
-         }
-         else
-         {
-             <p class="alert alert-danger">Ikke logget inn</p>
-         }
-     </div>-->
+   
+    <div>
+        //ny
+        @if (ViewBag.Innlogget == true)
+        {
+            <p class="alert alert-success">Logget inn er vellykket</p>
+        }
+        else if(ViewBag.Innlogget == false)
+        {
+            <p class="alert alert-danger">Prøve på nytt</p>
+        }
+   
+    </div>
 </div>
 

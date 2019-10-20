@@ -6,16 +6,20 @@
 }
 
 <h2>Ny Stasjon</h2>
+@if (ViewBag.FeilStasjon  == true)
+{
+    <p class="alert alert-danger">Feil, kunne ikke lagre til database</p>
 
-@using (Html.BeginForm()) 
+}
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-     
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.StasjonNavn, htmlAttributes: new { @class = "control-label col-md-2" })

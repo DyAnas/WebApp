@@ -6,13 +6,19 @@
 }
 
 <h2>Strekning</h2>
-
+@if (ViewBag.FeilStrekning == false)
+{
+    <p class="alert alert-success">Endring er vellykket</p>
+}
 <p>
     <a href="/Default/nyAvgang" class="btn btn-primary">Ny Strekning</a>
 </p>
 <p>
     <a href="/Default/Login" class="btn btn-primary">Tilbake til Login</a>
 </p>
+
+
+
 <table class="table">
     <tr>
 
@@ -24,26 +30,26 @@
 
     @foreach (var item in Model)
     {
-<tr>
+        <tr>
 
-    <td>
-        @item.AvgangId
-    </td>
+            <td>
+                @item.AvgangId
+            </td>
 
-    <td>
-        @item.StasjonId
-    </td>
-    <td>
-        @item.Tid
-    </td>
-    <td>
-        @item.TogId
-    </td>
-    <td>
+            <td>
+                @item.StasjonId
+            </td>
+            <td>
+                @item.Tid
+            </td>
+            <td>
+                @item.TogId
+            </td>
+            <td>
 
-    <td><a href="/Default/EndreAvgang?id=@item.AvgangId" class="btn btn-primary">Endre</a></td>
-    <td><a href="/Default/SlettAvgang?id=@item.AvgangId" class="btn btn-primary">Slett</a></td>
-    <!--</td>-->
-</tr>
-    } 
+            <td><a href="/Default/EndreAvgang?id=@item.AvgangId" class="btn btn-primary">Endre</a></td>
+            <td><a href="/Default/SlettAvgang?id=@item.AvgangId" class="btn btn-primary">Slett</a></td>
+            <!--</td>-->
+        </tr>
+    }
 </table>

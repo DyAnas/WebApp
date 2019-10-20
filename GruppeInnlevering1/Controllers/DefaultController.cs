@@ -12,6 +12,7 @@ namespace GruppeInnlevering1.Controllers
     public class DefaultController : Controller
     {
         TogContext db = new TogContext();
+        DbTogstasjon db1 = new DbTogstasjon();
 
 
         protected override void Dispose(bool disposing)
@@ -34,8 +35,22 @@ namespace GruppeInnlevering1.Controllers
             ny.fraListe = alleStasjoner;
 
             Session["alle"] = ny;     //lagre objekt i Session til å kunne bruke det i andre sider
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+                //ny
+                ViewBag.Innlogget = false;
+                return View(ny);
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
 
-            return View(ny);
+                return View(ny);
+            }
+         return View(ny);   
+
+         
         }
 
 
@@ -416,13 +431,20 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Login()
         {
+            
             if (Session["loggetInn"] == null)
             {
                 Session["loggetInn"] = false;
+                //ny
+                ViewBag.Innlogget = false;
                 return View("Registrer");
             }
             else if ((bool)Session["loggetInn"] == true)
             {
+                ViewBag.Innlogget = true;
+                Session["feilmelding"] = null;
+                Session["leggStasjon"] = null;
+                Session["togmelding"] = null;
                 return View();
 
             }
@@ -452,14 +474,20 @@ namespace GruppeInnlevering1.Controllers
         {
             if (Admin_i_db(innAdmin))
             {
-                Session["loggetInn"] = true;
 
+
+
+                Session["loggetInn"] = true;
+                //ny
+                ViewBag.Innlogget = true;
+               
                 return View();
             }
             else
             {
                 Session["loggetInn"] = false;
-
+                //ny
+                ViewBag.Innlogget = false;
                 return View("Registrer");
 
             }
@@ -467,6 +495,9 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Registrer()
         {
+            //ny
+            ViewBag.Innlogget = false;
+            Session["loggetInn"] = false;
             return View();
         }
         [HttpPost]
@@ -503,35 +534,44 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Strekning()
         {
+           
+            ViewBag.FeilStrekning = Session["feilmelding"];
+                List<avgangs> avganger = db1.allavganger();
+
+                return View(avganger);
+         
 
 
 
-            List<avgangs> avganger = db.allavganger();
-
-
-            return View(avganger);
         }
+
+        
         public ActionResult EndreAvgang(int id)
         {
+          
 
-            avgangs s = db.hentAvgang(id);
+            avgangs s = db1.hentAvgang(id);
             return View(s);
         }
         [HttpPost]
         public ActionResult EndreAvgang(avgangs innAvgang)
         {
+         
 
-            bool OK = db.endreAvgang(innAvgang);
+            bool OK = db1.endreAvgang(innAvgang);
             if (OK)
             {
-                return RedirectToAction("Strekning");
+                ViewBag.Feil = false;
+               // return RedirectToAction("Strekning");
             }
+            ViewBag.Feil = true;
             return View();
         }
         public ActionResult SlettAvgang(int id)
         {
-            var db = new TogContext();
-            bool OK = db.SlettAvgan(id);
+            
+       
+            bool OK = db1.SlettAvgan(id);
             if (OK)
             {
                 return RedirectToAction("Strekning");
@@ -542,20 +582,22 @@ namespace GruppeInnlevering1.Controllers
         {
             return View();
         }
-        // må jobbe med å legge ny avgang ikke virker enda 
+        
         [HttpPost]
         public ActionResult nyAvgang(avgangs innAvgang)
         {
            
-                var nyavgang = new Avgang();
-                nyavgang.Tid = innAvgang.Tid;
-            var sjekkTogId = db.TogTabell.Find(innAvgang.TogId);   
-            nyavgang.Tog = sjekkTogId;
-            var sjekkStajonId = db.Stasjoner.Find(innAvgang.StasjonId);
-            nyavgang.Stasjon= sjekkStajonId;
-                db.Avganger.Add(nyavgang);
-                db.SaveChanges();
-                return View();
+            bool  ok= db1.nyAvgang(innAvgang);
+            if (ok) {
+                ViewBag.FeilStrekning = false;
+                Session["feilmelding"] = ViewBag.FeilStrekning;
+                return RedirectToAction("Strekning");
+            }
+            else
+            {
+                ViewBag.FeilStrekning = true;
+                return View(); 
+            }         
             }
         
 
@@ -563,22 +605,24 @@ namespace GruppeInnlevering1.Controllers
         // stasjon Kontroller
         public ActionResult Stasjoner()
         {
+            
 
-
-            List<StasjonV> alleStasjonerliste = db.alleStasjoner();
+            ViewBag.leggStasjon =Session["leggStasjon"];
+            List<StasjonV> alleStasjonerliste = db1.alleStasjoner();
             return View(alleStasjonerliste);
         }
         public ActionResult EndreStasjon(int id)
         {
+          
 
-            StasjonV s = db.hentStasjon(id);
+            StasjonV s = db1.hentStasjon(id);
             return View(s);
         }
         [HttpPost]
         public ActionResult EndreStasjon(StasjonV innStasjon)
         {
-
-            bool OK = db.endreStasjon(innStasjon);
+         
+            bool OK = db1.endreStasjon(innStasjon);
             if (OK)
             {
                 return RedirectToAction("Stasjoner");
@@ -587,8 +631,9 @@ namespace GruppeInnlevering1.Controllers
         }
         public ActionResult SlettStasjon(int id)
         {
+          
 
-            bool OK = db.SlettStasjon(id);
+            bool OK = db1.SlettStasjon(id);
             if (OK)
             {
                 return RedirectToAction("Stasjoner");
@@ -602,26 +647,28 @@ namespace GruppeInnlevering1.Controllers
         [HttpPost]
         public ActionResult nyStasjon(StasjonV innStasjon)
         {
-            try
+            
+
+            var ok = db1.nyStasjon(innStasjon);
+            if (ok)
             {
-                var nyStasjon = new Stasjon();
-                nyStasjon.StasjonNavn = innStasjon.StasjonNavn;
-                db.Stasjoner.Add(nyStasjon);
-                db.SaveChanges();
+                ViewBag.leggStasjon = true;
+                Session["leggStasjon"] = ViewBag.leggStasjon;
                 return RedirectToAction("Stasjoner");
 
             }
-            catch (Exception feil)
+            else
             {
 
                 return View();
+
             }
         }
-
         // billett Kontroller         
         public ActionResult Billter()
         {
-            List<BilletV> alleBillter = db.alleBillter();
+      
+            List<BilletV> alleBillter = db1.alleBillter();
             return View(alleBillter);
 
 
@@ -629,15 +676,15 @@ namespace GruppeInnlevering1.Controllers
         }
         public ActionResult Endrebillett(int id)
         {
-
-            BilletV s = db.hentBilett(id);
+          
+            BilletV s = db1.hentBilett(id);
             return View(s);
         }
         [HttpPost]
         public ActionResult Endrebillett(BilletV innBillett)
         {
-
-            bool OK = db.endreBillett(innBillett);
+     
+            bool OK = db1.endreBillett(innBillett);
             if (OK)
             {
                 return RedirectToAction("Billter");
@@ -646,8 +693,9 @@ namespace GruppeInnlevering1.Controllers
         }
         public ActionResult SlettBillett(int id)
         {
+          
 
-            bool OK = db.SlettSBillett(id);
+            bool OK = db1.SlettSBillett(id);
             if (OK)
             {
                 return RedirectToAction("Billter");
@@ -658,22 +706,24 @@ namespace GruppeInnlevering1.Controllers
         // tog kontroller
         public ActionResult TogListe()
         {
+            
 
-            List<TogV> togListe = db.alleTog();
+            List<TogV> togListe = db1.alleTog();
+            ViewBag.leggtog = Session["togmelding"];
             return View(togListe);
 
         }
         public ActionResult EndreTog(int id)
         {
-
-            TogV s = db.hentTog(id);
+            
+            TogV s = db1.hentTog(id);
             return View(s);
         }
         [HttpPost]
         public ActionResult Endretog(TogV innTog)
         {
-
-            bool OK = db.endreTog(innTog);
+           
+            bool OK = db1.endreTog(innTog);
             if (OK)
             {
                 return RedirectToAction("TogListe");
@@ -682,8 +732,9 @@ namespace GruppeInnlevering1.Controllers
         }
         public ActionResult SlettTog(int id)
         {
+           
 
-            bool OK = db.SlettTog(id);
+            bool OK = db1.SlettTog(id);
             if (OK)
             {
                 return RedirectToAction("TogListe");
@@ -699,20 +750,15 @@ namespace GruppeInnlevering1.Controllers
         [HttpPost]
         public ActionResult nyTog(TogV innTog)
         {
-            try
-            {
-                var nyTog = new Tog();
-                nyTog.TogNavn = innTog.TogNavn;
-                db.TogTabell.Add(nyTog);
-                db.SaveChanges();
+      
+
+            bool ok =db1.nyTog(innTog);
+            if (ok) {
+                Session["togmelding"] = true;
                 return RedirectToAction("TogListe");
-
             }
-            catch (Exception feil)
-            {
+            return View();
 
-                return View();
-            }
         }
 
         // metode for priser 
