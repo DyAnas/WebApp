@@ -6,17 +6,21 @@
 }
 
 <h2>Endre Tog</h2>
+@if (ViewBag.leggtog == false)
+{
+    <p class="alert-success">Toget  finnes fra før i databasen</p>
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<input name="TogId" value="@Model.TogId" hidden />
+    <input name="TogId" value="@Model.TogId" hidden />
     <div class="form-horizontal">
-       
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-     
-       
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.TogNavn, htmlAttributes: new { @class = "control-label col-md-2" })

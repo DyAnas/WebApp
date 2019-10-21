@@ -4,11 +4,13 @@
     ViewBag.Title = "nyStasjon";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.js"></script>
 
 <h2>Ny Stasjon</h2>
-@if (ViewBag.FeilStasjon  == true)
+@if (ViewBag.leggStasjon == false)
 {
-    <p class="alert alert-danger">Feil, kunne ikke lagre til database</p>
+    <p class="alert alert-danger">Feil, kunne ikke lagre til database,fordi Stasjonen finnes fra før i databasen</p>
 
 }
 @using (Html.BeginForm())
@@ -26,6 +28,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StasjonNavn, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StasjonNavn, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -38,5 +41,5 @@
 }
 
 <div>
-    @Html.ActionLink("Tilbake til Liste stasjoner", "Stasjoner")
+    @Html.ActionLink("Tilbake til kontrollpanel", "Login")
 </div>

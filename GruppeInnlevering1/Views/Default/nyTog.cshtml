@@ -1,28 +1,34 @@
 ﻿@model TogV
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.js"></script>
 @{
     ViewBag.Title = "nyTog";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Ny Tog</h2>
+@if (ViewBag.TogFinnes == true)
+{
+    <p class="alert alert-danger ">Toget finnes fra før,eller du har ikke skrevet noe</p>
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-  
+
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    
-       
+         @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.TogNavn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TogNavn, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TogNavn, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -35,5 +41,5 @@
 }
 
 <div>
-    @Html.ActionLink("Tilbake til liste tog", "TogListe")
+    @Html.ActionLink("Tilbake til kontrollpanel", "Login")
 </div>

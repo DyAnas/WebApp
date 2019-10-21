@@ -49,9 +49,16 @@ namespace GruppeInnlevering1.Models
         [Required(ErrorMessage = "CVC må oppgis (3 Tall)")]
         [RegularExpression(@"[0-9]{3}")]
         public int Cvc { get; set; }
+       
 
         public int Studentpris { get; set; }
+ 
+
+   
         public int Voksenpris { get; set; }
+      
+
+   
         public int BarnPris { get; set; }
 
 

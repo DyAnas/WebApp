@@ -139,6 +139,7 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Avgang.cs" />
     <Compile Include="Models\Billet.cs" />
+    <Compile Include="Models\ReqularExpressionAttribute.cs" />
     <Compile Include="Models\Samle.cs" />
     <Compile Include="Models\Stasjon.cs" />
     <Compile Include="Models\Tog.cs" />
@@ -193,7 +194,6 @@
     <Content Include="Views\Default\Stasjoner.cshtml" />
     <Content Include="Views\Default\Billter.cshtml" />
     <Content Include="Views\Default\TogListe.cshtml" />
-    <Content Include="Views\Default\EndreAvgang.cshtml" />
     <Content Include="Views\Default\EndreStasjon.cshtml" />
     <Content Include="Views\Default\Endrebillett.cshtml" />
     <Content Include="Views\Default\Endretog.cshtml" />
@@ -201,8 +201,7 @@
     <Content Include="Views\Default\nyStasjon.cshtml" />
     <Content Include="Views\Default\EndrePrisV.cshtml" />
     <Content Include="Views\Default\nyAvgang.cshtml" />
-    <Content Include="Views\Default\Feil.cshtml" />
-    <Content Include="Views\Default\EndrePris.cshtml" />
+    <Content Include="Views\Default\EndreAvgang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

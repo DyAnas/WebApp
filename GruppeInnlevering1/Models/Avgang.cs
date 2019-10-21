@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GruppeInnlevering1.Models
 {
@@ -17,6 +18,8 @@ namespace GruppeInnlevering1.Models
 public class avgangs
 {
     public int AvgangId { get; set; }
+    [Required]
+    [DataType(DataType.Time)]
     public TimeSpan Tid { get; set; }
 
     public int TogId { get; set; }

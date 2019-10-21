@@ -9,18 +9,18 @@
     <table>
         <tr>
             <td>
-                <input type="text" placeholder="Endre studntpris" name="Studentpris" />
+                <input type="number" placeholder="Endre studntpris" name="Studentpris" min="1" />
 
             </td>
         </tr>
         <tr>
             <td>
-                <input type="text" placeholder="Endre voksenpris" name="voksenpris" />
+                <input type="number" placeholder="Endre voksenpris" name="voksenpris" min="1"  />
             </td>
         </tr>
         <tr>
             <td>
-                <input type="text" placeholder="Endre barnpris" name="barnpris" />
+                <input type="number" placeholder="Endre barnpris" name="barnpris" min="1" />
             </td>
         </tr>
         <tr>
@@ -28,10 +28,24 @@
                 <input type="submit" value="Endre pris" />
             <td>
         </tr>
-
+        @if (ViewBag.FeilPis == true)
+        {
+            <p class="alert alert-danger">Prisen blir ikke endret</p>
+        }
+        else if(ViewBag.FeilPis == null)
+        {
+            <p></p>
+        }
+        else
+        {
+            <p class="alert alert-success">Prisen blir endret</p>
+        }
 
     </table>
 
 </form>
 
+<div>
+    @Html.ActionLink("Tilbake til kontrollpanel", "Login")
+</div>
 
