@@ -189,7 +189,6 @@
     <Content Include="Views\Default\Betaling.cshtml" />
     <Content Include="Views\Default\Registrer.cshtml" />
     <Content Include="Views\Default\Login.cshtml" />
-    <Content Include="Views\Default\Strekning.cshtml" />
     <Content Include="Views\Default\Stasjoner.cshtml" />
     <Content Include="Views\Default\Billter.cshtml" />
     <Content Include="Views\Default\TogListe.cshtml" />
@@ -202,6 +201,7 @@
     <Content Include="Views\Default\nyAvgang.cshtml" />
     <Content Include="Views\Default\EndreAvgang.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Default\Avganger.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

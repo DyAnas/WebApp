@@ -519,7 +519,7 @@ namespace GruppeInnlevering1
         {
             using (var db = new TogContext())
             { 
-                var endretog = db.TogTabell.Where(t =>t.TogId==inntog.TogId);
+                var endretog = db.TogTabell.Where(t =>t.TogNavn==inntog.TogNavn);
                 if(endretog.Count() != 0)
                 {
                     return false;

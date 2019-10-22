@@ -38,11 +38,11 @@
 <h2 style="font-weight:600;margin-bottom:3%;">TogListe</h2>
 @if (ViewBag.leggtog == true)
 {
-    <p class="alert-success">velllykket endring  </p>
+    <p class="alert-success">Vellykket endring  </p>
 } 
 else if(ViewBag.leggtog == false)
 {
-    <p class="alert alert-danger">Feil: Toget finnes fra før i database eller du har ikke skrivet noe.</p>
+    <p class="alert alert-danger">Feil: Toget finnes i databasen fra før eller du har ikke skrevet noe.</p>
 }
 
 <p>
@@ -74,10 +74,10 @@ else if(ViewBag.leggtog == false)
             <td>
                 @Html.DisplayFor(modelItem => item.TogNavn)
             </td>
-            <td>
+            
 
-            <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-default">Endre</a></td>
-            <td><a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
+            <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-default">Endre</a>
+            <a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
         </tr>
     }
 

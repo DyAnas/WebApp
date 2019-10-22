@@ -575,7 +575,7 @@ namespace GruppeInnlevering1.Controllers
         }
 
 
-        public ActionResult Strekning()
+        public ActionResult Avganger()
         {
             Session["loggetInn"] =true;
             ViewBag.Innlogget = true;
@@ -608,7 +608,7 @@ namespace GruppeInnlevering1.Controllers
 
                 Session["feilStrekning"] = ViewBag.Feil;
 
-               return RedirectToAction("Strekning");
+               return RedirectToAction("Avganger");
             }
           
             return View();
@@ -620,7 +620,7 @@ namespace GruppeInnlevering1.Controllers
             bool OK = db1.SlettAvgan(id);
             if (OK)
             {
-                return RedirectToAction("Strekning");
+                return RedirectToAction("Avganger");
             }
             return View();
         }
@@ -639,7 +639,7 @@ namespace GruppeInnlevering1.Controllers
             if (ok) {
                 ViewBag.FeilStrekning = false;
                 Session["feilStrekning"] = ViewBag.FeilStrekning;
-                return RedirectToAction("Strekning");
+                return RedirectToAction("Avganger");
             }
             else
             {

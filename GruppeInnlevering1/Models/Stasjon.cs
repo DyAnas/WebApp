@@ -18,9 +18,8 @@ public class StasjonV
 {
 
     public int StasjonId { get; set; }
-    [Required]
-    [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
-     ErrorMessage = "sjekk om du skriver Stasjonnavn riktig.")]
+    [Required(ErrorMessage ="Feltet Stasjonnavn er obligatorisk")]
+  
    
     public string StasjonNavn { get; set; }
 

@@ -17,9 +17,7 @@ public class TogV
 
     public int TogId { get; set; }
 
-    [RegularExpression(@"^[a-zA-Z]$",
-         ErrorMessage = "sjekk om du skriver Tognavn riktig.")]
-    [Required]
+    [Required(ErrorMessage ="Feltet Tognavn er obligatorisk")]
     public string TogNavn { get; set; }
 
 }
