@@ -6,36 +6,72 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        a.linkclass {
+            font-size: medium;
+            padding-bottom: 10px;
+            color: #3a5546;
+            text-decoration: none;
+        }
+
+            a.linkclass:hover {
+                text-decoration: underline;
+                color: #618b74;
+            }
+
+        button:active {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" style="border-bottom-style: none;box-shadow:0px 1px 1px darkgrey; height:130px;">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" style="background-color:#98a89f;border:ridge darkgray;border-radius:10px;margin-right:-28px;" class="navbar-toggle glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target=".navbar-collapse-default">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+
                 </button>
-                
+
+
 
             </div>
+            <div class="navbar-collapse-default collapse">
+                <ul style="margin-right:-150px;margin-top:-13px;z-index:2;box-shadow:0px 1px 1px darkgrey;background-color:#f0f4f2;display:table;padding:16px;">
+                    @if (ViewBag.Innlogget == true)
+                    {
+                        <li style="padding-bottom:10px;display:table-row;"><p class="glyphicon glyphicon-home" style="display:table-row;background:none;border:none;color:#3a5546;text-shadow:none;"></p><p style="display:table-cell;">&nbsp;@Html.ActionLink("Hjem", "Index", "Default", new { @class = "linkclass" })</p></li>
+                        <li style="padding-bottom:10px;display:table-row;"><p class="glyphicon glyphicon-tasks" style="display:table-row;background:none;border:none;color:#3a5546;text-shadow:none;"></p><p style="display:table-cell">&nbsp;@Html.ActionLink("Kontrollpanel", "Login", "Default", new { @class = "linkclass" })</p></li>
+                        <li style="display:table-row;padding-bottom:10px;"><p class="glyphicon glyphicon-log-out" style="display:table-row;background:none;border:none;color:#3a5546;text-shadow:none;"></p><p style="display:table-cell;">&nbsp;@Html.ActionLink("Logg ut", "Registrer", "Default", new { @class = "linkclass" })</p></li>
+                    }
+                    else
+                    {
+                        <li style="padding-bottom:10px;display:table-row;"><p class="glyphicon glyphicon-home" style="display:table-cell;background:none;border:none;color:#3a5546;text-shadow:none;"></p><p style="display:table-cell;">&nbsp;@Html.ActionLink("Hjem", "Index", "Default", new { @class = "linkclass" })</p></li>
+                        <li style="padding-bottom:10px;display:table-row;"><p class="glyphicon glyphicon-log-in" style="display:table-cell;background:none;border:none;color:#3a5546;text-shadow:none;"></p><p style="display:table-cell;">&nbsp;@Html.ActionLink("Admin login", "Registrer", "Default", new { @class = "linkclass" })</p></li>
+
+                    }
+                </ul>
+            </div>
+
             <div class="navbar-collapse collapse">
                 <div style="float:left;">
                     <a href='@Url.Action("Index", "Default")'>
                         <img src='@Url.Content("~/Content/vy_logo.png")' style="width:150px; " />
                     </a>
                 </div>
-                <div style="float:left; margin-top:15px;margin-left:100px;">
-                    <ul class="nav navbar-nav" style="width:100%; font-size:large;">
+                <div style="float: left;margin-top: 15px;height: 150px;margin-left: 22%;position: absolute;">
+                    <ul class="nav navbar-nav" style="width:100%; font-size:large;text-decoration:none;">
                         <!--ny-->
                         @if (ViewBag.Innlogget == true)
                         {
                             <li>@Html.ActionLink("Hjem", "Index", "Default")</li>
 
                             <li>@Html.ActionLink("Kontrollpanel", "Login", "Default")</li>
-                            <li style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b class="glyphicon glyphicon-log-out" style="color:maroon;border:none;text-shadow:none;background:none;padding:15px;">@Html.ActionLink("Logg ut", "Registrer", "Default")</b></li>
-                            /*<li class="glyphicon glyphicon-log-in" style="color:darkgreen;border:none;text-shadow:none;background:none;padding:15px;"></li>*/
-                            <li style="padding:13px;font-weight:200;font-size:medium;color:#117c3f;float:right;border:groove 1px green;border-radius:86px;text-shadow: -1px 0 #3a5546, 0 0 #3a5546, 0 0 #3a5546, 0 -1px #3a5546;background-color:#e7f1eb;"><b class="glyphicon glyphicon-ok-circle" style="color:#7c7d7c;text-shadow:none;background:none;border:none;"></b>&nbsp;@Html.Label("Innlogget")</li>
+                            <li style="margin-right:650px;">@Html.ActionLink("Logg ut", "Registrer", "Default")</li>
+                            <li style="padding:12px;margin-right:-23px;color:darkgreen;">Innlogget</li>
+                            <li style="padding:17px;"><p style="border:1px green solid;border-radius:16px;height:15px;width:15px;background-image: radial-gradient(#92c9a8 9%, #03b503 13%, green 78%);box-shadow: 0 1px 1px 1px #3a5546;"></p></li>
                         }
                         else
                         {
