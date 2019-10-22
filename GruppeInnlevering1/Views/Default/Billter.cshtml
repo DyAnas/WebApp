@@ -1,89 +1,131 @@
-﻿@model List< BilletV>
+﻿@model List<BilletV>
 
 @{
     ViewBag.Title = "Billter";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Billter</h2>
+<style>
+    .table-striped {
+        background-color: #e1ede0;
+        box-shadow: 0 1px 1px 0 #363636;
+    }
 
+    .table > thead > tr > th {
+        border-bottom: none;
+    }
+
+    a:hover, .glyphicon-arrow-left:hover {
+        text-decoration: none;
+        color: lightsteelblue;
+    }
+
+    a:active {
+    }
+
+    td, tr {
+        width: 2%;
+    }
+
+    b {
+        color: #363636;
+    }
+
+    .btn-danger {
+        box-shadow: 0 1px 1px 0 #363636;
+    }
+
+    .btn-default {
+        box-shadow: 0 1px 1px 0 #808080;
+    }
+</style>
+<h2>Billetter</h2>
+
+<a href="~/Default/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
+<h2 style="font-weight:600;margin-bottom:3%;">Billetter</h2>
 
 <p>
-    <a href="/Default/Login" class="btn btn-primary">Tilbake til Login</a>
+    <a href="" class="btn btn-default glyphicon glyphicon-new-window" style="text-shadow:0 1px 1px 0 #363636;">
+        <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:medium;"></b>
+    </a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
-           Type
+            Type
         </th>
         <th>
-           DatoTur
+            DatoTur
         </th>
         <th>
-           DatoreTur
+            DatoreTur
         </th>
         <th>
-           Pris
+            Pris
         </th>
         <th>
-           AvgangFra
+            AvgangFra
         </th>
         <th>
-           AvgangTil
+            AvgangTil
         </th>
         <th>
-           TelefonNummer
+            TelefonNummer
         </th>
         <th>
-          Email
+            Email
         </th>
         <th>
-           KortNummer
+            KortNummer
         </th>
         <th>
-          CvC
+            CvC
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Type)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DatoTur)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DatoRetur)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Pris)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.AvgangFra)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.AvgangTil)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Telefonnummer)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Kortnummer)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cvc)
-    </td>
-    <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatoTur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatoRetur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pris)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgangFra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgangTil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefonnummer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kortnummer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cvc)
+            </td>
+            <td>
 
-    <td><a href="/Default/Endrebillett?id=@item.BilletId" class="btn btn-primary">Endre</a></td>
-    <td><a href="/Default/SlettBillett?id=@item.BilletId" class="btn btn-danger">Slett</a></td>
-    </td>
-</tr>
-}
+            <td><a href="/Default/Endrebillett?id=@item.BilletId" class="btn btn-primary">Endre</a></td>
+            <td><a href="/Default/SlettBillett?id=@item.BilletId" class="btn btn-danger">Slett</a></td>
+            </td>
+        </tr>
+    }
 
 </table>
+<a href="~/Default/Billter" class="glyphicon glyphicon-arrow-up" style="font-size:x-large;">
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:large;">&nbsp;Til toppen av siden</b>
+</a>

@@ -1,44 +1,90 @@
 ﻿
+<style>
 
-<h2>EndrePris</h2>
+    .form-control {
+        border: inset 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 0 1px #9d9d9d;
+        width: 35%;
+        float:left;
+        
+    }
+
+    .btn-default {
+        color: white;
+        box-shadow: 0 1px 1px 1px rgba(0,0,0,0.50), 0 1px 1px 0 rgba(0,0,0,0.16);
+        border-color: darkseagreen;
+        border-radius: 4px;
+        background-image: linear-gradient(to bottom right, #72946f,darkseagreen);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: medium;
+        font-weight: 500;
+        text-shadow: 1px 1px 1px #333;
+    }
+
+        .btn-default:hover {
+            background-image: linear-gradient(to bottom right, #6d896b,#83ac80);
+            color: #e8e8e8;
+            border-color: #83ac80;
+            box-shadow: 0 1px 1px 1px rgba(0,0,0,0.60), 0 1px 1px 0 rgba(0,0,0,0.26);
+        }
+
+    a:hover, .glyphicon-arrow-left:hover {
+        text-decoration: none;
+        color: lightsteelblue;
+    }
+    td {
+        float:left;
+        padding-right:25px;
+        width:25%;
+    }
+   
+
+    input:focus {
+        outline: 0;
+    }
+</style>
 
 
-
-<h2>EndrePris</h2>
-<form action="/Default/EndrePris" method="POST">
-    <table>
+<a href="~/Default/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
+<h2 style="font-weight:600;margin-bottom:3%;">Endre pris</h2>
+<form action="/Default/EndrePris" method="POST" style="margin-bottom:30%;">
+    <table class="table" style="margin-bottom:40%;">
         <tr>
             <td>
-                <input type="number" placeholder="Endre studntpris" name="Studentpris" min="1" />
+                <label>Endre pris for studentbillett:</label>
+                </td><td>
+                <input type="number" class="form-control" name="Studentpris" min="1" />
 
             </td>
         </tr>
         <tr>
             <td>
-                <input type="number" placeholder="Endre voksenpris" name="voksenpris" min="1"  />
+                <label>Endre pris for voksenbillett:</label></td><td>
+                <input type="number" class="form-control" name="voksenpris" min="1" />
             </td>
         </tr>
         <tr>
             <td>
-                <input type="number" placeholder="Endre barnpris" name="barnpris" min="1" />
+                <label>Endre pris for barnebillett:</label></td><td>
+                <input type="number" name="barnpris" min="1" class="form-control" />
             </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Endre pris" />
+                <input type="submit" value="Endre pris"  class="btn btn-default" />
             <td>
         </tr>
         @if (ViewBag.FeilPis == true)
         {
-            <p class="alert alert-danger">Prisen blir ikke endret</p>
+            <p class="alert alert-danger">Pris ble ikke endret</p>
         }
-        else if(ViewBag.FeilPis == null)
+        else if (ViewBag.FeilPis == null)
         {
             <p></p>
         }
         else
         {
-            <p class="alert alert-success">Prisen blir endret</p>
+            <p class="alert alert-success">Pris ble endret</p>
         }
 
     </table>

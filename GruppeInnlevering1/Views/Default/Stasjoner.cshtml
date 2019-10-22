@@ -4,41 +4,79 @@
     ViewBag.Title = "Stasjoner";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <style>
+        .table-striped {
+            background-color: #e1ede0;
+            box-shadow: 0 1px 1px 0 #363636;
+        }
 
-<h2>Stasjoner</h2>
+        .table > thead > tr > th {
+            border-bottom: none;
+        }
+
+        a:hover, .glyphicon-arrow-left:hover {
+            text-decoration: none;
+            color: lightsteelblue;
+        }
+
+        td, tr {
+            width: 2%;
+        }
+
+        b {
+            color: #363636;
+        }
+
+        .btn-danger {
+            box-shadow: 0 1px 1px 0 #363636;
+        }
+
+        .btn-default {
+            box-shadow: 0 1px 1px 0 #808080;
+        }
+    </style>
+<a href="~/Default/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
+<h2 style="font-weight:600;margin-bottom:3%;">Stasjoner</h2>
 @if (ViewBag.leggStasjon == true)
 {
     <p class="alert alert-success">du har lagt ny stasjon i databasen</p>
 }
 
 <p>
-    <a href="/Default/nyStasjon" class="btn btn-primary">Ny stasjon</a>
+    <a href="/Default/nyStasjon" class="btn btn-default glyphicon glyphicon-new-window" style="text-shadow:0 1px 1px 0 #363636;">
+        <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:medium;">Legg til stasjon</b>
+    </a>
 </p>
-<p>
-    <a href="/Default/Login" class="btn btn-primary">Tilbake til Login</a>
-</p>
-<table class="table">
-    <tr>
 
-        <th>Stasjon Id</th>
-        <th>Stasjon navn</th>
-   
-    </tr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>Stasjon Id</th>
+            <th>Stasjon navn</th>
+            <th class="glyphicon glyphicon-edit" style="font-size:medium;"></th>
+            
+
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-               @item.StasjonId
+                @item.StasjonId
             </td>
             <td>
-             @item.StasjonNavn
+                @item.StasjonNavn
             </td>
 
-            <td><a href="/Default/EndreStasjon?id=@item.StasjonId" class="btn btn-primary">Endre</a></td>
-            <td><a href="/Default/SlettStasjon?id=@item.StasjonId" class="btn btn-danger">Slett</a></td>
+            <td><a href="/Default/EndreStasjon?id=@item.StasjonId" class="btn btn-default">Endre</a>
+            <a href="/Default/SlettStasjon?id=@item.StasjonId" class="btn btn-danger">Slett</a></td>
 
         </tr>
     }
 
 </table>
+<a href="~/Default/Stasjoner" class="glyphicon glyphicon-arrow-up" style="font-size:x-large;">
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:large;">&nbsp;Til toppen av siden</b>
+</a>

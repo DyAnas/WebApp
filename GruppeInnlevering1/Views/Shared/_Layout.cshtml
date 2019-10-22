@@ -26,20 +26,21 @@
                     </a>
                 </div>
                 <div style="float:left; margin-top:15px;margin-left:100px;">
-                    <ul class="nav navbar-nav" style="font-size:large;">
+                    <ul class="nav navbar-nav" style="width:100%; font-size:large;">
                         <!--ny-->
                         @if (ViewBag.Innlogget == true)
                         {
-                            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+                            <li>@Html.ActionLink("Hjem", "Index", "Default")</li>
 
-                            <li>@Html.ActionLink("kontrollpanel", "Login", "Default")</li>
-                            <li>@Html.ActionLink("Loggut", "Registrer", "Default")</li>
-                            <li style="float:right">Du har logget inn</li>
+                            <li>@Html.ActionLink("Kontrollpanel", "Login", "Default")</li>
+                            <li style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b class="glyphicon glyphicon-log-out" style="color:maroon;border:none;text-shadow:none;background:none;padding:15px;">@Html.ActionLink("Logg ut", "Registrer", "Default")</b></li>
+                            /*<li class="glyphicon glyphicon-log-in" style="color:darkgreen;border:none;text-shadow:none;background:none;padding:15px;"></li>*/
+                            <li style="padding:13px;font-weight:200;font-size:medium;color:#117c3f;float:right;border:groove 1px green;border-radius:86px;text-shadow: -1px 0 #3a5546, 0 0 #3a5546, 0 0 #3a5546, 0 -1px #3a5546;background-color:#e7f1eb;"><b class="glyphicon glyphicon-ok-circle" style="color:#7c7d7c;text-shadow:none;background:none;border:none;"></b>&nbsp;@Html.Label("Innlogget")</li>
                         }
                         else
                         {
 
-                            <li>@Html.ActionLink("Home", "Index", "Default")</li>
+                            <li>@Html.ActionLink("Hjem", "Index", "Default")</li>
                             <li>@Html.ActionLink("Registrer", "Registrer", "Default")</li>
                         }
                     </ul>

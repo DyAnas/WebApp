@@ -5,31 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Strekning</h2>
+<style>
+    .table-striped {
+        background-color: #e1ede0;
+        box-shadow: 0 1px 1px 0 #363636;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: none;
+    }
+
+    a:hover, .glyphicon-arrow-left:hover {
+        text-decoration: none;
+        color: lightsteelblue;
+    }
+
+    td, tr {
+        width: 2%;
+    }
+
+    b {
+        color: #363636;
+    }
+
+    .btn-danger {
+        box-shadow: 0 1px 1px 0 #363636;
+    }
+
+    .btn-default {
+        box-shadow: 0 1px 1px 0 #808080;
+    }
+</style>
+<a href="~/Default/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
+<h2 style="font-weight:600;margin-bottom:3%;">Strekning</h2>
 @if (ViewBag.FeilStrekning == false)
 {
-    <p class="alert alert-success">Endring er vellykket</p>
+    <p class="alert alert-success">Endring vellykket</p>
 }
 @if (ViewBag.Feil == false)
 {
-    <p class="alert alert-success">Endring er vellykket</p>
+    <p class="alert alert-success">Endring vellykket</p>
 }
 <p>
-    <a href="/Default/nyAvgang" class="btn btn-primary">Ny Strekning</a>
+    <a href="/Default/nyAvgang" class="btn btn-default glyphicon glyphicon-new-window" style="text-shadow:0 1px 1px 0 #363636;">
+        <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:medium;">Legg til strekning</b>
+    </a>
 </p>
-<p>
-    <a href="/Default/Login" class="btn btn-primary">Tilbake til Login</a>
-</p>
 
 
 
-<table class="table">
+<table class="table table-striped">
     <tr>
 
         <th>AvgangId</th>
         <th>StasjonId</th>
         <th>Tid</th>
         <th>TogNummer</th>
+        <th class="glyphicon glyphicon-edit" style="font-size:medium;"></th>
+        
     </tr>
 
     @foreach (var item in Model)
@@ -49,11 +82,15 @@
             <td>
                 @item.TogId
             </td>
-            <td>
+            
 
-            <td><a href="/Default/EndreAvgang?id=@item.AvgangId" class="btn btn-primary">Endre</a></td>
-            <td><a href="/Default/SlettAvgang?id=@item.AvgangId" class="btn btn-primary">Slett</a></td>
+            <td><a href="/Default/EndreAvgang?id=@item.AvgangId" class="btn btn-default">Endre</a>
+            <a href="/Default/SlettAvgang?id=@item.AvgangId" class="btn btn-danger">Slett</a></td>
             <!--</td>-->
         </tr>
     }
 </table>
+<a href="~/Default/Strekning" class="glyphicon glyphicon-arrow-up" style="font-size:x-large;">
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:large;">&nbsp;Til toppen av siden</b>
+</a>
+

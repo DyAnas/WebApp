@@ -32,9 +32,12 @@ namespace GruppeInnlevering1.Models
     public class DbAdmin
     {
 
-        [Key]
+       
         public string Fornavn { get; set; }
         public string EtterFornavn { get; set; }
+        [Key]
+        [Required (ErrorMessage="Email er allereade registrert.")]
+ 
         public string Email { get; set; }
         public byte[] passord { get; set; }
         public string Salt { get; set; }

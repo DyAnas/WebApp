@@ -1,56 +1,87 @@
-﻿<style>
-    .jumbotron{
-        padding:25px;
-        z-index:3;
-        background-color:white;
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .jumbotron {
+        padding: 25px;
+        z-index: 3;
+        background-color: white;
     }
-    .custom-jumbotron{
-        border:10px solid white;
-        width:300px;
+
+    .custom-jumbotron {
+        border: 10px solid white;
+        width: 300px;
         margin: 0 auto;
     }
-    .jumbotron:hover, .custom-jumbotron:hover{
-        background-color:#e3f0f4;
+
+        .jumbotron:hover, .custom-jumbotron:hover {
+            background-color: #e3f0f4;
+        }
+
+    td .glyphicon {
+        padding: 10px;
+        font-size: xx-large;
     }
-    td .glyphicon{
-        padding:10px;
-        font-size:xx-large;
+
+    input {
+        background: none;
+        border: none;
+        padding: 5px 1px 1px 15px;
+        color: green;
+        font-size: medium;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    input{
-        background:none;
-        border:none;
-        padding:5px 1px 1px 15px;
-        color:green;
-        font-size:medium;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        input:hover {
+            text-decoration: underline;
+            color: limegreen;
+        }
+
+    i {
+        float: left;
     }
-    input:hover{
-        text-decoration:underline;
-        color:limegreen;
-    }
-    i{
-        float:left;
-    }
-    .glyphicon{
+
+    .glyphicon {
         text-shadow: 0 0 1px #666666, 0 0 1px #505050;
-        border:double #505050;
-        border-radius:16px;
-        background-image:linear-gradient(to bottom right, #637e61,darkseagreen);
+        border: double #505050;
+        border-radius: 16px;
+        background-image: linear-gradient(to bottom right, #637e61,darkseagreen);
     }
-    .glyphicon-tag{
-        color:#aaa874;
+
+    .glyphicon-tag {
+        color: #aaa874;
     }
-    .glyphicon-home{
-        color:#9db3cf;
+
+    .glyphicon-home {
+        color: #9db3cf;
     }
-    .glyphicon-list-alt{
-        color:#1b6d42;
+
+    .glyphicon-list-alt {
+        color: #1b6d42;
     }
-    .glyphicon-road{
-        color:#505050;
+
+    .glyphicon-road {
+        color: #505050;
     }
-    .glyphicon-qrcode{
-        color:white;
+
+    .glyphicon-qrcode {
+        color: white;
+    }
+
+    input:active {
+        border: none;
+        text-decoration: none;
+    }
+
+    input:focus {
+        outline: 0;
+    }
+
+    button:focus {
+        outline: 0;
     }
 </style>
 <h1 style="font-weight:500;margin-bottom:6%;">Kontrollpanel</h1>
@@ -62,14 +93,14 @@
                     <tr>
                         <td>
                             <span><i class="glyphicon glyphicon-road"></i></span>
-                            <input type="submit" value="Strekning" />
+                            <input type="submit" value="Avgang" />
                         </td>
                     </tr>
                 </table>
             </form>
         </td>
         <td class="jumbotron custom-jumbotron">
-            <form action="/Default/Stasjoner" method="post">    
+            <form action="/Default/Stasjoner" method="post">
                 <table>
                     <tr>
                         <td>

@@ -13,7 +13,7 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <style>
-    #fornavnInput, #etternavnInput, #passord, #Gjentapassord, #emailInput {
+    #fornavnInput, #etternavnInput, #passordInput, #Gjentapassord, #emailInput, #passord {
         height: 50px;
         width: 100%;
         border-bottom: 3px solid black;
@@ -28,21 +28,108 @@
         color: green;
         z-index: 4;
     }
+
+    input:focus {
+        outline: 0;
+    }
+
+    button:focus {
+        outline: 0;
+    }
 </style>
+<!---
 
 <script>
 
 
     $(function () {
-         $(document).on('click', 'toggle-password', function () {
-             this.toggleClass("fa-eye fa-eye-slash");
-             var input = $("#inputPassord");
-             input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
-         });
-         
+        $(document).on('click', 'toggle-password', function () {
+            this.toggleClass("fa-eye fa-eye-slash");
+            var input = $("#inputPassord");
+            input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
+        });
+
+        $(document).ready(function passordSjekk() {
+            $("#btnSubmitNyBruker").attr("disabled", true);
+
+            $('#passord, #Gjentapassord').on('keyup', function () {
+                if ($('#passord').val() == $('#Gjentapassord').val()) {
+                    $("#btnSubmitNyBruker").attr("disabled", false);
+                } else
+                    $("#btnSubmitNyBruker").attr("disabled", true);
+            });
+
+        });
+
+
 
 
 </script>
+    -->
+
+@if(ViewBag.EmailFeil == true)
+{
+    <p class="alert alert-danger" >Email er allerede registrert</p>
+}
+<form action="/Default/Registrer" method="post" id="registrering" name="registrering" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px; margin-top:40px; margin-bottom:35px;">
+    <!--(Html.BeginForm()){}-->
+
+
+    @Html.AntiForgeryToken()
+    <h2 style="margin-bottom:40px;font-weight:700;">Registrer:</h2>
+
+
+    <div class="form-group" style="padding-bottom:2px;">
+        @Html.LabelFor(model => model.Fornavn, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Fornavn, new { htmlAttributes = new { @class = "form-control", id = "fornavnInput", placeholder = "Fornavn" } })
+            @Html.ValidationMessageFor(model => model.Fornavn, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Etternavn, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Etternavn, new { htmlAttributes = new { @class = "form-control", id = "etternavnInput", placeholder = "Etternavn" } })
+            @Html.ValidationMessageFor(model => model.Etternavn, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "emailInput", placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.passord, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.passord, new { htmlAttributes = new { @class = "form-control", id = "passord", placeholder = "Passord", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.passord, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+
+
+
+    <input value="Registrer ny bruker" id="btnSubmitNyBruker" type="submit" class="btn btn-success" onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"'
+           style="margin-top:15px;color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;" onchange="passordSjekk()">
+</form>
+
+
+<!--
 <div class="body-content" style="margin-bottom:100px;">
     <h1 style="font-weight:700;">Administrer innhold</h1>
 
@@ -55,7 +142,7 @@
 
         <div class="form-group">
             <label for="fornavnInput">Fornavn:</label>
-            <input name="Fornavn" type="text" class="form-control" id="fornavnInput" aria-describedby="*" placeholder="Fornavn" required title="du må fylle fornavn"/>
+            <input name="Fornavn" type="text" class="form-control" id="fornavnInput" aria-describedby="*" placeholder="Fornavn" required title="du må fylle fornavn" />
         </div>
         <div class="form-group">
             <label for="etternavnInput">Etternavn:</label>
@@ -81,59 +168,105 @@
 
         <input value="Registrer ny bruker" type="submit" class="btn btn-default" onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"'
                style="margin-top:15px;color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">
-    </form>
+    </form> -->
+<div>
 
-    <form action="/Default/Login" method="post" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px;">
-        <h2 style="margin-bottom:20px; font-weight:700;">Allerede bruker? <small style="margin-top:40px;font-weight:500; font-size:x-large"><br />Logg inn:</small></h2>
+    @if (ViewBag.feillogg == true)
+    {
+        <p class="alert alert-danger">Prøve på nytt</p>
+    }
 
-        <div class="form-group input-group">
-
-            <span class="input-group-addon" style="height:40px; background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
-                <i class="glyphicon glyphicon-envelope" style="color:white;text-shadow:2px 2px 4px #5e785c;">
-                </i>
-            </span>
-            <input name="Email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Skriv inn din epostadresse">
-            <small id="emailInfo" class="form-text text-muted"></small>
-        </div>
-
-        <div class="form-group input-group" style="margin-bottom:30px;">
-            <span class="input-group-addon" style="background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
-                <i class="glyphicon glyphicon-lock" style="color:white;text-shadow:2px 2px 4px #5e785c;">
-                </i>
-            </span>
-
-            <input name="passord" type="password" class="form-control validate" id="passordInput" placeholder="Skriv inn passord">
-            <span toggle="#passordInput" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-        </div>
-        <div style="margin-bottom:40px;">
-            <label class="checkboxcontainer" style="margin-left:6px;">
-                <input type="checkbox" name="rememberMe" value="remember" id="rememberCheck" style="height:15px;width:15px;">Husk meg
-                <span class="checkmark"></span>
-            </label>
-        </div>
-        <div class="buttoncontainer">
-            <button onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' type="submit" class="btn btn-default" style="color:white;background-color:darkseagreen; font-weight:200;font-size:large;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">Logg inn</button>
-            <button type="submit" class="btn btn-danger" style="font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:rgba(0,0,0,0.24);">Avbryt</button>
-        </div>
-
-
-
-    </form>        <!---endre-->
 </div>
+<form action="/Default/Login" method="post" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px;">
+    <h2 style="margin-bottom:20px; font-weight:700;">Allerede bruker? <small style="margin-top:40px;font-weight:500; font-size:x-large"><br />Logg inn:</small></h2>
+
+    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="form-group input-group">
+        <span class="input-group-addon" style="height:40px; background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+            <i class="glyphicon glyphicon-envelope" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+            </i>
+        </span>
+        <div class="col-md-10" style="padding-left:0">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "fornavnInput", placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    @Html.LabelFor(model => model.passord, htmlAttributes: new { @class = "control-label col-md-2" })
+
+    <div class="form-group input-group" style="margin-bottom:30px;">
+        <span class="input-group-addon" style="background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+            <i class="glyphicon glyphicon-lock" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+            </i>
+        </span>
+
+        <div class="col-md-10" style="padding-left:0;">
+            @Html.EditorFor(model => model.passord, new { htmlAttributes = new { @class = "form-control", id = "passordInput", placeholder = "Passord", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.passord, "", new { @class = "text-danger" })
+        </div>
+        <span toggle="#passordInput" class="fa fa-fw fa-eye field-icon toggle-password" onclick="hei()"></span>
+    </div>
+    <div style="margin-bottom:40px;">
+        <label class="checkboxcontainer" style="margin-left:6px;">
+            <input type="checkbox" name="rememberMe" value="remember" id="rememberCheck" style="height:15px;width:15px;">Husk meg
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+
+
+
+    <div class="buttoncontainer">
+        <button onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' type="submit" class="btn btn-success" style="color:white;background-color:darkseagreen; font-weight:200;font-size:large;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">Logg inn</button>
+        <button type="submit" class="btn btn-danger" style="font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:rgba(0,0,0,0.24);">Avbryt</button>
+    </div>
+
+
+
+</form>        <!---endre-->
+<!--
+<form action="/Default/Login" method="post" style="box-shadow:1px 1px 1px 1px darkgrey; padding:8px 28px 38px 38px;">
+    <h2 style="margin-bottom:20px; font-weight:700;">Allerede bruker? <small style="margin-top:40px;font-weight:500; font-size:x-large"><br />Logg inn:</small></h2>
+
+    <div class="form-group input-group">
+
+        <span class="input-group-addon" style="height:40px; background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+            <i class="glyphicon glyphicon-envelope" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+            </i>
+        </span>
+        <input name="Email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Skriv inn din epostadresse">
+        <small id="emailInfo" class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group input-group" style="margin-bottom:30px;">
+        <span class="input-group-addon" style="background: linear-gradient(to right, darkseagreen, #80a57c); border-right:1px inset; border-left:initial; border-top:1px initial; border-bottom: 3px solid #4b5e49;">
+            <i class="glyphicon glyphicon-lock" style="color:white;text-shadow:2px 2px 4px #5e785c;">
+            </i>
+        </span>
+
+        <input name="passord" type="password" class="form-control validate" id="passordInput" placeholder="Skriv inn passord">
+        <span toggle="#passordInput" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+    </div>
+    <div style="margin-bottom:40px;">
+        <label class="checkboxcontainer" style="margin-left:6px;">
+            <input type="checkbox" name="rememberMe" value="remember" id="rememberCheck" style="height:15px;width:15px;">Husk meg
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <div class="buttoncontainer">
+        <button onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' type="submit" class="btn btn-default" style="color:white;background-color:darkseagreen; font-weight:200;font-size:large;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">Logg inn</button>
+        <button type="submit" class="btn btn-danger" style="font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:rgba(0,0,0,0.24);">Avbryt</button>
+    </div>
+
+
+
+</form>        <!---endre-->
+-->
+<!--</div>-->
 <div class="form-horizontal">
 
-   
-    <div>
-        //ny
-        @if (ViewBag.Innlogget == true)
-        {
-            <p class="alert alert-success">Logget inn er vellykket</p>
-        }
-        else if(ViewBag.Innlogget == false)
-        {
-            <p class="alert alert-danger">Prøve på nytt</p>
-        }
-   
-    </div>
+
+
 </div>
 

@@ -6,11 +6,56 @@
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.js"></script>
+<style>
+    .form-control {
+        border: inset 1px rgba(0,0,0,0.16);
+        box-shadow: 0 0 0 1px #9d9d9d;
+    }
 
-<h2>Ny Stasjon</h2>
+    .btn-default {
+        color: white;
+        box-shadow: 0 1px 1px 1px rgba(0,0,0,0.50), 0 1px 1px 0 rgba(0,0,0,0.16);
+        border-color: darkseagreen;
+        border-radius: 4px;
+        background-image: linear-gradient(to bottom right, #72946f,darkseagreen);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: medium;
+        font-weight: 500;
+        text-shadow: 1px 1px 1px #333;
+    }
+
+        .btn-default:hover {
+            background-image: linear-gradient(to bottom right, #6d896b,#83ac80);
+            color: #e8e8e8;
+            border-color: #83ac80;
+            box-shadow: 0 1px 1px 1px rgba(0,0,0,0.60), 0 1px 1px 0 rgba(0,0,0,0.26);
+        }
+
+    a:hover, .glyphicon-arrow-left:hover, .glyphicon-tasks:hover {
+        text-decoration: none;
+        color: lightsteelblue;
+    }
+
+    a > .glyphicon-arrow-left, .glyphicon-tasks {
+        border: 1px thin lightsteelblue;
+        border-radius: 6px;
+    }
+
+    p {
+        font-size: x-small;
+        float: right;
+    }
+
+    input:focus {
+        outline: 0;
+    }
+</style>
+<a href="~/Default/Stasjoner" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p style="">Tilbake</p></a>
+<a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p style="">Kontrollpanel</p></a>
+<h2 style="font-weight:600;margin-bottom:3%;">Ny Stasjon</h2>
 @if (ViewBag.leggStasjon == false)
 {
-    <p class="alert alert-danger">Feil, kunne ikke lagre til database,fordi Stasjonen finnes fra før i databasen</p>
+    <p class="alert alert-danger">Feil: kunne ikke lagre til database fordi stasjonen finnes fra før</p>
 
 }
 @using (Html.BeginForm())
@@ -34,7 +79,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Legge" class="btn btn-default" />
+                <input type="submit" value="Legg til" class="btn btn-default" />
             </div>
         </div>
     </div>

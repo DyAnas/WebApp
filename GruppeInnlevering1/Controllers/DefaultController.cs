@@ -24,8 +24,7 @@ namespace GruppeInnlevering1.Controllers
             base.Dispose(disposing);
         }
 
-        // spør hvis vi skal endre billetter når vi endrer Avgang eller stasjon eller tog. 
-        // spør hvis vi skal endre togid, stasjonid når vi endrer på avgang. 
+  
 
         public ActionResult Index()
         {
@@ -39,15 +38,15 @@ namespace GruppeInnlevering1.Controllers
             if (Session["loggetInn"] == null)
             {
                 Session["loggetInn"] = false;
-                //ny
+              
                 ViewBag.Innlogget = false;
-                return View(ny);
+               
             }
             else if ((bool)Session["loggetInn"] == true)
             {
                 ViewBag.Innlogget = true;
 
-                return View(ny);
+               
             }
          return View(ny);   
 
@@ -90,6 +89,20 @@ namespace GruppeInnlevering1.Controllers
         {
 
             Samle ny = (Samle)Session["alle"];
+
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+            }
+
 
             ny.antall1 = s.antall1;    //antall  StudentBilletter
             ny.antall2 = s.antall2;    //antall  VoksenBilletter
@@ -216,7 +229,18 @@ namespace GruppeInnlevering1.Controllers
 
             Samle ny = (Samle)Session["alle"];     //henter objektet med Session for å bruke det i siden her 
 
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
 
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+            }
             ny.Fra = FraStasjon;
             ny.Til = TilStasjon;
             ny.tidFra = Avgang;
@@ -237,20 +261,19 @@ namespace GruppeInnlevering1.Controllers
             Samle ny = (Samle)Session["alle"];
 
 
-            //For å sette datoen til null i databasen har vi brukt koden under,
+           
 
             if (Session["loggetInn"] == null)
             {
                 Session["loggetInn"] = false;
-                //ny
+              
                 ViewBag.Innlogget = false;
-                return View(ny);
+            
             }
             else if ((bool)Session["loggetInn"] == true)
             {
                 ViewBag.Innlogget = true;
 
-                return View(ny);
             }
             //vi kunne bruke nullable til datoen, men vi synes at det  ikke  er logiskk å bruke det med datoen 
 
@@ -448,8 +471,8 @@ namespace GruppeInnlevering1.Controllers
             if (Session["loggetInn"] == null)
             {
                 Session["loggetInn"] = false;
-                //ny
                 ViewBag.Innlogget = false;
+                ViewBag.feillogg = true;
                 return View("Registrer");
             }
             else if ((bool)Session["loggetInn"] == true)
@@ -501,7 +524,7 @@ namespace GruppeInnlevering1.Controllers
             else
             {
                 Session["loggetInn"] = false;
-                //ny
+                ViewBag.feillogg = true;
                 ViewBag.Innlogget = false;
                 return View("Registrer");
 
@@ -510,7 +533,7 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Registrer()
         {
-            //ny
+         
             ViewBag.Innlogget = false;
             Session["loggetInn"] = false;
             return View();
@@ -532,16 +555,18 @@ namespace GruppeInnlevering1.Controllers
                 nyAdmin.Fornavn = innAdmin.Fornavn;
                 nyAdmin.EtterFornavn = innAdmin.Etternavn;
                 nyAdmin.Email = innAdmin.Email;
+              
                 nyAdmin.passord = passDb;
                 nyAdmin.Salt = salt;
                 db.Admins.Add(nyAdmin);
                 db.SaveChanges();
+                ViewBag.EmailFeil = true;
                 return RedirectToAction("Registrer");
 
             }
             catch (Exception feil)
             {
-
+                ViewBag.EmailFeil = true;
                 return View();
             }
         }
@@ -697,9 +722,11 @@ namespace GruppeInnlevering1.Controllers
         // billett Kontroller         
         public ActionResult Billter()
         {
-            Session["loggetInn"] = true;
+            //Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
             List<BilletV> alleBillter = db1.alleBillter();
+          
+            
             return View(alleBillter);
 
 

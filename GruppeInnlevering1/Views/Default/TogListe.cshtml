@@ -5,26 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    .table-striped{
-        background-color:darkseagreen;
+    .table-striped {
+        background-color: #e1ede0;
+        box-shadow: 0 1px 1px 0 #363636;
     }
+
     .table > thead > tr > th {
-        border-bottom:none;
+        border-bottom: none;
     }
-    a:hover, .glyphicon-arrow-left:hover{
-        text-decoration:none;
+
+    a:hover, .glyphicon-arrow-left:hover {
+        text-decoration: none;
+        color: lightsteelblue;
+    }
+
+    td, tr {
+    }
+
+    b {
+        color: #363636;
+    }
+
+    .btn-danger {
+        box-shadow: 0 1px 1px 0 #363636;
+    }
+
+    .btn-default {
+        box-shadow: 0 1px 1px 0 #808080;
     }
 </style>
 <a href="~/Default/Login" class="glyphicon glyphicon-arrow-left" style="font-size:x-large;"></a>
-<h2 style="font-weight:500;margin-bottom:3%;">TogListe</h2>
-@if(ViewBag.leggtog == true)
+<h2 style="font-weight:600;margin-bottom:3%;">TogListe</h2>
+@if (ViewBag.leggtog == true)
 {
-    <p class="alert-success" >velllykket endring  </p>
+    <p class="alert-success">velllykket endring  </p>
 }
 
 <p>
-    <a href="/Default/nyTog" class="btn btn-default glyphicon glyphicon-new-window">&nbsp;<i style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-style:none;font-size:medium;">Legg til tog</i></a>
+    <a href="/Default/nyTog" class="btn btn-default glyphicon glyphicon-new-window" style="text-shadow:0 1px 1px 0 #363636;">
+        <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:medium;">Legg til tog</b>
+    </a>
 </p>
+
 
 <table class="table table-striped">
     <thead>
@@ -35,23 +57,27 @@
             <th>
                 TogNavn
             </th>
-            <th class="glyphicon glyphicon-edit" style="font-size:medium;padding:3px;float:right;"></th>
+            <th class="glyphicon glyphicon-edit" style="font-size:medium;"></th>
         </tr>
     </thead>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.TogId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TogNavn)
-    </td>
-    <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TogId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TogNavn)
+            </td>
+            <td>
 
-    <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-default">Endre</a></td>
-    <td><a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
-</tr>
-}
+            <td><a href="/Default/EndreTog?id=@item.TogId" class="btn btn-default">Endre</a></td>
+            <td><a href="/Default/SlettTog?id=@item.TogId" class="btn btn-danger">Slett</a></td>
+        </tr>
+    }
 
 </table>
+<a href="~/Default/TogListe" class="glyphicon glyphicon-arrow-up" style="font-size:x-large;">
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:large;">&nbsp;Til toppen av siden</b>
+</a>
