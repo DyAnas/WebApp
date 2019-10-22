@@ -53,36 +53,42 @@
 <a href="~/Default/Stasjoner" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p style="">Tilbake</p></a>
 <a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p style="">Kontrollpanel</p></a>
 <h2 style="font-weight:600;margin-bottom:3%;">Ny Stasjon</h2>
-@if (ViewBag.leggStasjon == false)
-{
-    <p class="alert alert-danger">Feil: kunne ikke lagre til database fordi stasjonen finnes fra før</p>
 
-}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StasjonNavn, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StasjonNavn, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StasjonNavn, "", new { @class = "text-danger" })
 
-            </div>
-        </div>
+<div class="form-group">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Legg til" class="btn btn-default" />
-            </div>
+    @Html.LabelFor(model => model.StasjonNavn, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.StasjonNavn, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.StasjonNavn, "", new { @class = "text-danger" })
+        @if (ViewBag.leggStasjon == false)
+        {
+            <p class="alert alert-danger">Feil: kunne ikke lagre til database fordi stasjonen finnes fra før,eller du har ikke skrevet noe</p>
+
+        }
+
+
+
+    </div>
+
+</div>
+ 
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Legg til" class="btn btn-default" />
         </div>
     </div>
+</div>
 }
 
 <div>

@@ -7,6 +7,7 @@ namespace GruppeInnlevering1.Models
     {
 
         public int StasjonId { get; set; }
+        [Required]
         public string StasjonNavn { get; set; }
         public virtual List<Avgang> Avganger { get; set; }
 

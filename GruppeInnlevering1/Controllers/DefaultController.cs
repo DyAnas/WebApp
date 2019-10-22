@@ -318,7 +318,8 @@ namespace GruppeInnlevering1.Controllers
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
-                    Cvc = Cvc
+                    Cvc = Cvc,
+                    gyldig = "ja"
 
                 };
                 try
@@ -348,7 +349,8 @@ namespace GruppeInnlevering1.Controllers
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
-                    Cvc = Cvc
+                    Cvc = Cvc,
+                    gyldig = "ja"
 
                 };
 
@@ -383,9 +385,10 @@ namespace GruppeInnlevering1.Controllers
                     Telefonnummer = Telefonnummer,
                     Email = Email,
                     Kortnummer = kortnummer,
-                    Cvc = Cvc
+                    Cvc = Cvc,
+                    gyldig = "ja"
                 };
-
+                
                 try
                 {
                     db.Billeter.Add(NyBillet);
@@ -670,12 +673,20 @@ namespace GruppeInnlevering1.Controllers
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
+            Session["leggStasjon"] = true;
             bool OK = db1.endreStasjon(innStasjon);
             if (OK)
             {
                 ViewBag.FeilStasjon = false;
                 return RedirectToAction("Stasjoner");
             }
+            else
+            {
+                Session["leggStasjon"] = false;
+                return RedirectToAction("Stasjoner");
+
+            }
+        
             return View();
         }
         public ActionResult SlettStasjon(int id)
@@ -732,7 +743,7 @@ namespace GruppeInnlevering1.Controllers
 
 
         }
-        public ActionResult Endrebillett(int id)
+      /*  public ActionResult Endrebillett(int id)
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
@@ -750,7 +761,7 @@ namespace GruppeInnlevering1.Controllers
                 return RedirectToAction("Billter");
             }
             return View("Login");
-        }
+        }*/
         public ActionResult SlettBillett(int id)
         {
           
@@ -777,6 +788,7 @@ namespace GruppeInnlevering1.Controllers
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
+            
             TogV s = db1.hentTog(id);
             return View(s);
         }
@@ -784,13 +796,21 @@ namespace GruppeInnlevering1.Controllers
         public ActionResult Endretog(TogV innTog)
         {
             ViewBag.Innlogget = true;
+          
             bool OK = db1.endreTog(innTog);
             if (OK)
             {
-                ViewBag.leggtog = true;
+             
+                Session["togmelding"] = true;
                 return RedirectToAction("TogListe");
             }
-            ViewBag.leggtog = false;
+            else
+            {
+             
+                Session["togmelding"] =false;
+                return RedirectToAction("Togliste");
+            }
+           
             return View();
         }
         public ActionResult SlettTog(int id)

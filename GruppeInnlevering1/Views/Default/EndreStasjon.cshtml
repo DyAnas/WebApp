@@ -62,7 +62,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StasjonNavn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StasjonNavn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StasjonNavn, new { htmlAttributes = new { @class = "form-control", style = "font-family:'FontAwesome',sans-serif;height: 60px; width: 50%; border-bottom:3px solid black " } })
                 @Html.ValidationMessageFor(model => model.StasjonNavn, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -56,9 +56,9 @@ namespace GruppeInnlevering1.Models
 
    
         public int Voksenpris { get; set; }
-      
 
-   
+
+       
         public int BarnPris { get; set; }
 
 

@@ -18,7 +18,7 @@ namespace GruppeInnlevering1.Models
         public string Email { get; set; }
         public string Kortnummer { get; set; }
         public int Cvc { get; set; }
-
+        public string gyldig { get; set; }
 
     }
 }
@@ -40,6 +40,7 @@ public class BilletV
     public string Email { get; set; }
     public string Kortnummer { get; set; }
     public int Cvc { get; set; }
+    public string gyldig { get; set; }
 
 
 

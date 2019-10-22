@@ -51,7 +51,9 @@ namespace GruppeInnlevering1
 
             }
         }
-        public bool lagreAvganger(Avgang innAvgang)
+
+        
+        /*    public bool lagreAvganger(Avgang innAvgang)
         {
             using (var db = new TogContext())
             {
@@ -73,7 +75,7 @@ namespace GruppeInnlevering1
             }
 
 
-        }
+        }*/
         public avgangs hentAvgang(int AvgangId)
         {
             using (var db = new TogContext())
@@ -157,7 +159,9 @@ namespace GruppeInnlevering1
                    
                     foreach(var item in slettBillett)
                     {
-                     db.Billeter.Remove(item);
+                        //  db.Billeter.Remove(item);
+                        if (item.gyldig == "ja")
+                            item.gyldig = "nei";
                     }
                     db.Avganger.Remove(slettObjekt);
                     db.SaveChanges();
@@ -187,7 +191,7 @@ namespace GruppeInnlevering1
             }
 
         }
-        public bool lagreStasjon(Stasjon innStasjon)
+       /* public bool lagreStasjon(Stasjon innStasjon)
         {
             using (var db = new TogContext())
             {
@@ -206,7 +210,7 @@ namespace GruppeInnlevering1
 
             }
 
-        }
+        }*/
         public bool nyStasjon(StasjonV innStasjon)
         {
             using (var db = new TogContext())
@@ -254,19 +258,26 @@ namespace GruppeInnlevering1
         {
             using (var db = new TogContext())
             {
+                var finnstasjon = db.Stasjoner.Where(s => s.StasjonNavn == innStasjon.StasjonNavn);
+
+                if (finnstasjon.Count() != 0){
+                    return false;
+                }
                 try
                 {
                     var endretobjekt = db.Stasjoner.Find(innStasjon.StasjonId);
-
+                    
                     endretobjekt.StasjonNavn = innStasjon.StasjonNavn;
 
+                
                     db.SaveChanges();
+                    return true;
                 }
                 catch (Exception feil)
                 {
                     return false;
                 }
-                return true;
+                
             }
 
         }
@@ -278,18 +289,30 @@ namespace GruppeInnlevering1
                 {
 
 
-                    var slett = from i in db.Avganger
-                                from k in db.Stasjoner
-                                from b in db.Billeter
-                                where i.Stasjon.StasjonId == id
-                                   & k.StasjonId == id
-                                  || b.AvgangFra==id || b.AvgangTil==id
-                                select new { i, k,b };
-                    foreach (var item in slett)
+                    var endreBillett = from b in db.Billeter
+                                where b.AvgangFra == id || b.AvgangTil == id
+                                select new { b };
+                    var slettavgang = from i in db.Avganger
+                                      where i.Stasjon.StasjonId == id
+                                      select new { i }; 
+
+                   foreach(var item in slettavgang)
                     {
-                        db.Stasjoner.Remove(item.k);
                         db.Avganger.Remove(item.i);
-                        db.Billeter.Remove(item.b);
+                    }
+                    var slettstasjon = from s in db.Stasjoner
+                                       where s.StasjonId == id
+                                       select new { s };
+ 
+                    foreach (var item in slettstasjon)
+                    {
+                        db.Stasjoner.Remove(item.s);
+                    }
+                    foreach (var item in endreBillett)
+                    {
+                       
+                        if (item.b.gyldig == "ja")
+                            item.b.gyldig = "nei";
                     }
 
                     db.SaveChanges();
@@ -320,12 +343,13 @@ namespace GruppeInnlevering1
                     Kortnummer = k.Kortnummer,
                     Pris = k.Pris,
                     Telefonnummer = k.Telefonnummer,
-                    Type = k.Type
+                    Type = k.Type,
+                    gyldig=k.gyldig
                 }).ToList();
                 return alleBillter;
             }
         }
-        public bool lagreBilleter(Billet innBillett)
+       /* public bool lagreBilleter(Billet innBillett)
         {
             using (var db = new TogContext())
             {
@@ -352,7 +376,7 @@ namespace GruppeInnlevering1
 
             }
 
-        }
+        }*/
         public BilletV hentBilett(int BilletId)
         {
             using (var db = new TogContext())
@@ -370,14 +394,15 @@ namespace GruppeInnlevering1
                     Telefonnummer = enbillett.Kortnummer,
                     Email = enbillett.Email,
                     Kortnummer = enbillett.Kortnummer,
-                    Cvc = enbillett.Cvc
+                    Cvc = enbillett.Cvc,
+                    gyldig=enbillett.gyldig
 
                 };
                 return hentbilletts;
             }
 
         }
-
+/*
         public bool endreBillett(BilletV innBillett)
         {
             using (var db = new TogContext())
@@ -395,17 +420,19 @@ namespace GruppeInnlevering1
                     endretobjekt.Pris = innBillett.Pris;
                     endretobjekt.Telefonnummer = innBillett.Telefonnummer;
                     endretobjekt.Type = innBillett.Type;
+                    endretobjekt.gyldig= innBillett.gyldig;
 
                     db.SaveChanges();
+                    return true;
                 }
                 catch (Exception feil)
                 {
                     return false;
                 }
-                return true;
+             
             }
 
-        }
+        }*/
         public bool SlettSBillett(int id)
         {
             using (var db = new TogContext())
@@ -491,12 +518,17 @@ namespace GruppeInnlevering1
         public bool endreTog(TogV inntog)
         {
             using (var db = new TogContext())
-            {
+            { 
+                var endretog = db.TogTabell.Where(t =>t.TogId==inntog.TogId);
+                if(endretog.Count() != 0)
+                {
+                    return false;
+                }
                 try
                 {
-                    var endretobjekt = db.TogTabell.Find(inntog.TogId);
 
-                    endretobjekt.TogNavn = inntog.TogNavn;
+                    var endreobjekt = db.TogTabell.Find(inntog.TogId);
+                    endreobjekt.TogNavn = inntog.TogNavn;
 
                     db.SaveChanges();
                 }
@@ -515,19 +547,33 @@ namespace GruppeInnlevering1
                 try
                 {
                     // var slettObjekt = db.Stasjoner.Find(id);
-                    var slett = from i in db.Avganger
-                                from k in db.TogTabell
-                                from b in db.Billeter
-                                where i.Tog.TogId == id
-                                   & k.TogId == id
-                                   ||  b.AvgangFra ==id
-                                   || b.AvgangTil ==id
-                                select new { i, k,b };
-                    foreach (var item in slett)
+                    var slettAvgang = from i in db.Avganger
+                                         where i.Tog.TogId==id
+                                      select new { i };
+                    foreach(var item in slettAvgang)
+                    {
+                        db.Avganger.Remove(item.i);
+                    }
+
+                    var sletttog = from k in db.TogTabell
+                                   where k.TogId==id
+                                   select new { k }  ;
+                    foreach (var item in sletttog)
                     {
                         db.TogTabell.Remove(item.k);
-                        db.Avganger.Remove(item.i);
-                        db.Billeter.Remove(item.b);
+                    }
+                    var endreBillet = from b in db.Billeter
+                                      from i in db.TogTabell
+                                      from a in db.Avganger
+                                      where i.TogId == id
+                                       & a.Tog.TogId== id
+                                  
+                                select new { b,i,a };
+                    foreach (var item in endreBillet)
+                    {
+                       
+                        if (item.b.gyldig == "ja")
+                            item.b.gyldig = "nei";
                     }
                     db.SaveChanges();
                     return true;

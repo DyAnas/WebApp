@@ -23,7 +23,7 @@
     a:active {
     }
 
-    td, tr {
+    td,tr {
         width: 2%;
     }
 
@@ -50,79 +50,95 @@
     </a>
 </p>
 <table class="table table-striped">
-    <tr>
-        <th>
-            Type
-        </th>
-        <th>
-            DatoTur
-        </th>
-        <th>
-            DatoreTur
-        </th>
-        <th>
-            Pris
-        </th>
-        <th>
-            AvgangFra
-        </th>
-        <th>
-            AvgangTil
-        </th>
-        <th>
-            TelefonNummer
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            KortNummer
-        </th>
-        <th>
-            CvC
-        </th>
-        <th></th>
-    </tr>
+    <thead>
+        <tr>
+            <th>
+               BilletID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                DatoTur
+            </th>
+            <th>
+                DatoreTur
+            </th>
+            <th>
+                Pris
+            </th>
+            <th>
+                Fra
+            </th>
+            <th>
+                Til
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Kortnr
+            </th>
+            <th>
+                CvC
+            </th>
+            <th>
+                Gyldig
+            </th>
+            <th class="glyphicon glyphicon-edit" style="font-size:medium;"></th>
 
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatoTur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatoRetur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pris)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvgangFra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvgangTil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefonnummer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kortnummer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cvc)
-            </td>
-            <td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.BilletId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Type)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatoTur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatoRetur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Pris)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AvgangFra)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AvgangTil)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Telefonnummer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kortnummer)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Cvc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.gyldig)
+    </td>
 
-            <td><a href="/Default/Endrebillett?id=@item.BilletId" class="btn btn-primary">Endre</a></td>
-            <td><a href="/Default/SlettBillett?id=@item.BilletId" class="btn btn-danger">Slett</a></td>
-            </td>
-        </tr>
+
+    <td>
+        <!--<a href="/Default/Endrebillett?id=@item.BilletId" class="btn btn-default">Endre</a>-->
+        <a href="/Default/SlettBillett?id=@item.BilletId" class="btn btn-danger">Slett</a>
+    </td>
+
+</tr>
     }
 
 </table>

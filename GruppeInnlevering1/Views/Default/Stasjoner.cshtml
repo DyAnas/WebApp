@@ -39,7 +39,11 @@
 <h2 style="font-weight:600;margin-bottom:3%;">Stasjoner</h2>
 @if (ViewBag.leggStasjon == true)
 {
-    <p class="alert alert-success">du har lagt ny stasjon i databasen</p>
+<p class="alert alert-success">Endring er vellykket</p>
+}
+else if(ViewBag.leggStasjon == false)
+{
+<p class="alert alert-danger">Feil: Stasjoner finnes fra før i database eller du har ikke skrivet noe.</p>   
 }
 
 <p>

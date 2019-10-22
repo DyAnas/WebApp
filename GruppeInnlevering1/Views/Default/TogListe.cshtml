@@ -39,6 +39,10 @@
 @if (ViewBag.leggtog == true)
 {
     <p class="alert-success">velllykket endring  </p>
+} 
+else if(ViewBag.leggtog == false)
+{
+    <p class="alert alert-danger">Feil: Toget finnes fra før i database eller du har ikke skrivet noe.</p>
 }
 
 <p>
