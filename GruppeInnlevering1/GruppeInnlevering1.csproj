@@ -132,19 +132,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="DbTogstasjon.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Admin.cs" />
-    <Compile Include="Models\Avgang.cs" />
-    <Compile Include="Models\Billet.cs" />
-    <Compile Include="Models\ReqularExpressionAttribute.cs" />
-    <Compile Include="Models\Samle.cs" />
-    <Compile Include="Models\Stasjon.cs" />
-    <Compile Include="Models\Tog.cs" />
-    <Compile Include="Models\TogContext.cs" />
-    <Compile Include="Models\TogInitializer.cs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -221,6 +212,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{24cc1355-f7f6-43e1-a77b-2c7d5ab9dfe8}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{56a48713-2023-4b09-b5d3-a59ad9a884b2}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
