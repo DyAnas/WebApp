@@ -1,4 +1,7 @@
-﻿using GruppeInnlevering1.Models;
+﻿
+/*
+
+using GruppeInnlevering1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +32,7 @@ namespace GruppeInnlevering1.DAL
         bool SlettTog(int id);
         bool Admin_i_db(Admin innAdmin);
         bool nyAdmin(Admin innAdmin);
+        IEnumerable<Stasjon> hentTilListe(int id);
     }
 }
+*/

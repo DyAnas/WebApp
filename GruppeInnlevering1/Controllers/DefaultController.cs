@@ -1,35 +1,322 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using GruppeInnlevering1.BLL;
-using GruppeInnlevering1.Models;
 
-namespace GruppeInnlevering1.Controllers
+using GruppeInnlevering1.BLL;
+using GruppeInnlevering1.Model;
+
+
+namespace GruppeInnlevering.Controllers
 {
     public class DefaultController : Controller
     {
-     
-        TogBLL db1 = new TogBLL();
-
-        private TogLogikk togbll;
+        //  TogContext db = new TogContext();
+        TogLogikk db1 = new TogLogikk();
 
 
-        public DefaultController()
+
+
+
+
+        public ActionResult Index()
         {
-            togbll = new TogBLL();
+            Samle ny = new Samle();
+
+            List<StasjonV> alleStasjoner = db1.alleStasjoner();
+
+
+
+            ny.fraListe = alleStasjoner;
+
+            Session["alle"] = ny;     //lagre objekt i Session til å kunne bruke det i andre sider
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+
+            }
+            return View(ny);
+
+
         }
-        public DefaultController(TogLogikk stub)
+
+
+
+
+        // metode som begrenser valg i TilListe til kun de stasjonene som ligger i denne strekningen 
+        // den skal retunere En Liste med Ajax-kall og json 
+
+        public string hentListe(int stajonId)
         {
-            togbll = stub;
+
+            TogLogikk db1 = new TogLogikk();
+
+            List<StasjonV> valgStasjon = db1.hentTilListe(stajonId);
+
+
+
+
+            Samle ny = (Samle)Session["alle"];
+            ny.tilListe = valgStasjon;
+
+            var jsonSeralizer = new JavaScriptSerializer();
+
+            return jsonSeralizer.Serialize(ny.tilListe);
+
         }
+
+
+
+
+        [HttpPost]
+        public ActionResult Result(Samle s)
+        {
+
+            Samle ny = (Samle)Session["alle"];
+
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+            }
+
+
+            ny.antall1 = s.antall1;    //antall  StudentBilletter
+            ny.antall2 = s.antall2;    //antall  VoksenBilletter
+            ny.antall3 = s.antall3;    //antall  BarnBilletter
+
+
+
+
+
+            if (Session["Studentpris"] != null)
+            {
+                ny.Studentpris = (int)Session["Studentpris"];
+            }
+            else
+            {
+                ny.Studentpris = 10;
+            }
+
+            if (Session["Voksenpris"] != null)
+            {
+                ny.Voksenpris = (int)Session["Voksenpris"];
+            }
+            else
+            {
+                ny.Voksenpris = 20;
+            }
+
+            if (Session["Barn"] != null)
+            {
+                ny.BarnPris = (int)Session["Barn"];
+            }
+            else
+            {
+                ny.BarnPris = 5;
+            }
+
+
+
+
+
+
+            ny.dato = s.dato;
+            int result;
+            int result1;
+
+            try
+            {
+                result = int.Parse(s.Fra);  //konvertere StajonId til Int 
+                result1 = int.Parse(s.Til); //DestnasjonId
+            }
+
+            //Hvis Destinasjon ikke er valgt blir man sendt til Index siden
+            catch (Exception feil)
+            {
+
+                Logging Err = new Logging();
+                Err.FeilLog(Server.MapPath("./../ErrorLog/TextFile"), feil.Message + ": Har ikke valgt destinasjon");
+                return RedirectToAction("Index");
+            }
+            List<avgangs> ReturListe = new List<avgangs>();
+
+
+            List<avgangs> turListe = db1.hentTurListe(result, result1);
+            if(s.datoTilbake.GetHashCode() != 0) { 
+          ReturListe = db1.hentReturListe(result, result1);
+            }
+            ny.datoTilbake = s.datoTilbake;
+
+
+
+
+
+            //sette Tur og Retur Avganger i en Liste og sende dem til Viewen
+
+            List<avgangs> TurogRetur = new List<avgangs>();
+
+            foreach (avgangs avgang in turListe)
+            {
+                TurogRetur.Add(avgang);
+            }
+            if (s.datoTilbake.GetHashCode() != 0)
+            {
+                foreach (avgangs avgang in ReturListe)
+                {
+                    TurogRetur.Add(avgang);
+                }
+            }
+
+            return View(TurogRetur);
+        }
+
+
+
+        public ActionResult Bekrefte(string FraStasjon, string TilStasjon,
+                                       TimeSpan Avgang, TimeSpan Ankomst,
+                                       int StasjonfraId, int StasjonTilId)
+
+
+        {
+
+            Samle ny = (Samle)Session["alle"];     //henter objektet med Session for å bruke det i siden her 
+
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+            }
+            ny.Fra = FraStasjon;
+            ny.Til = TilStasjon;
+            ny.tidFra = Avgang;
+            ny.tidTil = Ankomst;
+            ny.stasjonIdTil = StasjonTilId;
+            ny.stasjonIdFra = StasjonfraId;
+
+
+            Session["alle"] = ny;
+
+            return View(ny);
+        }
+
+        [HttpPost]
+        public ActionResult Betaling(string Telefonnummer, string Email, string kortnummer, int Cvc)
+        {
+
+            Samle ny = (Samle)Session["alle"];
+
+
+
+
+            if (Session["loggetInn"] == null)
+            {
+                Session["loggetInn"] = false;
+
+                ViewBag.Innlogget = false;
+
+            }
+            else if ((bool)Session["loggetInn"] == true)
+            {
+                ViewBag.Innlogget = true;
+
+            }
+            //vi kunne bruke nullable til datoen, men vi synes at det  ikke  er logiskk å bruke det med datoen 
+
+
+            if (ny.datoTilbake.GetHashCode() == 0)
+            {
+
+                ny.datoTilbake = null;
+            }
+
+
+
+            //finner lengde mellom stasjoner til å regne prisen 
+            var studentpris = 10;
+            var voksenpris = 20;
+            var barnpris = 5;
+            //pris fakturer
+            if (Session["Studentpris"] != null)
+            {
+                studentpris = (int)Session["Studentpris"];
+            }
+            if (Session["Voksenpris"] != null)
+            {
+                voksenpris = (int)Session["Voksenpris"];
+            }
+            if (Session["Barn"] != null)
+            {
+                barnpris = (int)Session["Barn"];
+            }
+            //ligge Billtter for StudentType til databasen
+
+            bool ok = db1.setteAlleBilletter(ny, studentpris, voksenpris, barnpris,
+             Telefonnummer, Email, kortnummer, Cvc);
+
+            Session["alle"] = ny;
+            if (ok)
+            {
+                return View();
+
+
+            }
+            else
+            {
+                return View("Error");
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // endre
+
         public ActionResult Login()
         {
-            
+
             if (Session["loggetInn"] == null)
             {
                 Session["loggetInn"] = false;
@@ -52,15 +339,18 @@ namespace GruppeInnlevering1.Controllers
 
 
         }
-       
+
+
         [HttpPost]
         public ActionResult Login(Admin innAdmin)
         {
-           
             if (db1.Admin_i_db(innAdmin))
             {
+
                 Session["loggetInn"] = true;
-                ViewBag.Innlogget = true;              
+                //ny
+                ViewBag.Innlogget = true;
+
                 return View();
             }
             else
@@ -74,25 +364,31 @@ namespace GruppeInnlevering1.Controllers
         }
 
         public ActionResult Registrer()
-        { 
+        {
+
             ViewBag.Innlogget = false;
             Session["loggetInn"] = false;
             return View();
         }
         [HttpPost]
+        // [ValidateAntiForgeryToken]
         public ActionResult Registrer(Admin innAdmin)
         {
-           
-            try
+            bool ok = db1.nyAdmin(innAdmin);
+
+
+            if (ok)
             {
-               
-                db1.nyAdmin(innAdmin);
                 ViewBag.EmailFeil = true;
                 return RedirectToAction("Registrer");
-
             }
-            catch (Exception feil)
+            else
             {
+
+                //    Logging Err = new Logging();
+                //  Err.FeilLog(Server.MapPath("./../ErrorLog/TextFile"), feil.Message + ": kan ikke sette billett i databasen");
+
+
                 ViewBag.EmailFeil = true;
                 return View();
             }
@@ -101,17 +397,17 @@ namespace GruppeInnlevering1.Controllers
 
         public ActionResult Avganger()
         {
-            Session["loggetInn"] =true;
+            Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
             ViewBag.FeilStrekning = Session["feilStrekning"];
-          
-                List<avgangs> avganger = db1.allavganger();
 
-                return View(avganger);
+            List<avgangs> avganger = db1.allavganger();
+
+            return View(avganger);
 
         }
 
-        
+
         public ActionResult EndreAvgang(int id)
         {
             Session["loggetInn"] = true;
@@ -124,7 +420,7 @@ namespace GruppeInnlevering1.Controllers
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
-       
+
             bool OK = db1.endreAvgang(innAvgang);
             if (OK)
             {
@@ -132,16 +428,16 @@ namespace GruppeInnlevering1.Controllers
 
                 Session["feilStrekning"] = ViewBag.Feil;
 
-               return RedirectToAction("Avganger");
+                return RedirectToAction("Avganger");
             }
-          
+
             return View();
         }
         public ActionResult SlettAvgang(int id)
         {
-            
-       
-            bool OK = db1.SlettAvgan(id);
+
+
+            bool OK = db1.slettAvgang(id);
             if (OK)
             {
                 return RedirectToAction("Avganger");
@@ -154,13 +450,14 @@ namespace GruppeInnlevering1.Controllers
             ViewBag.Innlogget = true;
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult nyAvgang(avgangs innAvgang)
         {
             ViewBag.Innlogget = true;
-            bool  ok= db1.nyAvgang(innAvgang);
-            if (ok) {
+            bool ok = db1.nyAvgang(innAvgang);
+            if (ok)
+            {
                 ViewBag.FeilStrekning = false;
                 Session["feilStrekning"] = ViewBag.FeilStrekning;
                 return RedirectToAction("Avganger");
@@ -168,10 +465,10 @@ namespace GruppeInnlevering1.Controllers
             else
             {
                 ViewBag.FeilStrekning = true;
-                return View(); 
-            }         
+                return View();
             }
-        
+        }
+
 
 
         // stasjon Kontroller
@@ -180,7 +477,7 @@ namespace GruppeInnlevering1.Controllers
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
 
-            ViewBag.leggStasjon =Session["leggStasjon"];
+            ViewBag.leggStasjon = Session["leggStasjon"];
             List<StasjonV> alleStasjonerliste = db1.alleStasjoner();
             return View(alleStasjonerliste);
         }
@@ -189,7 +486,7 @@ namespace GruppeInnlevering1.Controllers
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
             Session["leggStasjon"] = true;
-            StasjonV s = db1.hentStasjon(id);
+            StasjonV s = db1.hentEStasjon(id);
             return View(s);
         }
         [HttpPost]
@@ -210,14 +507,14 @@ namespace GruppeInnlevering1.Controllers
                 return RedirectToAction("Stasjoner");
 
             }
-        
-            return View();
+
+
         }
         public ActionResult SlettStasjon(int id)
         {
-          
 
-            bool OK = db1.SlettStasjon(id);
+
+            bool OK = db1.slettStasjon(id);
             if (OK)
             {
                 return RedirectToAction("Stasjoner");
@@ -260,37 +557,37 @@ namespace GruppeInnlevering1.Controllers
             //Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
             List<BilletV> alleBillter = db1.alleBillter();
-          
-            
+
+
             return View(alleBillter);
 
 
 
         }
-      /*  public ActionResult Endrebillett(int id)
-        {
-            Session["loggetInn"] = true;
-            ViewBag.Innlogget = true;
-            BilletV s = db1.hentBilett(id);
-            return View(s);
-        }
-        [HttpPost]
-        public ActionResult Endrebillett(BilletV innBillett)
-        {
-            Session["loggetInn"] = true;
-            ViewBag.Innlogget = true;
-            bool OK = db1.endreBillett(innBillett);
-            if (OK)
-            {
-                return RedirectToAction("Billter");
-            }
-            return View("Login");
-        }*/
+        /*  public ActionResult Endrebillett(int id)
+          {
+              Session["loggetInn"] = true;
+              ViewBag.Innlogget = true;
+              BilletV s = db1.hentBilett(id);
+              return View(s);
+          }
+          [HttpPost]
+          public ActionResult Endrebillett(BilletV innBillett)
+          {
+              Session["loggetInn"] = true;
+              ViewBag.Innlogget = true;
+              bool OK = db1.endreBillett(innBillett);
+              if (OK)
+              {
+                  return RedirectToAction("Billter");
+              }
+              return View("Login");
+          }*/
         public ActionResult SlettBillett(int id)
         {
-          
 
-            bool OK = db1.SlettSBillett(id);
+
+            bool OK = db1.slettBillet(id);
             if (OK)
             {
                 return RedirectToAction("Billter");
@@ -312,7 +609,7 @@ namespace GruppeInnlevering1.Controllers
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
-            
+
             TogV s = db1.hentTog(id);
             return View(s);
         }
@@ -320,28 +617,28 @@ namespace GruppeInnlevering1.Controllers
         public ActionResult Endretog(TogV innTog)
         {
             ViewBag.Innlogget = true;
-          
+
             bool OK = db1.endreTog(innTog);
             if (OK)
             {
-             
+
                 Session["togmelding"] = true;
                 return RedirectToAction("TogListe");
             }
             else
             {
-             
-                Session["togmelding"] =false;
+
+                Session["togmelding"] = false;
                 return RedirectToAction("Togliste");
             }
-           
-            return View();
+
+
         }
         public ActionResult SlettTog(int id)
         {
-           
 
-            bool OK = db1.SlettTog(id);
+
+            bool OK = db1.slettTog(id);
             if (OK)
             {
                 return RedirectToAction("TogListe");
@@ -361,12 +658,13 @@ namespace GruppeInnlevering1.Controllers
         {
             Session["loggetInn"] = true;
             ViewBag.Innlogget = true;
-            bool ok =db1.nyTog(innTog);
-            if (ok) {
+            bool ok = db1.nyTog(innTog);
+            if (ok)
+            {
                 Session["togmelding"] = true;
                 return RedirectToAction("TogListe");
             }
-           ViewBag.TogFinnes = true;
+            ViewBag.TogFinnes = true;
             return View();
 
         }
@@ -378,7 +676,7 @@ namespace GruppeInnlevering1.Controllers
 
             ViewBag.Innlogget = true;
             ViewBag.FeilPis = null;
-           
+
             return View();
         }
         [HttpPost]
@@ -388,23 +686,34 @@ namespace GruppeInnlevering1.Controllers
 
             ViewBag.FeilPis = true;
             ViewBag.Innlogget = true;
-            if (!"".Equals(Studentpris)) { Session["Studentpris"] = int.Parse(Studentpris);
+            if (!"".Equals(Studentpris))
+            {
+                Session["Studentpris"] = int.Parse(Studentpris);
                 ViewBag.FeilPis = false;
-                
+
             }
 
 
-            if (!"".Equals(voksenpris)) { Session["Voksenpris"] = int.Parse(voksenpris);
+            if (!"".Equals(voksenpris))
+            {
+                Session["Voksenpris"] = int.Parse(voksenpris);
                 ViewBag.FeilPis = false;
             }
 
-            if (!"".Equals(barnpris)) { Session["Barn"] = int.Parse(barnpris);
+            if (!"".Equals(barnpris))
+            {
+                Session["Barn"] = int.Parse(barnpris);
                 ViewBag.FeilPis = false;
             }
             Session["Feilpris"] = ViewBag.FeilPis;
 
             return View("EndrePrisV");
         }
+
+
+
+
+
     }
 
 }

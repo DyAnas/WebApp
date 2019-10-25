@@ -33,7 +33,7 @@ namespace GruppeInnlevering1.DAL
     }
 
     public class Billett
-    {
+    {    [Key]
         public int BilletId { get; set; }
         public string Type { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
@@ -71,7 +71,7 @@ namespace GruppeInnlevering1.DAL
         public TogContext() : base("name=ModelContext")
         {
             Database.CreateIfNotExists();
-          //  Database.SetInitializer(new TogInitializer());
+           Database.SetInitializer(new TogInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -79,7 +79,7 @@ namespace GruppeInnlevering1.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
         public DbSet<Stasjon> Stasjoner { get; set; }
-        public DbSet<Billet> Billeter { get; set; }
+        public DbSet<Billett> Billeter { get; set; }
         public DbSet<Avgang> Avganger { get; set; }
         public DbSet<Tog> TogTabell { get; set; }
         public DbSet<DbAdmin> Admins { get; set; }

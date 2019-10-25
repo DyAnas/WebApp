@@ -1,11 +1,8 @@
 ﻿
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+
 using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
 
-namespace GruppeInnlevering1.Models
+namespace GruppeInnlevering1.Model
 {
   
 

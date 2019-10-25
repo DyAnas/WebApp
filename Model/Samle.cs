@@ -1,15 +1,17 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GruppeInnlevering1.Models
+namespace GruppeInnlevering1.Model
 {
 
     public class Samle
     {
-        // change stasjon to stasjonv 
-        public IEnumerable<StasjonV> fraListe { get; set; }
-        public IEnumerable<StasjonV> tilListe { get; set; }
+
+        public List<StasjonV> fraListe { get; set; }
+        public List<StasjonV> tilListe { get; set; }
         public string Fra { get; set; }
         public string Til { get; set; }
         public TimeSpan tidFra { get; set; }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+/*
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +11,7 @@ using GruppeInnlevering1.Models;
 
 namespace GruppeInnlevering1.DAL
 {
-    public class TogSub : DAL.TogRepo
+    public class TogSub 
     {
         public bool Admin_i_db(Admin innAdmin)
         {
@@ -318,3 +322,5 @@ namespace GruppeInnlevering1.DAL
         }
     }
 }
+
+*/

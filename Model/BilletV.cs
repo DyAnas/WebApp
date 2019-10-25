@@ -1,7 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace GruppeInnlevering1.Models
+
+namespace GruppeInnlevering1.Model
 {
  
 
