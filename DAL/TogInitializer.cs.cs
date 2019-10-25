@@ -214,8 +214,12 @@ namespace GruppeInnlevering1.DAL
             base.Seed(context);
 
 
-
-
+          /*  var billett = new List <Billett>
+            {
+                new Billett{ BilletId=1, AvgangFra="Oslo", AvgangTil ="Drammen",
+                             DatoRetur =""}
+            }*/
+          
 
 
 

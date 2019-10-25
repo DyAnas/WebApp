@@ -3,7 +3,7 @@
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (Model[0].Stasjon.StasjonId < @Model[1].Stasjon.StasjonId)
+@if (Model[0].StasjonId < @Model[1].StasjonId)
 {
 
     <div class="container">
@@ -41,10 +41,10 @@
                             <tr>
                                 <td>
 
-                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[0].Tid)
@@ -54,7 +54,7 @@
                                 </td>
 
 
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
                             </tr>
                         }
@@ -65,10 +65,10 @@
 
                                 <td>
 
-                                    @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[0].Tid)
@@ -78,17 +78,17 @@
                                 </td>
 
 
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
                             </tr>
 
 
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[2].StasjonnavnFra.StasjonNavn)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                                    @Html.DisplayFor(modelItem => Model[3].StasjonnavnTil.StasjonNavn)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[2].Tid)
@@ -96,7 +96,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => Model[3].Tid)
                                 </td>
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].Stasjon.StasjonNavn&TilStasjon=@Model[3].Stasjon.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[3].StasjonnavnTil.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
                             </tr>
 
@@ -130,10 +130,10 @@
                         <tr>
 
                             <td>
-                                @Html.DisplayFor(modelItem => Model[4].Stasjon.StasjonNavn)
+                                @Html.DisplayFor(modelItem => Model[4].StasjonnavnTil.StasjonNavn)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model[5].Stasjon.StasjonNavn)
+                                @Html.DisplayFor(modelItem => Model[5].StasjonnavnFra.StasjonNavn)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => Model[4].Tid)
@@ -199,10 +199,10 @@ else
 
                         <td>
 
-                            @Html.DisplayFor(modelItem => Model[0].Stasjon.StasjonNavn)
+                            @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => Model[1].Stasjon.StasjonNavn)
+                            @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => Model[0].Tid)
@@ -213,7 +213,7 @@ else
 
 
 
-                        <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].Stasjon.StasjonNavn&TilStasjon=@Model[1].Stasjon.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+                        <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
                     </tr>
 
@@ -246,10 +246,10 @@ else
 
                         <td>
 
-                            @Html.DisplayFor(modelItem => Model[2].Stasjon.StasjonNavn)
+                            @Html.DisplayFor(modelItem => Model[2].StasjonnavnTil.StasjonNavn)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => Model[3].Stasjon.StasjonNavn)
+                            @Html.DisplayFor(modelItem => Model[3].StasjonnavnFra.StasjonNavn)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => Model[2].Tid)

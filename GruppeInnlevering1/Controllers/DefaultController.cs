@@ -142,11 +142,13 @@ namespace GruppeInnlevering.Controllers
             int result;
             int result1;
 
-            try
-            {
+           try
+           {
                 result = int.Parse(s.Fra);  //konvertere StajonId til Int 
                 result1 = int.Parse(s.Til); //DestnasjonId
-            }
+          }
+       
+
 
             //Hvis Destinasjon ikke er valgt blir man sendt til Index siden
             catch (Exception feil)
@@ -156,6 +158,8 @@ namespace GruppeInnlevering.Controllers
                 Err.FeilLog(Server.MapPath("./../ErrorLog/TextFile"), feil.Message + ": Har ikke valgt destinasjon");
                 return RedirectToAction("Index");
             }
+            StasjonV stasjonFra = db1.hentEStasjon(result);
+            StasjonV stasjonTil = db1.hentEStasjon(result1);
             List<avgangs> ReturListe = new List<avgangs>();
 
 
@@ -163,7 +167,7 @@ namespace GruppeInnlevering.Controllers
             if(s.datoTilbake.GetHashCode() != 0) { 
           ReturListe = db1.hentReturListe(result, result1);
             }
-            ny.datoTilbake = s.datoTilbake;
+         
 
 
 
@@ -172,18 +176,26 @@ namespace GruppeInnlevering.Controllers
             //sette Tur og Retur Avganger i en Liste og sende dem til Viewen
 
             List<avgangs> TurogRetur = new List<avgangs>();
+            ny.datoTilbake = s.datoTilbake;
+            ny.dato = s.dato;
+
 
             foreach (avgangs avgang in turListe)
             {
+                avgang.StasjonnavnFra = stasjonFra;
+                avgang.StasjonnavnTil = stasjonTil;
                 TurogRetur.Add(avgang);
             }
             if (s.datoTilbake.GetHashCode() != 0)
             {
                 foreach (avgangs avgang in ReturListe)
                 {
+                    avgang.StasjonnavnTil = stasjonFra;
+                    avgang.StasjonnavnFra = stasjonTil;
                     TurogRetur.Add(avgang);
                 }
             }
+            Session["alle"] = ny;
 
             return View(TurogRetur);
         }
@@ -229,6 +241,10 @@ namespace GruppeInnlevering.Controllers
         {
 
             Samle ny = (Samle)Session["alle"];
+            ny.Telefonnummer = Telefonnummer;
+            ny.Email = Email;
+            ny.Kortnummer = kortnummer;
+            ny.Cvc = Cvc;
 
 
 
@@ -294,21 +310,6 @@ namespace GruppeInnlevering.Controllers
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

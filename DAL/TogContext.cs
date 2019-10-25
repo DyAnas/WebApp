@@ -71,7 +71,11 @@ namespace GruppeInnlevering1.DAL
         public TogContext() : base("name=ModelContext")
         {
             Database.CreateIfNotExists();
+
            Database.SetInitializer(new TogInitializer());
+         
+               
+            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

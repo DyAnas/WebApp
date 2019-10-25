@@ -18,6 +18,9 @@ public class avgangs
     public int TogId { get; set; }
     [Required(ErrorMessage = "Feltet TogId er obligatorisk.")]
     public int StasjonId { get; set; }
-   
-}
+    public StasjonV StasjonnavnFra { get; set; }
+
+        public StasjonV StasjonnavnTil{ get; set; }
+
+    }
 }

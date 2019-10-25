@@ -300,11 +300,30 @@ namespace GruppeInnlevering1.BLL
 
         public List<avgangs> hentTurListe(int result, int result1)
         {
+            List<avgangs> turListe = new List<avgangs>();
             var DbDall = new DbTogstasjon();
+            List<Avgang> turlistee = DbDall.ReturListe(result, result1);
 
-            return DbDall.TurList(result, result1);
+            foreach (Avgang avgang in turlistee)
+            {
+                turListe.Add(new avgangs
+                {
+                    //TogId = avgang.Tog.TogId,
+                    AvgangId = avgang.AvgangId,
+                    
+                    Tid = avgang.Tid ,
+                    
+                   // StasjonId = avgang.Stasjon.StasjonId
+                });
+
 
         }
+
+
+                return turListe;
+
+            }
+        
 
 
         public List<avgangs> hentReturListe(int result, int result1)
@@ -317,10 +336,10 @@ namespace GruppeInnlevering1.BLL
                 returListe.Add(new avgangs
                 {
                     AvgangId = avgang.AvgangId,
-                    StasjonId = avgang.Stasjon.StasjonId,
-                    Tid = avgang.Tid
-                ,
-                    TogId = avgang.Tog.TogId
+                   
+                  StasjonId = avgang.Stasjon.StasjonId,
+                    Tid = avgang.Tid ,
+                 // TogId = avgang.Tog.TogId
                 });
 
             }

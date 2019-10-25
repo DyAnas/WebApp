@@ -616,7 +616,7 @@ namespace GruppeInnlevering1.DAL
 
         public List<Avgang> TurList(int result, int result1)
         {
-            List<Avgang> turListee ;
+            List<Avgang> turListee=new List<Avgang>() ;
      
             using (var db = new TogContext())
             {
@@ -631,7 +631,7 @@ namespace GruppeInnlevering1.DAL
              (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
                 }
 
-          
+                return turListee;
 
 
                 }
@@ -639,13 +639,13 @@ namespace GruppeInnlevering1.DAL
          
 
 
-        }
+        
 
 
 
         public List<Avgang> ReturListe(int result, int result1)
         {
-            List<Avgang> ReturListe ;
+            List<Avgang> ReturListe= new List<Avgang>();
 
             using (var db = new TogContext())
             {
@@ -653,7 +653,7 @@ namespace GruppeInnlevering1.DAL
                 if (result < result1)
                 {
                     ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0
-                     || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
+                   || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
 
                 }
                 else if (result1 > result)
@@ -672,16 +672,24 @@ namespace GruppeInnlevering1.DAL
 
 
 
-        }
+        
         public bool setteBilletter(Samle ny, int studentpris, int voksenpris, int barnpris
             , string Telefonnummer, string Email, string kortnummer, int Cvc)
         {
 
 
-            Billett NyBillett = null, NyBillett1 = null, NyBillett2 = null;
+            Billett NyBillett = new Billett();
+            Billett NyBillett1 = new Billett(); 
+            Billett NyBillett2 = new Billett();
             var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
             using (var db = new TogContext())
             {
+                
+                if (ny.datoTilbake.GetHashCode() == 0)
+                {
+
+                    ny.datoTilbake = null;
+                }
                 for (var i = 0; i < ny.antall1; i++)
                 {
 
@@ -744,15 +752,14 @@ namespace GruppeInnlevering1.DAL
                         gyldig = "ja"
                     };
                 }
-                try
+             try
                 {
                     db.Billeter.Add(NyBillett);
                     db.Billeter.Add(NyBillett1);
                     db.Billeter.Add(NyBillett2);
                     db.SaveChanges();
                     return true;
-                }
-
+               }
 
                 catch (Exception feil)
                 {
@@ -761,7 +768,7 @@ namespace GruppeInnlevering1.DAL
                     // throw new Exception("kan ikke sette ny Billett i databasen");
                     return false;
                 }
-
+             
             }
 
         }
