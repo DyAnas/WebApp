@@ -3,21 +3,152 @@
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (Model[0].StasjonId < @Model[1].StasjonId)
+
+@if (ViewBag.StasjonIdFra < ViewBag.StasjonIdTil)
 {
 
-    <div class="container">
-        <a href="/Default/index" class="btn" style="float:right;color:white;background-color:#808080; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:rgba(0,0,0,0.32);font-weight:300;font-size:x-large;">Endre søket</a>
-        <form method="post" action="/Default/Bekrefte" class="table">
+    if (Model.Count == 4 || Model.Count == 6)
+    {
+        <div class="container">
+            <a href="/Default/index" class="btn" style="float:right;color:white;background-color:#808080; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:rgba(0,0,0,0.32);font-weight:300;font-size:x-large;">Endre søket</a>
+            <form method="post" action="/Default/Bekrefte" class="table">
 
-            <div>
-                <h1>Se Avganger</h1>
+                <div>
+                    <h1>Se Avganger</h1>
 
-            </div>
-            <div>
+                </div>
+                <div>
 
-            </div>
-            <div>
+                </div>
+                <div>
+                    <centre>
+                        <h3 scope="col"> Tur</h3>
+                    </centre>
+                    <table class="table table-hover">
+                        <thead>
+
+                            <tr>
+
+                                <th scope="col">Fra</th>
+                                <th scope="col">Til</th>
+                                <th scope="col">Avgang</th>
+                                <th scope="col">Ankomst</th>
+                                <th scope="col"> </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+
+                                <td>
+
+                                    @ViewBag.StasjonFra
+                                </td>
+                                <td>
+                                    @ViewBag.StasjonTil
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[0].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[1].Tid)
+                                </td>
+
+
+                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@ViewBag.StasjonFra&TilStasjon= @ViewBag.StasjonTil&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    @ViewBag.StasjonFra
+                                </td>
+                                <td>
+                                    @ViewBag.StasjonTil
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[2].Tid)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[3].Tid)
+                                </td>
+                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon= @ViewBag.StasjonFra&TilStasjon=@ViewBag.StasjonTil&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
+
+                            </tr>
+                        </tbody>
+
+                        <centre><h3 scope="col"> Retur</h3></centre>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Fra</th>
+                                    <th scope="col">Til</th>
+                                    <th scope="col">Avgang</th>
+                                    <th scope="col">Ankomst</th>
+                                    <th scope="col"> </th>
+
+                                </tr>
+                            </thead>
+
+                            @if (Model.Count == 6)
+                            {
+
+                                <tbody>
+                                    <tr>
+
+                                        <td>
+                                            @ViewBag.StasjonTil
+                                        </td>
+                                        <td>
+                                            @ViewBag.StasjonFra
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[4].Tid)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Model[5].Tid)
+                                        </td>
+
+                                        <td style="width:137px;">
+                                        </td>
+
+
+
+
+                                    </tr>
+                                </tbody>
+
+                            }
+                        </table>
+                </div>
+
+            </form>
+        </div>
+
+
+    }
+
+}
+
+
+else if (ViewBag.StasjonIdFra > ViewBag.StasjonIdTil)
+{
+    if (Model.Count == 2 || Model.Count == 6)
+    { <div class="container">
+            <a href="/Default/index" class="btn" style="float:right;color:white;background-color:#808080; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:rgba(0,0,0,0.32);font-weight:300;font-size:x-large;">Endre søket</a>
+            <form method="post" action="/Default/Bekrefte" class="table">
+
+                <div>
+                    <h1>Se Avganger</h1>
+
+                </div>
+                <div>
+
+                </div>
+
                 <centre>
                     <h3 scope="col"> Tur</h3>
                 </centre>
@@ -35,80 +166,43 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>
 
-                        @if (Model.Count < 5)
-                        {
-                            <tr>
-                                <td>
+                                @ViewBag.StasjonFra
+                            </td>
+                            <td>
+                                @ViewBag.StasjonTil
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[0].Tid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[1].Tid)
+                            </td>
+                            <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@ViewBag.StasjonFra&TilStasjon= @ViewBag.StasjonTil&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
 
-                                    @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[0].Tid)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Tid)
-                                </td>
-
-
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-                            </tr>
-                        }
-                        @if (Model.Count > 4)
-                        {
-                            <tr>
-
-
-                                <td>
-
-                                    @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[0].Tid)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[1].Tid)
-                                </td>
-
-
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-                            </tr>
-
-
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[2].StasjonnavnFra.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[3].StasjonnavnTil.StasjonNavn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[2].Tid)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[3].Tid)
-                                </td>
-                                <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[2].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[3].StasjonnavnTil.StasjonNavn&Avgang=@Model[2].Tid &Ankomst=@Model[3].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-                            </tr>
-
-                        }
+                        </tr>
                     </tbody>
+
                 </table>
+            </form>
+        </div>
+    }
 
+    if (Model.Count == 6)
+    {
+        <div class="container">
+            
+       
 
+                <div>
+                    <h1>Se Avganger</h1>
 
+                </div>
+                <div>
 
-
-
+                </div>
                 <centre><h3 scope="col"> Retur</h3></centre>
                 <table class="table table-hover">
                     <thead>
@@ -122,18 +216,14 @@
 
                         </tr>
                     </thead>
-
-                    @if (Model.Count > 7)
-                    {
-
-
+                    <tbody>
                         <tr>
 
                             <td>
-                                @Html.DisplayFor(modelItem => Model[4].StasjonnavnTil.StasjonNavn)
+                                @ViewBag.StasjonTil
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model[5].StasjonnavnFra.StasjonNavn)
+                                @ViewBag.StasjonFra
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => Model[4].Tid)
@@ -144,147 +234,9 @@
 
                             <td style="width:137px;">
                             </td>
-
-
-
-
                         </tr>
-
-
-                    }
+                    </tbody>
                 </table>
-
             </div>
-
-        </form>
-    </div>
-}
-else
-{
-
-
-<div class="container">
-    <a href="/Default/index" class="btn" style="float:right;color:white;background-color:#808080; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;font-weight:300;font-size:x-large;">Endre søket</a>
-    <form method="post" action="/Default/Bekrefte">
-        <div>
-            <h1>Se Avganger</h1>
-
-        </div>
-        <div>
-
-        </div>
-        <div>
-            <centre>
-                <h1 scope="col"> Tur</h1>
-            </centre>
-            <table class="table table-hover">
-                <thead>
-
-                    <tr>
-
-                        <th scope="col">Fra</th>
-                        <th scope="col">Til</th>
-                        <th scope="col">Avgang</th>
-                        <th scope="col">Ankomst</th>
-                        <th scope="col"> </th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-
-
-                    <tr>
-
-
-                        <td>
-
-                            @Html.DisplayFor(modelItem => Model[0].StasjonnavnFra.StasjonNavn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[1].StasjonnavnTil.StasjonNavn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[0].Tid)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[1].Tid)
-                        </td>
-
-
-
-                        <td><a onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' style="color:white;background-color:darkseagreen; font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 4px 0 rgba(0,0,0,0.09); border-color:#6f906c;" class="btn" href="@Url.Action("Bekrefte", "Default")?FraStasjon=@Model[0].StasjonnavnFra.StasjonNavn&TilStasjon=@Model[1].StasjonnavnTil.StasjonNavn&Avgang=@Model[0].Tid &Ankomst=@Model[1].Tid&StasjonfraId=@Model[0].AvgangId&StasjonTilId=@Model[1].AvgangId">Velg</a></td>
-
-                    </tr>
-
-
-
-                </tbody>
-            </table>
-
-
-
-
-
-            <centre><h1 scope="col"> Retur</h1></centre>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-
-                        <th scope="col">Fra</th>
-                        <th scope="col">Til</th>
-                        <th scope="col">Avgang</th>
-                        <th scope="col">Ankomst</th>
-                        <th scope="col"> </th>
-
-                    </tr>
-                </thead>
-                @if (Model.Count > 2)
-                {
-                    <tr>
-
-
-                        <td>
-
-                            @Html.DisplayFor(modelItem => Model[2].StasjonnavnTil.StasjonNavn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[3].StasjonnavnFra.StasjonNavn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[2].Tid)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[3].Tid)
-                        </td>
-                        <td style="width:137px;">
-                        </td>
-                    </tr>
-
-                }
-
-            </table>
-        </div>
-
-    </form>
-</div>
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   }
+  }

@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace GruppeInnlevering1.DAL
 {
@@ -207,60 +207,11 @@ namespace GruppeInnlevering1.DAL
             togListe[6].Avganger = avgangerTilTog7;
             togListe[7].Avganger = avgangerTilTog8;
             togListe[8].Avganger = avgangerTilTog9;
-
-
+       
+           
 
             context.SaveChanges();
             base.Seed(context);
-
-
-          /*  var billett = new List <Billett>
-            {
-                new Billett{ BilletId=1, AvgangFra="Oslo", AvgangTil ="Drammen",
-                             DatoRetur =""}
-            }*/
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

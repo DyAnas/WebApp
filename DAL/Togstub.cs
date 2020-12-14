@@ -1,26 +1,26 @@
 ﻿
-/*
 
 
+
+using GruppeInnlevering1.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GruppeInnlevering1.Models;
+
 
 namespace GruppeInnlevering1.DAL
 {
-    public class TogSub 
+    public class Togstub : DAL.IDbTogstasjon
     {
         public bool Admin_i_db(Admin innAdmin)
         {
-          if (innAdmin.Email == "")
+            if (innAdmin.Email == "")
             {
+     
                 return false;
             }
-          else
+            else
             {
+
                 return true;
             }
         }
@@ -118,7 +118,8 @@ namespace GruppeInnlevering1.DAL
 
         public bool endreStasjon(StasjonV innStasjon)
         {
-            if(innStasjon.StasjonId == 0){
+            if (innStasjon.StasjonId == 0)
+            {
                 return false;
             }
             else
@@ -132,7 +133,8 @@ namespace GruppeInnlevering1.DAL
             if (inntog.TogId == 0)
             {
                 return false;
-            }else
+            }
+            else
             {
                 return true;
             }
@@ -163,7 +165,7 @@ namespace GruppeInnlevering1.DAL
 
         public BilletV hentBilett(int BilletId)
         {
-            var billet = new BilletV(); 
+            var billet = new BilletV();
             if (BilletId == 0)
             {
                 billet.BilletId = 0;
@@ -195,13 +197,13 @@ namespace GruppeInnlevering1.DAL
 
         public StasjonV hentStasjon(int StasjonId)
         {
-           if (StasjonId == 0)
+            if (StasjonId == 0)
             {
                 var stasjon = new StasjonV();
                 stasjon.StasjonId = 0;
                 return stasjon;
             }
-           else
+            else
             {
                 var stasjon = new StasjonV
                 {
@@ -212,22 +214,50 @@ namespace GruppeInnlevering1.DAL
             }
         }
 
+        public List<Stasjon> hentTilListe(int id)
+        {
+
+            if (id == 0)
+            {
+                var alleStasjonListe = new List<Stasjon>();
+                var stasjon = new Stasjon();
+                stasjon.StasjonId = 0;
+                alleStasjonListe.Add(stasjon);
+                return alleStasjonListe;
+            }
+            else
+            {
+                var alleStasjonListe = new List<Stasjon>();
+                var Stasjon = new Stasjon()
+                {
+                    StasjonId = 1,
+                    StasjonNavn = "oslo"
+
+
+                };
+
+                alleStasjonListe.Add(Stasjon);
+                alleStasjonListe.Add(Stasjon);
+                alleStasjonListe.Add(Stasjon);
+                return alleStasjonListe;
+            }
+        }
         public TogV hentTog(int TogId)
         {
-           if(TogId== 0)
+            if (TogId == 0)
             {
                 var tog = new TogV();
                 tog.TogId = 0;
                 return tog;
             }
-           else
+            else
             {
                 var tog = new TogV()
                 {
                     TogId = 1,
                     TogNavn = "Osloskien"
                 };
-                return tog; 
+                return tog;
             }
         }
 
@@ -235,20 +265,23 @@ namespace GruppeInnlevering1.DAL
         {
             if (innAdmin.Email == "")
             {
+
                 return false;
             }
             else
             {
+
                 return true;
             }
         }
 
         public bool nyAvgang(avgangs innAvgang)
         {
-            if(innAvgang.AvgangId ==0)
+            if (innAvgang.AvgangId == 0)
             {
                 return false;
-            }else 
+            }
+            else
             {
                 return true;
             }
@@ -268,7 +301,7 @@ namespace GruppeInnlevering1.DAL
 
         public bool nyTog(TogV innTog)
         {
-            if (innTog.TogNavn== "")
+            if (innTog.TogNavn == "")
             {
                 return false;
             }
@@ -278,13 +311,46 @@ namespace GruppeInnlevering1.DAL
             }
         }
 
-        public bool SlettAvgan(int id)
+        public List<Avgang> ReturListee(int result, int result1)
         {
-           if (id == 0)
+            if (result == 0 && result1 == 0)
+            {
+                var alleavgangListe = new List<Avgang>();
+                var avgang = new Avgang()
+                {
+                    AvgangId = 0
+
+                };
+                alleavgangListe.Add(avgang);
+                return alleavgangListe;
+            }
+            else
+            {
+                var alleavgangListe = new List<Avgang>();
+                TimeSpan s = new TimeSpan(10, 1, 2);
+                var avgang = new Avgang()
+                {
+                    AvgangId = 1,
+                    Tid = s,
+                    Stasjon = null,
+                    Tog = null
+
+                };
+                alleavgangListe.Add(avgang);
+                alleavgangListe.Add(avgang);
+                alleavgangListe.Add(avgang);
+                return alleavgangListe;
+            }
+
+        }
+
+        public bool SlettAvgang(int id)
+        {
+            if (id == 0)
             {
                 return false;
             }
-           else
+            else
             {
                 return true;
             }
@@ -292,10 +358,11 @@ namespace GruppeInnlevering1.DAL
 
         public bool SlettSBillett(int id)
         {
-            if (id ==0)
+            if (id == 0)
             {
                 return false;
-            }else
+            }
+            else
             {
                 return true;
             }
@@ -303,10 +370,11 @@ namespace GruppeInnlevering1.DAL
 
         public bool SlettStasjon(int id)
         {
-        if (id ==0)
+            if (id == 0)
             {
                 return false;
-            }else
+            }
+            else
             {
                 return true;
             }
@@ -314,13 +382,38 @@ namespace GruppeInnlevering1.DAL
 
         public bool SlettTog(int id)
         {
-          if(id ==0)
+            if (id == 0)
             {
                 return false;
             }
             return true;
         }
+
+
+        public bool FeilLog(string path, string msg)
+        {
+
+            if (path == "")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+        //gamle metoder fra forrige oppgave 
+
+        public List<Avgang> TurReturList(int result, int result1, Samle ny)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool setteBilletter(Samle ny, int studentpris, int voksenpris, int barnpris, string Telefonnummer, string Email, string kortnummer, int Cvc)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
-
-*/

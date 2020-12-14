@@ -135,10 +135,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\togDatabase.mdf" />
+    <Content Include="App_Data\togDatabase_log.ldf">
+      <DependentUpon>togDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Content\vy_logo.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -195,7 +198,7 @@
     <Content Include="Views\Default\Avganger.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="ErrorLog\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

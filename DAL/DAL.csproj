@@ -52,11 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbTogstasjon.cs" />
+    <Compile Include="IDbTogstasjon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TogContext.cs" />
     <Compile Include="TogInitializer.cs.cs" />
-    <Compile Include="TogRepo.cs" />
-    <Compile Include="TogSub.cs" />
+    <Compile Include="Togstub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

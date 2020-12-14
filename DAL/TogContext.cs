@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
+
 
 
 namespace GruppeInnlevering1.DAL
 
 {
-    public class DbAdmin 
+    public class DbAdmin
     {
 
 
         public string Fornavn { get; set; }
-        public string EtterFornavn { get; set; }
+        public string Etternavn{ get; set; }
         [Key]
         [Required(ErrorMessage = "Email er allereade registrert.")]
 
@@ -33,7 +33,8 @@ namespace GruppeInnlevering1.DAL
     }
 
     public class Billett
-    {    [Key]
+    {
+        [Key]
         public int BilletId { get; set; }
         public string Type { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyy/MM/dd}")]
@@ -72,10 +73,10 @@ namespace GruppeInnlevering1.DAL
         {
             Database.CreateIfNotExists();
 
-           Database.SetInitializer(new TogInitializer());
-         
-               
-            
+            Database.SetInitializer(new TogInitializer());
+
+
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -95,4 +96,4 @@ namespace GruppeInnlevering1.DAL
 
 
 
-     
+

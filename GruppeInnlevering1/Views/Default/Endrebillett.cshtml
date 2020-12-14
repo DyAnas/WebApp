@@ -34,7 +34,7 @@
         color: lightsteelblue;
     }
 
-    p {
+    .endreny {
         font-size: x-small;
         float: right;
     }
@@ -43,8 +43,8 @@
         outline: 0;
     }
 </style>
-<a href="~/Default/Billter" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p style="">Tilbake</p></a>
-<a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p style="">Kontrollpanel</p></a>
+<a href="~/Default/Billter" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p class="endreny">Tilbake</p></a>
+<a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p class="endreny">Kontrollpanel</p></a>
 <h2 style="font-weight:600;margin-bottom:3%;">Endre billett</h2>
 
 @using (Html.BeginForm())
@@ -55,9 +55,6 @@
         <h4>Billett</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -144,8 +141,6 @@
                     @Html.ValidationMessageFor(model => model.gyldig, "", new { @class = "text-danger" })
                 </div>
             </div>
-          
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Endre" class="btn btn-default" />

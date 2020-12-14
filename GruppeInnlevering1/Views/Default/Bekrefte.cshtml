@@ -18,15 +18,6 @@
         var antall1 = @Model.antall1;
         var antall2 = @Model.antall2;
         var antall3 = @Model.antall3;
-           
-     
-
-
-
-
-
-
-
         var sum = 0;
        var lengde =@Model.stasjonIdTil-@Model.stasjonIdFra;
 
@@ -40,17 +31,11 @@
         sum += antall3 * @Model.BarnPris  ;
         }
 
-        sum = sum *lengde;
-
-
-
-
-
+        sum = sum * lengde;
 
         $("#TotalPris").html(sum);
-
-
-
+        $("#TotalPrisRetur").html(sum);
+        $("#TotalPrisTurRetur").html(2*sum);
 
     });
 
@@ -65,10 +50,6 @@
             }
         });
     })
-
-
-
-
 
 </script>
 
@@ -95,7 +76,7 @@
         </dd>
 
         <dt>
-           Avgang:
+            Avgang:
         </dt>
 
         <dd>
@@ -111,7 +92,7 @@
         </dd>
 
         <dt>
-           DatoTur:
+            DatoTur:
         </dt>
 
         <dd>
@@ -145,25 +126,42 @@
         </dd>
 
         <dt>
-            TotalPris
+            BilletturPris
         </dt>
 
         <dd id="TotalPris" name="pris">
 
         </dd>
-        @if (Model.datoTilbake.GetHashCode()!=0)
+        @if (Model.datoTilbake.GetHashCode() != 0)
         {
             <dt>
-               DatoRetur:
+                BilletReturPris
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.datoTilbake)
+            <dd id="TotalPrisRetur">
+
             </dd>
-}
+            <dt>
+                TotalPris
+            </dt>
+
+            <dd id="TotalPrisTurRetur">
+
+            </dd>
+        }
+            @if (Model.datoTilbake.GetHashCode() != 0)
+            {
+                <dt>
+                    DatoRetur:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.datoTilbake)
+                </dd>
+            }
 
 
-    </dl>
+        </dl>
 </div>
 
 <div>

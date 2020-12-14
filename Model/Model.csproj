@@ -45,6 +45,7 @@
     <Compile Include="Admin.cs" />
     <Compile Include="avgangs.cs" />
     <Compile Include="BilletV.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Samle.cs" />
     <Compile Include="StasjonV.cs" />

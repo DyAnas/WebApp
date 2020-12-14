@@ -6,10 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GruppeInnlevering1.Model
 {
-
     public class Samle
     {
-
         public List<StasjonV> fraListe { get; set; }
         public List<StasjonV> tilListe { get; set; }
         public string Fra { get; set; }
@@ -51,18 +49,8 @@ namespace GruppeInnlevering1.Model
         [Required(ErrorMessage = "CVC må oppgis (3 Tall)")]
         [RegularExpression(@"[0-9]{3}")]
         public int Cvc { get; set; }
-       
-
         public int Studentpris { get; set; }
- 
-
-   
         public int Voksenpris { get; set; }
-
-
-       
         public int BarnPris { get; set; }
-
-
     }
 }

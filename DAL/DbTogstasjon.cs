@@ -1,19 +1,18 @@
 ﻿
 
+using GruppeInnlevering1.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Security.Cryptography;
 using System.Text;
-using GruppeInnlevering1.Model;
 
+//endret her idag
 namespace GruppeInnlevering1.DAL
 {
-    public class DbTogstasjon
+    public class DbTogstasjon : IDbTogstasjon
     {
 
-        //Stasjoner metoder
         public List<avgangs> allavganger()
         {
             using (var db = new TogContext())
@@ -102,7 +101,7 @@ namespace GruppeInnlevering1.DAL
 
             }
         }
-        public bool SlettAvgan(int id)
+        public bool SlettAvgang(int id)
         {
             using (var db = new TogContext())
             {
@@ -113,7 +112,7 @@ namespace GruppeInnlevering1.DAL
 
                     foreach (var item in slettBillett)
                     {
-                        //  db.Billeter.Remove(item);
+                     
                         if (item.gyldig == "ja")
                             item.gyldig = "nei";
                     }
@@ -129,7 +128,7 @@ namespace GruppeInnlevering1.DAL
         }
 
 
-        //Stasjoner metoder
+      
 
         public List<StasjonV> alleStasjoner()
 
@@ -195,7 +194,8 @@ namespace GruppeInnlevering1.DAL
             {
                 var finnstasjon = db.Stasjoner.Where(s => s.StasjonNavn == innStasjon.StasjonNavn);
 
-                if (finnstasjon.Count() != 0) {
+                if (finnstasjon.Count() != 0)
+                {
                     return false;
                 }
                 try
@@ -288,9 +288,6 @@ namespace GruppeInnlevering1.DAL
 
 
 
-
-        ///Billett metoder
-
         public List<BilletV> alleBillter()
         {
             using (var db = new TogContext())
@@ -357,9 +354,6 @@ namespace GruppeInnlevering1.DAL
                 }
             }
         }
-
-        // Tog metoder
-
 
         public List<TogV> alleTog()
         {
@@ -456,7 +450,7 @@ namespace GruppeInnlevering1.DAL
             {
                 try
                 {
-                    // var slettObjekt = db.Stasjoner.Find(id);
+                  
                     var slettAvgang = from i in db.Avganger
                                       where i.Tog.TogId == id
                                       select new { i };
@@ -494,287 +488,7 @@ namespace GruppeInnlevering1.DAL
                 }
             }
         }
-
-
-        // admin metoder 
-        private static string lagsalt()
-        {
-            byte[] random = new byte[12];
-            string randomStr;
-
-            var str = new RNGCryptoServiceProvider();
-            str.GetBytes(random);
-            randomStr = Convert.ToBase64String(random);
-            return randomStr;
-        }
-
-
-        private static byte[] hash(String innPass)
-        {
-            byte[] innData, utData;
-            var algo = SHA256.Create();
-            innData = Encoding.UTF8.GetBytes(innPass);
-            utData = algo.ComputeHash(innData);
-            return utData;
-        }
-
-
-        public bool Admin_i_db(Admin innAdmin)
-        {
-            using (var DB = new TogContext())
-            {
-                DbAdmin funnetAdmin = DB.Admins.FirstOrDefault(b => b.Email == innAdmin.Email);
-                if (funnetAdmin != null)
-                {
-                    byte[] passordForTest = hash(innAdmin.passord + funnetAdmin.Salt);
-                    bool riktigBruker = funnetAdmin.passord.SequenceEqual(passordForTest);  // merk denne testen!
-                    return riktigBruker;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public bool nyAdmin(Admin innAdmin)
-        {
-
-            using (var db = new TogContext())
-            {
-                try {
-                    string salt = lagsalt();
-                    var passSalt = innAdmin.passord + salt;
-                    byte[] passDb = hash(passSalt);
-
-                    // byte[] array = Encoding.ASCII.GetBytes(innAdmin.passord);
-                    var nyAdmin = new DbAdmin()
-                    {
-                        Fornavn = innAdmin.Fornavn,
-                        EtterFornavn = innAdmin.Etternavn,
-                        Email = innAdmin.Email,
-                        passord = passDb,
-                        Salt = salt
-                    };
-                    db.Admins.Add(nyAdmin);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch (Exception feil)
-                {
-                    return false;
-                }
-            }
-        }
-        /// <summary>
-        /// /
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// 
-/*
-        public List<StasjonV> hentTilListe(int id)
-        {
-            List<StasjonV> tilListe = null;
-            List<Stasjon> tilListee = null;
-            using (var db = new TogContext())
-            {
-
-                if (id > 0 && id < 9)
-                {
-                    tilListee = db.Stasjoner.Where(p => p.StasjonId > 0 && p.StasjonId < 9).ToList();
-                }
-                else if (id > 8 && id < 17)
-                {
-                    tilListee = db.Stasjoner.Where(p => p.StasjonId > 8 && p.StasjonId < 17).ToList();
-                }
-
-                else
-                {
-                    tilListee = db.Stasjoner.Where(p => p.StasjonId > 16 && p.StasjonId < 25).ToList();
-                }
-
-                foreach (Stasjon stasjon in tilListee)
-                {
-                    tilListe.Add(new StasjonV
-                    {
-                        
-                        StasjonId = stasjon.StasjonId,
-                        StasjonNavn = stasjon.StasjonNavn,
-                        Avganger =stasjon.Avganger
-
-
-                    });
-                }
-            }
-            return tilListe;
-        }*/
-
-
-
-
-
-        public List<Avgang> TurList(int result, int result1)
-        {
-            List<Avgang> turListee=new List<Avgang>() ;
-     
-            using (var db = new TogContext())
-            {
-
-                if (result < result1)
-                {
-                    turListee = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1).ToList();
-                }
-                else if (result1 > result)
-                {
-                    turListee = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 ||
-             (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
-                }
-
-                return turListee;
-
-
-                }
-            }
-         
-
-
-        
-
-
-
-        public List<Avgang> ReturListe(int result, int result1)
-        {
-            List<Avgang> ReturListe= new List<Avgang>();
-
-            using (var db = new TogContext())
-            {
-
-                if (result < result1)
-                {
-                    ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0
-                   || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
-
-                }
-                else if (result1 > result)
-                {
-                    ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 ||
-             (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0).ToList();
-                }
-
-
-                return ReturListe;
-            }
-          
-        }
-      
-
-
-
-
-        
-        public bool setteBilletter(Samle ny, int studentpris, int voksenpris, int barnpris
-            , string Telefonnummer, string Email, string kortnummer, int Cvc)
-        {
-
-
-            Billett NyBillett = new Billett();
-            Billett NyBillett1 = new Billett(); 
-            Billett NyBillett2 = new Billett();
-            var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
-            using (var db = new TogContext())
-            {
-                
-                if (ny.datoTilbake.GetHashCode() == 0)
-                {
-
-                    ny.datoTilbake = null;
-                }
-                for (var i = 0; i < ny.antall1; i++)
-                {
-
-                    NyBillett = new Billett
-                    {
-                        AvgangFra = ny.stasjonIdFra,
-                        AvgangTil = ny.stasjonIdTil,
-                        Type = "Student",
-                        Pris = lengde * studentpris,
-                        DatoTur = ny.dato,
-                        DatoRetur = ny.datoTilbake,
-                        Telefonnummer = Telefonnummer,
-                        Email = Email,
-                        Kortnummer = kortnummer,
-                        Cvc = ny.Cvc,
-                        gyldig = "ja"
-
-                    };
-
-                }
-
-
-                //ligge Billtter for VoksenType til databasen
-
-                for (var i = 0; i < ny.antall2; i++)
-                {
-                    NyBillett1 = new Billett
-                    {
-                        AvgangFra = ny.stasjonIdFra,
-                        AvgangTil = ny.stasjonIdTil,
-                        Type = "Voksen",
-                        Pris = lengde * voksenpris,
-                        DatoTur = ny.dato,
-                        DatoRetur = ny.datoTilbake,
-                        Telefonnummer = Telefonnummer,
-                        Email = Email,
-                        Kortnummer = kortnummer,
-                        Cvc = Cvc,
-                        gyldig = "ja"
-
-                    };
-
-                }
-                //ligge Billtter for BarnType til databasen
-
-                for (var i = 0; i < ny.antall3; i++)
-                {
-                    NyBillett2 = new Billett
-                    {
-                        AvgangFra = ny.stasjonIdFra,
-                        AvgangTil = ny.stasjonIdTil,
-                        Type = "Barn",
-                        Pris = lengde * barnpris,
-                        DatoTur = ny.dato,
-                        DatoRetur = ny.datoTilbake,
-                        Telefonnummer = Telefonnummer,
-                        Email = Email,
-                        Kortnummer = kortnummer,
-                        Cvc = Cvc,
-                        gyldig = "ja"
-                    };
-                }
-             try
-                {
-                    db.Billeter.Add(NyBillett);
-                    db.Billeter.Add(NyBillett1);
-                    db.Billeter.Add(NyBillett2);
-                    db.SaveChanges();
-                    return true;
-               }
-
-                catch (Exception feil)
-                {
-                    // Logging Err = new Logging();
-                    // Err.FeilLog(Server.MapPath("./../ErrorLog/TextFile"), feil.Message + ": kan ikke sette billett i databasen");
-                    // throw new Exception("kan ikke sette ny Billett i databasen");
-                    return false;
-                }
-             
-            }
-
-        }
-
-
-   /*     // admin metoder 
+ 
         private static string lagsalt()
         {
             byte[] random = new byte[12];
@@ -825,12 +539,10 @@ namespace GruppeInnlevering1.DAL
                     string salt = lagsalt();
                     var passSalt = innAdmin.passord + salt;
                     byte[] passDb = hash(passSalt);
-
-                    // byte[] array = Encoding.ASCII.GetBytes(innAdmin.passord);
                     var nyAdmin = new DbAdmin()
                     {
                         Fornavn = innAdmin.Fornavn,
-                        EtterFornavn = innAdmin.Etternavn,
+                        Etternavn = innAdmin.Etternavn,
                         Email = innAdmin.Email,
                         passord = passDb,
                         Salt = salt
@@ -844,8 +556,180 @@ namespace GruppeInnlevering1.DAL
                     return false;
                 }
             }
-        }*/
+        }
+       
 
+        public List<Avgang> TurReturList(int result, int result1, Samle ny)
+        {
+
+            IEnumerable<Avgang> ReturListe = null;
+            IEnumerable<Avgang> turListe = null;
+
+
+
+            //henter Tur og Retur Reiser avhenger av id til Stasjoner som ble valgt 
+
+            using (var db = new TogContext())
+            {
+                if (result < result1)
+                {
+
+                    turListe = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1).Take(4);
+
+                    if (ny.datoTilbake.GetHashCode() != 0)
+                    {
+
+
+                        ReturListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0
+                        || (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0);
+
+
+                    }
+                }
+
+                //henter Tur og Retur Reiser avhenger av id til Stasjoner som ble valgt 
+
+                else if (result > result1)
+                {
+                    turListe = db.Avganger.Where(b => (b.Stasjon.StasjonId == result1) && b.Tog.TogId % 3 == 0 ||
+                    (b.Stasjon.StasjonId == result) && b.Tog.TogId % 3 == 0);
+
+
+                    if (ny.datoTilbake.GetHashCode() != 0)
+                    {
+
+
+                        ReturListe = db.Avganger.Where(b => b.Stasjon.StasjonId == result || b.Stasjon.StasjonId == result1).Take(4);
+
+                    }
+
+
+                }
+               
+
+                List<Avgang> TurogRetur = new List<Avgang>();
+
+                foreach (Avgang avgang in turListe)
+                {
+                    TurogRetur.Add(avgang);
+                }
+                if (ny.datoTilbake.GetHashCode() != 0)
+                {
+                    foreach (Avgang avgang in ReturListe)
+                    {
+                        TurogRetur.Add(avgang);
+                    }
+                }
+                return TurogRetur;
+            }
+
+
+        }
+
+        public bool setteBilletter(Samle ny, int studentpris, int voksenpris, int barnpris
+            , string Telefonnummer, string Email, string kortnummer, int Cvc)
+        {
+
+
+            Billett NyBillett = null;
+            Billett NyBillett1 = null;
+            Billett NyBillett2 = null;
+            var lengde = ny.stasjonIdTil - ny.stasjonIdFra;
+            using (var db = new TogContext())
+            {
+
+                if (ny.datoTilbake.GetHashCode() == 0)
+                {
+
+                    ny.datoTilbake = null;
+                }
+                try
+                {
+                    for (var i = 0; i < ny.antall1; i++)
+                    {
+
+                        NyBillett = new Billett
+                        {
+                            AvgangFra = ny.stasjonIdFra,
+                            AvgangTil = ny.stasjonIdTil,
+                            Type = "Student",
+                            Pris = lengde * studentpris,
+                            DatoTur = ny.dato,
+                            DatoRetur = ny.datoTilbake,
+                            Telefonnummer = Telefonnummer,
+                            Email = Email,
+                            Kortnummer = kortnummer,
+                            Cvc = ny.Cvc,
+                            gyldig = "ja"
+
+                        };
+                        if (NyBillett != null) { db.Billeter.Add(NyBillett); }
+
+                    }
+
+
+                    //ligge Billtter for VoksenType til databasen
+
+                    for (var i = 0; i < ny.antall2; i++)
+                    {
+                        NyBillett1 = new Billett
+                        {
+                            AvgangFra = ny.stasjonIdFra,
+                            AvgangTil = ny.stasjonIdTil,
+                            Type = "Voksen",
+                            Pris = lengde * voksenpris,
+                            DatoTur = ny.dato,
+                            DatoRetur = ny.datoTilbake,
+                            Telefonnummer = Telefonnummer,
+                            Email = Email,
+                            Kortnummer = kortnummer,
+                            Cvc = Cvc,
+                            gyldig = "ja"
+
+                        };
+                        if (NyBillett1 != null)
+                        {
+                            db.Billeter.Add(NyBillett1);
+
+                            db.SaveChanges();
+                        }
+
+                    }
+                    //ligge Billtter for BarnType til databasen
+
+                    for (var i = 0; i < ny.antall3; i++)
+                    {
+                        NyBillett2 = new Billett
+                        {
+                            AvgangFra = ny.stasjonIdFra,
+                            AvgangTil = ny.stasjonIdTil,
+                            Type = "Barn",
+                            Pris = lengde * barnpris,
+                            DatoTur = ny.dato,
+                            DatoRetur = ny.datoTilbake,
+                            Telefonnummer = Telefonnummer,
+                            Email = Email,
+                            Kortnummer = kortnummer,
+                            Cvc = Cvc,
+                            gyldig = "ja"
+                        };
+                        if (NyBillett2 != null)
+                        {
+                            db.Billeter.Add(NyBillett2);
+                            db.SaveChanges();
+                        }
+                    }
+                    return true;
+                }
+
+                catch (Exception feil)
+                {
+                    return false;
+                }
+
+            }
+
+        }
 
     }
 }
@@ -853,6 +737,6 @@ namespace GruppeInnlevering1.DAL
 
 
 
-      
-        
-    
+
+
+

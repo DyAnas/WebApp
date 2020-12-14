@@ -34,7 +34,7 @@
         color: lightsteelblue;
     }
 
-    p {
+    .endreny {
         font-size: x-small;
         float: right;
     }
@@ -44,8 +44,8 @@
     }
 </style>
 
-<a href="~/Default/Avganger" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p style="">Tilbake</p></a>
-<a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p style="">Kontrollpanel</p></a>
+<a href="~/Default/Avganger" class="glyphicon glyphicon-arrow-left" alt="Tilbake" style="font-size:x-large; padding-right:18px;text-align:center;"><br /><p class="endreny">Tilbake</p></a>
+<a href="~/Default/Login" class="glyphicon glyphicon-tasks" alt="Kontrollpanel" style="font-size:x-large;text-align:center;"><br /><p class="endreny">Kontrollpanel</p></a>
 <h2 style="font-weight:600;margin-bottom:3%;">Endre avgang</h2>
 
 @using (Html.BeginForm())
@@ -76,8 +76,6 @@
                 @Html.ValidationMessageFor(model => model.Tid, "", new { @class = "text-danger" })
             </div>
         </div>
-
-
     </div>
 
     <div class="form-group">

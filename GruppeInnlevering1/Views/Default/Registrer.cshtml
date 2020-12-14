@@ -37,35 +37,7 @@
         outline: 0;
     }
 </style>
-<!---
 
-<script>
-
-
-    $(function () {
-        $(document).on('click', 'toggle-password', function () {
-            this.toggleClass("fa-eye fa-eye-slash");
-            var input = $("#inputPassord");
-            input.attr('type') === 'password' ? input.attr('type', 'text') : input.attr('type', 'password')
-        });
-
-        $(document).ready(function passordSjekk() {
-            $("#btnSubmitNyBruker").attr("disabled", true);
-
-            $('#passord, #Gjentapassord').on('keyup', function () {
-                if ($('#passord').val() == $('#Gjentapassord').val()) {
-                    $("#btnSubmitNyBruker").attr("disabled", false);
-                } else
-                    $("#btnSubmitNyBruker").attr("disabled", true);
-            });
-
-        });
-
-
-
-
-</script>
-    -->
 
 @if(ViewBag.EmailFeil == true)
 {
@@ -165,19 +137,9 @@
             @Html.EditorFor(model => model.passord, new { htmlAttributes = new { @class = "form-control", id = "passordInput", placeholder = "Passord", @type = "password" } })
             @Html.ValidationMessageFor(model => model.passord, "", new { @class = "text-danger" })
         </div>
-        <span toggle="#passordInput" class="fa fa-fw fa-eye field-icon toggle-password" onclick="hei()"></span>
+        
     </div>
-    <div style="margin-bottom:40px;">
-        <label class="checkboxcontainer" style="margin-left:6px;">
-            <input type="checkbox" name="rememberMe" value="remember" id="rememberCheck" style="height:15px;width:15px;">Husk meg
-            <span class="checkmark"></span>
-        </label>
-    </div>
-
-
-
-
-    <div class="buttoncontainer">
+    <div class="buttoncontainer" style="margin-left:17%;">
         <button onmouseover='this.style.backgroundColor="#78a974"' onmouseout='this.style.backgroundColor="darkseagreen"' type="submit" class="btn btn-success" style="color:white;background-color:darkseagreen; font-weight:200;font-size:large;box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:#6f906c;">Logg inn</button>
         <button type="submit" class="btn btn-danger" style="font-weight:200;font-size:large; box-shadow: 0 1px 1px 0 rgba(0,0,0,0.24), 0 2px 4px 0 rgba(0,0,0,0.19); border-color:rgba(0,0,0,0.24);">Avbryt</button>
     </div>
